@@ -9,8 +9,6 @@ After going on an organized cycling trip, I attempted to download the [2.5GB pho
 
 >Frustrating, seemingly impossible.
 
-![](./flickr-download-archive-screenshot.png)
-
 The tools I used that work fine with all other sites/files, just failed miserably with Flickr:
 
 * Chrome
