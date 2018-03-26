@@ -1,30 +1,30 @@
 const colors = require("../../src/styles/colors");
 
 module.exports = {
-  homeTitle: "Personal blog",
-  siteTitle: "PersonalBlog - a blog starter for GatsbyJS",
-  shortSiteTitle: "PersonalBlog GatsbyJS Starter",
-  siteDescription: "PersonalBlog is a GatsbyJS starter.",
-  siteUrl: "https://gatsby-starter-personal-blog.greglobinski.com",
+  homeTitle: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  siteTitle: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  shortSiteTitle: "Blog of Paul S. Ness",
+  siteDescription: "Helpful tutorials, code snippets for software developers.",
+  siteUrl: "https://www.paulness.com",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "en",
   // author
-  authorName: "greg lobinski",
+  authorName: "Paul S. Ness",
   authorTwitterAccount: "greglobinski",
   // info
-  infoTitle: "greg lobinski",
-  infoTitleNote: "personal blog",
+  infoTitle: "Paul S. Ness",
+  infoTitleNote: "",
   // manifest.json
-  manifestName: "PersonalBlog - a blog starter for GatsbyJS",
-  manifestShortName: "PersonalBlog", // max 12 characters
+  manifestName: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  manifestShortName: "Blog of Paul S. Ness", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
   manifestThemeColor: colors.bg,
   manifestDisplay: "standalone",
   // social
   authorSocialLinks: [
-    { name: "github", url: "https://github.com/greglobinski" },
+    { name: "github", url: "https://github.com/paulness" },
     { name: "twitter", url: "https://twitter.com/greglobinski" },
     { name: "facebook", url: "http://facebook.com/greglobinski" }
   ]
