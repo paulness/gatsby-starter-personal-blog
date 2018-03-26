@@ -12,7 +12,6 @@ const Seo = props => {
 
   const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
   const description = postDescription ? postDescription : config.siteDescription;
-  const image = postCover ? postCover : config.siteImage;
   const url = config.siteUrl + config.pathPrefix + postSlug;
 
   return (
@@ -29,7 +28,6 @@ const Seo = props => {
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
       <meta property="og:type" content="website" />
       <meta property="fb:app_id" content={facebook.appId} />
       {/* Twitter Card tags */}
