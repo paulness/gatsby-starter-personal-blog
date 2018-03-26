@@ -2,6 +2,7 @@
 title: Autocomplete with static files [3/4] - Building an autocomplete static file generator
 subTitle: In this post we will be implementing an autocomplete static file generator, using the principles, learned in the past two articles in this series. Also within this post is a working demo which produces static autocomplete JSON files for a CSV.
 cover: autocomplete-visualization.jpg
+category: autocomplete
 ---
 
 In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics:

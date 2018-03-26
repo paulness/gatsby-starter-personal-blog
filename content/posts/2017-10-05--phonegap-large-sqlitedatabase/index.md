@@ -2,6 +2,7 @@
 title: Creating an Android app, with a large offline database (over 4GB)
 subTitle: Today we will be covering large SQLite databases with the Android PhoneGap framework. We will going over the challenges and opportunities of running offline Android apps with scale.
 cover: npi-search-logo.png
+category: mobile
 ---
 
 A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html), all offline.

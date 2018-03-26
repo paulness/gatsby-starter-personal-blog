@@ -2,6 +2,7 @@
 title: Linking in-text citations to numbered references on a page
 subTitle: In this post we will be adding a usability feature by adding hover functionality to citations. When hovering over a citation, we will show the corresponding reference text. In this example we are dealing with unstructured HTML and using a set of business rules to link the citations to references.
 cover: AdobeStock_118566974.jpeg
+category: javascript
 ---
 
 Imagine you are a software developer for an online academic publisher. You have been asked to make an enhancement to the existing site:

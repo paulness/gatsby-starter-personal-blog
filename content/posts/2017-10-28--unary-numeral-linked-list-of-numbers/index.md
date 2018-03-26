@@ -2,6 +2,7 @@
 title: Representing numbers, using sticks and stones.
 subTitle: In this post we will be experimenting with storing a list of numbers in a data structure, underpinned by linked lists. Each number will be determined by it's distance from the puddle (0), sticks will represent the presence of a number. An interactive demonstration built in React JS will allow you to play around with this.
 cover: AdobeStock_80967783.jpeg
+category: data structures
 ---
 
 > Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird 'stone age' data structure is this?

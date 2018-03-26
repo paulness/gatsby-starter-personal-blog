@@ -2,6 +2,7 @@
 title: Autocomplete with static files [1/4] - Introduction
 subTitle: An introduction to static files and the benefits of generating static files for your autocomplete implementation.
 cover: filelist.png
+category: autocomplete
 ---
 
 > Why would anybody even want to use static files? When they have access to a perfectly fine queryable database, it seems totally crazy.

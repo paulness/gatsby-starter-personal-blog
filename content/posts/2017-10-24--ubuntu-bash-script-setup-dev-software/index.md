@@ -2,6 +2,7 @@
 title: Ubuntu 16.04.3 (x64) bash script for developers after fresh install
 subTitle: I've put together a bash script with some awesome tools and software that I use daily. This script will install a huge range of development and productivity software from VirtualBox, Visual Studio Extensions to DupeGuru on Ubuntu.
 cover: ubuntu-logo.jpg
+category: productivity
 ---
 
 >Get your development environment up and running quickly!

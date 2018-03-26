@@ -2,6 +2,7 @@
 title: Autocomplete with static files [2/4] - Visualization of words in a Trie
 subTitle: An interactive visualization of how autocomplete would be implemented with static files. This post will help with understanding the underpinnings of autocomplete using a Trie data structure.
 cover: json.png
+category: autocomplete
 ---
 
 This post allows you to visualize how autocomplete data would be arranged within a Prefix Trie data structure. If you would like an introduction to Trie data structures before continuing, please check out [Julia's article on Medium](https://medium.freecodecamp.org/trie-prefix-tree-algorithm-ee7ab3fe3413).
