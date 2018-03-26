@@ -1,39 +1,39 @@
 ---
 title: Creating an Android app, with a large offline database (over 4GB)
-subTitle: Today we will be covering large SQLite databases with the Android PhoneGap framework. We will going over the challenges and opportunities of running offline Android apps with scale.
+subTitle: Today we will be covering large SQLite databases with the Android PhoneGap framework. We will be going over the challenges and opportunities of running offline Android apps with scale.
 cover: npi-search-logo.png
 category: mobile
 ---
 
 A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html), all offline.
 
-[See technical presentation for app (PPT)](NPI Search Presentation.pptx)
+[See technical presentation for the app (PPT)](npi-search-presentation.pptx)
 
-This was quite a challenging app to build for the following reasons
+This was quite a challenging app to build for the following reasons:
 
-* [Complicated business requirements for search](NPI Search App - Learn how to understand the search results.pdf)
-* Underpowered tablets
-* The database would be far too large to be bundled with the application on Google Play
-* The file system on the tablet could not support single files over 2GB
+* [Complicated business requirements for search](npi-search-app-learn-how-to-understand-the-search-results.pdf)
+* Underpowered tablets, storage, CPU and RAM
+* The database exceeded the maximum size permitted for bundling on Google Play
+The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files
 
 This blog post hopes to help others in overcoming any challenges in building an app with such a large database.
 
 ## Underpowered tablets and pre-processing step
 
-The tablets had insufficient processing power to perform any query other than an exact match search on an indexed column. Certainly not powerful enough to perform SQLite LIKE searches on such a large database (split into 3 files). Only exact matches would return results in an acceptable time-frame.
+The devices had insufficient processing power to perform any query other than an exact match search on an indexed column. Indeed not powerful enough to execute SQLite LIKE searches on across this database. Only exact queries on indexed columns would return results in an acceptable time-frame.
 
-Since the [business requirements](NPI Search App - Learn how to understand the search results.pdf) for name searching required LIKE search in addition to many other types of search. It was imperative to pre-arrange all data the app required, such that an exact match would return all results desired by the business. For example: JOHN SMITH would return JOHNNIE SMITH, JON SMITH etc.
+Since the [business requirements](npi-search-app-learn-how-to-understand-the-search-results.pdf) for name searching required LIKE search in addition to many other types of search. It was imperative to pre-arrange all data that the app needed, such that an exact match would return all results desired by the business. For example, JOHN SMITH would return JOHNNIE SMITH, JON SMITH, etc.
 
 ### Multi-threaded C# SQLite database builder
 
-In order to solve this problem, I created a multi-threaded program in C# that processed the [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html) and produced a SQLite database.
+In order to solve this problem, I created a multi-threaded program in C# that transformed the [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html) and produced a SQLite database.
 
 1. Associated all names that would match 'if SQL Like was possible'
 1. Associated all names that matched due to name variation
 1. Associated all names that matched when broken down into pieces
-1. Produced a searchable SQLite NPI database, such that the tablet did not have do any of the 'work'
+1. Produced a searchable SQLite NPI database, such that the tablet did not have do any of the 'work.'
 
-I knew that a modern computer would have sufficient power to process even the most complicated associations on this CSV file. By pushing the workload onto the computer, I was alleviating the workload on the devices. This program would be run on a computer with 32 cores and 32GB of RAM, only once per month.
+I knew that a modern computer would have sufficient power to process even the most complicated associations on this CSV file. By pushing the workload onto the computer, I was alleviating the workload on the devices. This program ran on a computer with 32 cores and 32GB of RAM, only once per month.
 
 Sample unit test code for showing some of name matching rules
 
@@ -577,7 +577,7 @@ namespace DBBuilder.Business.Services.Stage1SingleName
 
 ## Attaching multiple databases
 
-On the device itself, there was a filesystem limitation of 2GB per file. I had to attach multiple sqlite database to avoid the 2GB file size limitation. See PhoneGap plugin JavaScript code below:
+On the device itself, there was a filesystem limitation of 2GB per file. I had to attach multiple SQLite databases to avoid the 2GB file size limitation. See PhoneGap plugin JavaScript code below:
 
 ``` javascript
 self.db = window.sqlitePlugin.openDatabase("npi-lookup-database-v2.db", "1.0", "lookup", -1);
@@ -612,4 +612,4 @@ Database.prototype.queryDatabaseByNpiNumber = function (npinumber) {
 
 ## In summary
 
-It is possible to have a fast/usable large database on an underpowered device. However the data must be arranged in a way that the device can retrieve what it needs with minimal effort. The device needs a bespoke database designed specifically with its own queries in mind.
+It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.
