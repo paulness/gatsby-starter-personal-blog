@@ -7,6 +7,7 @@ import config from "../../../content/meta/config";
 import GithubIcon from "../../images/svg-icons/github.svg";
 import FacebookIcon from "../../images/svg-icons/facebook.svg";
 import TwitterIcon from "../../images/svg-icons/twitter.svg";
+import LinkedInIcon from "../../images/svg-icons/linkedin.svg";
 
 const styles = theme => ({
   social: {
@@ -37,7 +38,8 @@ const Socialcons = props => {
   const icons = {
     twitter: TwitterIcon,
     facebook: FacebookIcon,
-    github: GithubIcon
+    github: GithubIcon,
+    linkedin: LinkedInIcon
   };
 
   return (
