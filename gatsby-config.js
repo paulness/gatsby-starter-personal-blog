@@ -2,20 +2,18 @@ require("dotenv").config();
 const config = require("./content/meta/config");
 
 const query = `{
-  allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }) {
+  allMarkdownRemark(filter: {id: {regex: "//post|pages//"}}) {
     edges {
       node {
         objectID: id
         fields {
           slug
         }
-        internal {
-          content
-        }
         frontmatter {
           title
           subTitle
         }
+        excerpt
       }
     }
   }
@@ -52,7 +50,7 @@ module.exports = {
         appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
         apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
         indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
-        queries,
+        queries: queries,
         chunkSize: 10000 // default: 1000
       }
     },
