@@ -11,7 +11,6 @@ import ReduxIcon from "../../images/svg-icons/redux.svg";
 import GatsbyIcon from "../../images/svg-icons/gatsby.svg";
 import WebpackIcon from "../../images/svg-icons/webpack.svg";
 import BabelIcon from "../../images/svg-icons/babel.svg";
-import NetlifyIcon from "../../images/svg-icons/netlify.svg";
 
 const styles = theme => ({
   stack: {
@@ -60,8 +59,7 @@ const StackIcons = props => {
     { name: "redux", url: "https://redux.js.org/", comp: ReduxIcon },
     { name: "algolia", url: "https://www.algolia.com/", comp: AlgoliaIcon },
     { name: "webpack", url: "https://webpack.js.org/", comp: WebpackIcon },
-    { name: "babel", url: "https://babeljs.io/", comp: BabelIcon },
-    { name: "netlify", url: "https://www.netlify.com/", comp: NetlifyIcon }
+    { name: "babel", url: "https://babeljs.io/", comp: BabelIcon }
   ];
 
   return (
