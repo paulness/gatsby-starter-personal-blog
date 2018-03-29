@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulsness.com</link><generator>RSS for Node</generator><lastBuildDate>Thu, 29 Mar 2018 12:40:10 GMT</lastBuildDate><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series, you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series, you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
+&lt;h3&gt;Dynamic content vs static content&lt;/h3&gt;
+&lt;p&gt;On a traditional web server when a user searches for JO, something similar to the following will occur:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Request would be made to the server&lt;/li&gt;
+&lt;li&gt;Query string value would be extracted, by server side website/API code&lt;/li&gt;
+&lt;li&gt;Database queries would be made to find records starting with JO&lt;/li&gt;
+&lt;li&gt;Any results would be returned back to the user&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; userSearchedFor &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;JO&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; normalUrl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;token string&quot;&gt;&quot;http://www.javaserver.com/searchCustomer?name=&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;encodeURIComponent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userSearchedFor&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;With static file autocomplete, the flow is as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Request made to server&lt;/li&gt;
+&lt;li&gt;We are looking for a file called JO or JO.json&lt;/li&gt;
+&lt;li&gt;If the file exists we return the file contents, which have already been prepared for us&lt;/li&gt;
+&lt;li&gt;If it doesn’t exist (404), we must assume there are no results for JO.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; userSearchedFor &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;JO&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; searchUrl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;token string&quot;&gt;&quot;http://your-server.com/static-autocomplete-files/customers/&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;encodeURIComponent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userSearchedFor&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.json&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Demo in action&lt;/h3&gt;
+&lt;iframe src=&quot;https://rawgit.com/paulness/AutocompleteUsageWithStaticFiles/master/index.htm&quot; style=&quot;width:100%; border:0; border-radius: 4px; overflow:hidden;&quot; sandbox=&quot;allow-modals allow-forms allow-popups allow-scripts allow-same-origin&quot;&gt;&lt;/iframe&gt;
+&lt;h3&gt;Snippet source code&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/paulness/AutocompleteUsageWithStaticFiles&quot;&gt;Edit on GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;link rel&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; href&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;autocomplete/auto-complete.css&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;label &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;txt-autocomplete&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Start typing&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;label&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;input id&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;txt-autocomplete&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;script src&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;autocomplete/auto-complete.min.js&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;script&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; xhr&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;autoComplete&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            selector&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;txt-autocomplete&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            minChars&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            delay&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            source&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;term&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; response&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;abort&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                xhr &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;XMLHttpRequest&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;GET&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;autocomplete/results/&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; term&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;.json&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;onload&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;status &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;token function&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;JSON&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;responseText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                xhr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            renderItem&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; search&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&amp;lt;div class=&quot;autocomplete-suggestion&quot; data-countryregion=&quot;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;region &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;results &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&amp;lt;/div&gt;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            onSelect&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; term&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;You have selected &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;innerHTML &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;. Which is in the region: &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getAttribute&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;data-countryregion&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;script&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Dependencies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://goodies.pixabay.com/javascript/auto-complete/demo.html&quot;&gt;AutoCompleteJs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [3/4] - Building an autocomplete static file generator]]></title><description><![CDATA[In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics: Input: 1 x CSV…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-3/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-3/</guid><content:encoded>&lt;p&gt;In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Input: 1 x CSV&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Output: 1 x ZIP archive, containing many files&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One .json file for every search term with results&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Transformation details&lt;/h2&gt;
+&lt;p&gt;This application will be transforming the input CSV such that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One column in the CSV will be designated as the column to be searched on&lt;/li&gt;
+&lt;li&gt;All partial search terms that lead to results, will be saved as separate files. The name of each file will be the partial search term&lt;/li&gt;
+&lt;li&gt;Within each of those files will contain the entire list of results for that search term&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An example transformation is shown below:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CSV&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;Andrew Smith, Basketball
+Adam Smith, Netball&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;JSON&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;A.JSON
+[{ name: Andrew Smith, Sport: Basketball }, { name: Adam Smith, Sport: Netball }]
+
+AD.JSON
+[{ name: Adam Smith, Sport: Netball }]&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Building the solution&lt;/h2&gt;
+&lt;h3&gt;The data structure that will hold the information&lt;/h3&gt;
+&lt;p&gt;We will be using a Trie to hold the words/result, any node of the tree can have children and therefore is capable of being the head of the Trie aka ‘a Trie itself’. See the code below:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTreeNode&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;endWord &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additionalInfo &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Adding methods&lt;/h3&gt;
+&lt;p&gt;We will want to add two methods to the Trie. We could add them to the existing class however, to keep the code cleaner we will extend the PrefixTreeNode class&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTree&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTreeNode&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token function&quot;&gt;addWord&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;word&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//adds a new word to the trie&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token function&quot;&gt;getAllFullWords&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//gets all the words and associated data from the trie&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Method that adds words to the trie data structure&lt;/h3&gt;
+&lt;p&gt;The first method addWord will insert one word and its associated data into the Trie. The algorithm in Pseudocode is as follows:&lt;/p&gt;
+&lt;p&gt;Start with the head of the Trie.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;:addWordToTrie
+Does the the next level of the trie contain the first letter of the word?
+    If it doesn&amp;#39;t, add the first letter of the word (as a new node) into that level.
+
+Is the remaining word only one letter long?
+    We have reached the endWord, please mark the node as such, save associated data
+    DONE
+
+Is the remaining word more than one letter long?
+    :Add remaining portion of the word to the trie :addWordToTrie
+    REPEAT/RECURSIVE&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;And in JavaScript&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;addWord&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;word&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;addWordHelper&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; str&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTreeNode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;endWord &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//set the end word, even if a longer word exists already&lt;/span&gt;
+            node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additionalInfo &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token function&quot;&gt;addWordHelper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; str&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;addWordHelper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; word&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Method that gets all the information out of the Trie&lt;/h3&gt;
+&lt;p&gt;We need a method that gets us all node paths (partial words) from the Trie that ultimately lead to full words. Pseudocode is as follows:&lt;/p&gt;
+&lt;p&gt;Start with the top of the trie. Once the method is fully done, the hashTable allValidLettersCombinations should be full. Each hashKey would be a filename and the file’s contents would be full words.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Array savedLettersSoFar
+Hashtable allValidLettersCombinations 
+
+:currentNode
+If there is a letter on currentNode
+    Save that letter to the array savedLettersSoFar
+
+If currentNode is an &amp;#39;endWord&amp;#39;
+    Get all previous letters and their sequential combinations/permutations
+    For every combination, save that whole word into the hash allValidLettersCombinations
+
+If the currentNode has children nodes
+For every childnode
+Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;And now in JavaScript&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;getAllFullWords&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;getAllSeqentialPermutations&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;strArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; permutations &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; partialStringSoFar &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        strArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            partialStringSoFar &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            permutations&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;partialStringSoFar&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; permutations&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; nodePaths &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;traverse&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;endWord&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; permutations &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getAllSeqentialPermutations&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                permutations&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nodePaths&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;p&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        nodePaths&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;p&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                            results&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                            additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additionalInfo
+                        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        nodePaths&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;p&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                            results&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                            additionalInfo&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additionalInfo
+                        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; k &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token function&quot;&gt;traverse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;k&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nodesOnThisPath&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token function&quot;&gt;traverse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; nodePaths&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Source code for the Trie class&lt;/h3&gt;
+&lt;iframe style=&quot;width:100%; border:0; border-radius: 4px; overflow:hidden;&quot; src=&quot;https://rawgit.com/paulness/AutocompleteStaticFileGeneratorHtml/master/js/prefixTrie.js&quot;&gt;&lt;/iframe&gt;
+&lt;h3&gt;Source code for saving the Trie data to files&lt;/h3&gt;
+&lt;iframe style=&quot;width:100%; border:0; border-radius: 4px; overflow:hidden;&quot; src=&quot;https://rawgit.com/paulness/AutocompleteStaticFileGeneratorHtml/master/js/index.js&quot;&gt;&lt;/iframe&gt;
+&lt;h3&gt;All source code&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/paulness/AutocompleteStaticFileGeneratorHtml&quot;&gt;Edit on GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Demonstration&lt;/h2&gt;
+&lt;p&gt;Usage:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Upload any CSV with headers, one of the headers must be named “name” using the tool below&lt;/li&gt;
+&lt;li&gt;Download the ZIP file of results&lt;/li&gt;
+&lt;li&gt;Upload contents of ZIP file to a folder on your own web server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;iframe src=&quot;https://rawgit.com/paulness/AutocompleteStaticFileGeneratorHtml/master/index.htm&quot; style=&quot;width:100%; border:0; border-radius: 4px; overflow:hidden;&quot; sandbox=&quot;allow-modals allow-forms allow-popups allow-scripts allow-same-origin&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [2/4] - Visualization of words in a Trie]]></title><description><![CDATA[This post allows you to visualize how autocomplete data would be arranged within a Prefix Trie data structure. If you would like an…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-2/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-2/</guid><content:encoded>&lt;p&gt;This post allows you to visualize how autocomplete data would be arranged within a Prefix Trie data structure. If you would like an introduction to Trie data structures before continuing, please check out &lt;a href=&quot;https://medium.freecodecamp.org/trie-prefix-tree-algorithm-ee7ab3fe3413&quot;&gt;Julia’s article on Medium&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Using the visualization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The words can be changed on the fly, this will adjust the Trie diagram&lt;/li&gt;
+&lt;li&gt;Sentences may be used instead of words&lt;/li&gt;
+&lt;li&gt;The letters constituting each of the words are represented in the tree as nodes&lt;/li&gt;
+&lt;li&gt;The end of each full word is marked on the node with the text “endWord”&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Clicking on any of the nodes will trace down from that node. You will be shown the words and have an option to download them.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;This is the basis, we will expand on when we implement our autocomplete static file generator&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;iframe src=&quot;https://rawgit.com/paulness/AutocompletePrefixTrieReact/master/build/index.html&quot; style=&quot;width:100%; height:1000px; border:0; border-radius: 4px; overflow:hidden;&quot;&gt;&lt;/iframe&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;I created this visualization with the React framework, to the availability of &lt;a href=&quot;http://www.reactd3.org&quot;&gt;ReactD3&lt;/a&gt; and &lt;a href=&quot;https://www.npmjs.com/package/react-d3-tree&quot;&gt;ReactD3 Tree&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codesandbox.io/s/vqj8v17875&quot;&gt;&lt;img src=&quot;https://codesandbox.io/static/img/play-codesandbox.svg&quot; alt=&quot;Edit on CodeSandbox&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://github.com/paulness/AutocompletePrefixTrieReact&quot;&gt;Edit on GitHub&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [1/4] - Introduction]]></title><description><![CDATA[Why would anybody even want to use static files? When they have access to a perfectly fine queryable database, it seems totally crazy. Or…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-1/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-1/</guid><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;Why would anybody even want to use static files? When they have access to a perfectly fine queryable database, it seems totally crazy.&lt;/p&gt;
+&lt;p&gt;Or does it?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Below are some pros and cons of using static files for autocomplete searches:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Pros&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No server side logic == much much faster!&lt;/li&gt;
+&lt;li&gt;Reliability, less points of failure, no database issues, files can be served from any server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Cons&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;More space used on the server, one file for each letter sequence that results. For example: A -&gt; { Andrew, Adam, Anthony }, AN -&gt; { Andrew } etc…&lt;/li&gt;
+&lt;li&gt;Data is not real time. Generating the static files must be done upfront during build time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;In this series I will walk through the following topics, step by step:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;/autocomplete-with-static-files-part-2&quot;&gt;Learning from a visualization of the trie data structure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Typing our own words into the visualization&lt;/li&gt;
+&lt;li&gt;Downloading sample CSV’s&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/autocomplete-with-static-files-part-3&quot;&gt;Building an autocomplete static file generator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Understanding a trie data structure for storing words in relation&lt;/li&gt;
+&lt;li&gt;Covering recursive trie traversal algorithms&lt;/li&gt;
+&lt;li&gt;Using the generator with a CSV&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/autocomplete-with-static-files-part-4&quot;&gt;Building a basic autocomplete implementation utilizing static files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Using the demo&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Downloading a large ZIP archive from Flickr]]></title><description><![CDATA[After going on an organized cycling trip, I attempted to download the  2.5GB photo archive from Flickr . So many of the download tools that…]]></description><link>https://www.paulsness.com/downloading-large-zip-from-flickr/</link><guid isPermaLink="false">https://www.paulsness.com/downloading-large-zip-from-flickr/</guid><content:encoded>&lt;p&gt;After going on an organized cycling trip, I attempted to download the &lt;a href=&quot;https://www.flickr.com/photos/99699280@N07/sets/72157685533324160&quot;&gt;2.5GB photo archive from Flickr&lt;/a&gt;. So many of the download tools that I used were not capable of downloading this frickin file on my Time Warner Cable 50Mbps connection.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Frustrating, seemingly impossible.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The tools I used that work fine with all other sites/files, just failed miserably with Flickr:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chrome&lt;/li&gt;
+&lt;li&gt;FireFox&lt;/li&gt;
+&lt;li&gt;XDM download manager&lt;/li&gt;
+&lt;li&gt;FlashGet&lt;/li&gt;
+&lt;li&gt;UGet&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I really wanted those photos so was not ready to give up. It is positive that all of the extremely annoyed Flickr users who raised an open &lt;a href=&quot;https://www.flickr.com/help/forum/en-us/72157674951404393/&quot;&gt;issue&lt;/a&gt; want their photos too.&lt;/p&gt;
+&lt;p&gt;I came across &lt;a href=&quot;https://ninjadownloadmanager.com/download-free&quot;&gt;Ninja Download Manager (free edition)&lt;/a&gt;, this tool never actually failed with the download. Despite seemingly dropping out hundreds of times, it always recovered. Be patient, ignore the statistics you see when downloading and you’ll eventually get your archive out of Flickr.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 563px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 144.404973357016%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAdCAIAAAAl5NuSAAAACXBIWXMAABJ0AAASdAHeZh94AAACp0lEQVQ4y+VVSY7TQBT1GZBQx/HYTpyUh5o8xymPcRIn6aibZlhEAtQL2HEDlmwQN+EqbFlxGr47vUBILFgh1E9PVa9Kfv/bLtlPWiyXZVUVhajLqq6bpirbpqmrqqzKum3rqqaMiUIwztM0DXhAMOGMM8ooodIiB3MtigKcy6UQUKuEalV+DyFEHCewA04CoMRnPmZQgFBOpU1bH/vu7enV+7vXpci79Xq/A+xXHWB1dXVYrVan0+l4PKI54jFP2zQsQpazMA8l3L0gxztyeEOu39Gyz+IgTZM0iTOY4jjL0iSJCyFgRs484LwQRRLF2PMpJtKTD19Hn78rn749/fLj4vnHVmRFu6FB1G77RVEleXG4fnZz+3JZNnMXu5jNPYx84mDq+ETS4+6yvLWKa6u6nS42M5bqbqAhZrjBIBxu+qHucM1hKqKwf6aCqIGIhOxJHofwHhcRK8SCc6qMR6oiq+MHjuWLsTxSBj2MmjI2NFVXFVPXpalt24Y1MS0QljWB1RweDoDQzJ45ruv5PibE8z0QPsaT6dQwTMM0p1Nb8jzveHUTBOmu73f9brvZwDl3q9V6u8mzrK7rrlsfDvv1er1Zd/t9j33fdZymaUBI0Mpy5oZl2XPXIxR6zZDreNjBxEZIVjXgaKzKii4rGlCFppOpZc+GzpPJxNAHqLquaJqq6b9SN0zduNRNoHmmZhiqbiiqBsbBrCjg+h36Pf8EVVUfzKC0v8T/a7Ys69E982M8qn97ztB9NBqNz5Bl+Dzva6mwOutzaRhheb4KhCzLw20zxuu6raoGMqMsGwgJxkLfp5AekBKcB1EUO46HEMLYHzKDMfidUUrhLydhTEUBWVUJUYIfzIQw1/WzbBFFEaWc83A2m8dJ0gwhBmnWQHT12z4Igp9oTQh9IS3j/AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Screenshot of Ninja Download Manager&quot;
+        title=&quot;&quot;
+        src=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png&quot;
+        srcset=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-cc2ef.png 200w,
+/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-9f735.png 400w,
+/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png 563w&quot;
+        sizes=&quot;(max-width: 563px) 100vw, 563px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Keep in mind that you may have luck on a different internet connection. I had all this trouble with my Time Warner Cable 50Mbps connection YMMV. Using ethernet instead of wireless would definitely help too. I hope this post helps you out.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Representing numbers, using sticks and stones.]]></title><description><![CDATA[Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data…]]></description><link>https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</link><guid isPermaLink="false">https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</guid><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is this?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this blog post I will touching on subjects that are rarely discussed. We will be investigating a strange data structure, for learning purposes we will be using sticks and stones.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Numbers can indeed be represented using sticks and stones *&lt;/li&gt;
+&lt;li&gt;All numbers in this strange formation are by definition ‘in order’, no need for sorting algorithms here&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;* This demonstration only supports decimal values with 1 digit of precision. It is certainly possible to modify this code and leverage the positional nature of the lists to provide additional precision.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Before continuing, I recommend that you fiddle around with the numbers in the following demonstration:&lt;/p&gt;
+&lt;iframe src=&quot;https://rawgit.com/paulness/UnaryNumeral-DoublyLinkedList/master/representing-numbers-with-rocks-and-sticks-in-react/build/index.html&quot; style=&quot;width:100%; height: 1000px; border:0; border-radius: 4px; overflow:scroll;&quot;&gt;&lt;/iframe&gt;
+&lt;h2&gt;Rules of play&lt;/h2&gt;
+&lt;p&gt;Assuming you have fiddled around with the above demonstration you will understand:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The puddle is zero&lt;/li&gt;
+&lt;li&gt;Sticks directly under the puddle represent occurrences of zero in the list&lt;/li&gt;
+&lt;li&gt;Rocks directly under the puddle may represent, 0.1, 0.11 etc..&lt;/li&gt;
+&lt;li&gt;Upper rocks signify whole numbers&lt;/li&gt;
+&lt;li&gt;Lower rocks signify decimal/remaining numbers&lt;/li&gt;
+&lt;li&gt;As you move further to the left of the puddle, you are discovering negative numbers&lt;/li&gt;
+&lt;li&gt;Sticks represent the existence/occurrence count of numbers&lt;/li&gt;
+&lt;li&gt;Rocks without sticks underneath do not represent the occurrence of numbers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Getting the numbers back out of the rock formation ‘in order’&lt;/h2&gt;
+&lt;p&gt;Simple algorithm described below:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Move from the puddle rock to the first rock on the left
+    If there are &amp;#39;n&amp;#39; stick(s) under that rock, we have a &amp;#39;n&amp;#39; occurrences of -1 so add those to the list of numbers
+    If that rock has rocks underneath, look for the one that has sticks underneath
+    If the third rock has one stick underneath we have found -1.3, so add that to the list of numbers found
+etc...
+
+Reverse the numbers found so far
+
+Try the puddle
+    If there are 3 sticks under the puddle add 3 occurrences of 0 to the list of numbers found so far
+    If there are 2 rocks under the puddle and 1 stick under those rocks add 0.2 to the list of numbers found so far
+
+Move from the puddle rock to the first rock on the right
+    If there are &amp;#39;n&amp;#39; stick(s) under that rock, we have a &amp;#39;n&amp;#39; occurrences of 1 so add those to the list of numbers
+    If that rock has rocks underneath, look for the one that has sticks underneath
+    If the eleventh rock has one stick underneath we have found one occurrences of 1.11, so add that to the list of numbers found
+etc...&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;What kind of data structure is being used here?&lt;/h2&gt;
+&lt;p&gt;The data structure being used for this is a doubly linked list representing numbers in unary numeral system. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The numeric whole number value is determined by the node position from the zero position node&lt;/li&gt;
+&lt;li&gt;Each node is capable of starting a new list of decimal nodes&lt;/li&gt;
+&lt;li&gt;The numeric remaining/decimal value is also determined by its position from the head node in its own list&lt;/li&gt;
+&lt;li&gt;Each node has an occurrence value which is zero by default&lt;/li&gt;
+&lt;li&gt;If the occurrence is zero, that number does not exist&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unary numeral doubly linked list with additional lists for decimal numbers&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Assuming all nodes here have an occurrence count of 1 and the middle node is zero.
+
+[-1.2, 0, 1.1]
+
+is
+
+O&amp;lt;-&amp;gt;O&amp;lt;-&amp;gt;O
+|       |
+O       O
+|
+O&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;UnaryNumeralNode&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;next &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prev &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;decimalNode &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;occurrenceCount &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;UnaryDecimalNode&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;next &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;occurrenceCount &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;What is the unary numeral system?&lt;/h2&gt;
+&lt;p&gt;The unary numeral system is the simplest numeral system to represent natural numbers. The &lt;a href=&quot;https://en.wikipedia.org/wiki/Unary_numeral_system&quot;&gt;unary numeral system&lt;/a&gt;, is often the first numeric system taught to babies and it was widely used in ancient times. You may use the unary numeric system today in darts, also known as tallying.&lt;/p&gt;
+&lt;p&gt;3 is represented as:
+|||&lt;/p&gt;
+&lt;p&gt;4 is represented as:
+||||&lt;/p&gt;
+&lt;h2&gt;Optimizing this data structure&lt;/h2&gt;
+&lt;p&gt;Obviously this data structure is not widely used in computer science. It certainly uses a lot of memory! Adding more and more numbers to the above demonstration, would almost certainly result in a JavaScript heap of memory exception.&lt;/p&gt;
+&lt;p&gt;How can we make this more efficient? Please look into skip lists next, to see how you can add a skip to each node in the above tree structure. This would remove the need to add empty nodes in the list purely for positional reasons, thereby alleviating the memory issues.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://webdiis.unizar.es/asignaturas/TAP/material/skiptrees.pdf&quot;&gt;Academic paper on skip trees by Xavier Messeguer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.geeksforgeeks.org/skip-list/&quot;&gt;GeeksForGeeks article on skip lists&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Skip_list&quot;&gt;Wikipedia article on skip lists&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Source code&lt;/h2&gt;
+&lt;p&gt;You can find the source code for this on my &lt;a href=&quot;https://github.com/paulness/UnaryNumeral-DoublyLinkedList&quot;&gt;GitHub repository&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[NHibernate QueryOver examples using the C# library]]></title><description><![CDATA[Real world usage examples, showcasing the power of the strongly typed database query language NHibernate QueryOver. If you’d like to read up…]]></description><link>https://www.paulsness.com/nhibernate-queryover-examples/</link><guid isPermaLink="false">https://www.paulsness.com/nhibernate-queryover-examples/</guid><content:encoded>&lt;p&gt;Real world usage examples, showcasing the power of the strongly typed database query language NHibernate QueryOver.&lt;/p&gt;
+&lt;p&gt;If you’d like to read up more about the benefits of NHibernate, ORM and QueryOver generally please read the following articles.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.andrewwhitaker.com/queryover-series/&quot;&gt;QueryOver series by Andrew Whitaker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://nhibernate.info/doc/&quot;&gt;Official NHibernate documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Examples&lt;/p&gt;
+&lt;h3&gt;1. ReadOnly usage&lt;/h3&gt;
+&lt;p&gt;ReadOnly is a safety measure that you can apply to NHibernate queries. I highly recommend you use this property when you are not intending to perform database updates/inserts. Take the following example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;Customer customerAndOrders =
+            NHibernateSession.QueryOver&amp;lt;Customer&amp;gt;()
+            .Fetch(n =&amp;gt; n.Orders).Eager
+            .Where(n =&amp;gt; n.CustomerId == navbarId)
+            .SingleOrDefault()
+            .ReadOnly(); //this is where you set ReadOnly()
+
+//modifications to the objects will NOT be automatically propagated to the database
+NastyMethodThatModifiesData(customerAndOrders);
+NastyMethodThatModifiesData(customerAndOrders.Orders);&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;There are some caveats to ReadOnly in NHibernate, I recommend that you read more on the subject &lt;a href=&quot;http://nhibernate.info/doc/nhibernate-reference/readonly.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;2. Transforming&lt;/h3&gt;
+&lt;p&gt;Using the inbuilt DistinctRootEntity transformer, we can safely transform duplicate rows originating from left joins (one to many or many to many). The results after the transform are correctly nested C# objects.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;IList&amp;lt;NavBarItem&amp;gt; navBarItemsForNavBar =
+        NHibernateSession.QueryOver&amp;lt;NavbarItem&amp;gt;()
+        .Where(n =&amp;gt; n.NavbarId == navbarId)
+        .Fetch(n =&amp;gt; n.Section).Eager //one section per navBarItem
+        .Fetch(n =&amp;gt; n.Images).Eager //multiple images per navBarItem
+        .TransformUsing(Transformers.DistinctRootEntity) //this is the transform
+        .ReadOnly().List();
+
+//The client actually wants to sort the images within each NavBarItem entry, in this case we sort this nested content in code.
+//ReadOnly() is set already for safety to prevent any updates/inserts occurring as a result of the sorting
+navBarList.ForEach(ni =&amp;gt; ni.Images = ni.Images.OrderBy(c =&amp;gt; c.Position).ToList());&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;3. Projecting and inner joins with multiple criteria/conditions&lt;/h3&gt;
+&lt;p&gt;This below query shows both of the following&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Inner joins with additional conditions, part of join criteria. In this example we are getting all the GroupTests and Reviews by just the reviewIds&lt;/li&gt;
+&lt;li&gt;Projecting/selecting only a few properties instead many unneeded columns, using the AliasToBean transformer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;GroupTestDo groupTestDo = null;
+ReviewDo reviewDo = null;
+return
+    NHibernateSession.QueryOver&amp;lt;GroupTestReviewDo&amp;gt;()
+        .Inner.JoinAlias(r =&amp;gt; r.Reviews, () =&amp;gt; reviewDo, r =&amp;gt; r.Id.IsIn(reviewIds))
+        .Inner.JoinQueryOver(g =&amp;gt; g.GroupTests, () =&amp;gt; groupTestDo, gt =&amp;gt; gt.IsPublished)
+        .OrderBy(gt =&amp;gt; gt.Title).Asc
+        .SelectList(list =&amp;gt;
+            list.Select(() =&amp;gt; groupTestDo.Id).WithAlias(() =&amp;gt; groupTestDo.Id)
+            .Select(() =&amp;gt; groupTestDo.Title).WithAlias(() =&amp;gt; groupTestDo.Title))
+    .TransformUsing(Transformers.AliasToBean&amp;lt;GroupTestDo&amp;gt;())
+    .List&amp;lt;GroupTestDo&amp;gt;();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;4. Eager fetching down two levels&lt;/h3&gt;
+&lt;p&gt;In this example we are attempting to retrieve all the ListingCategories and the Categories for each of those ListingCategories. Doing this all in the same query using the Fetch Eager.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;if (fetchListingCategories) {
+query = query.Fetch(c =&amp;gt; c.ListingCategories).Eager
+        .Fetch(c =&amp;gt; c.ListingCategories[0].Categories).Eager;
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The two fetch commands, translate to the following in SQL:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;outer&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;join&lt;/span&gt; ListingCategory listingcat4_
+    &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; this_&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ListingId &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; listingcat4_&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ListingId
+&lt;span class=&quot;token keyword&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;outer&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;join&lt;/span&gt; Category categorydo5_
+    &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; listingcat4_&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CategoryId &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; categorydo5_&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CategoryId
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You can learn more about nHibernate fetching strategies &lt;a href=&quot;http://nhibernate.info/doc/nhibernate-reference/performance.html&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
+&lt;h3&gt;6. Subqueries&lt;/h3&gt;
+&lt;p&gt;Subqueries are very useful for retrieving data in some cases.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;//This is a nHibernate LINQ lambda expression only
+var groupTestReviewsIdsDetachedQuery = QueryOver.Of&amp;lt;GroupTestReviewDo&amp;gt;()
+        .Where(gtr =&amp;gt; gtr.GroupTestId == groupTestId)
+        .Select(Projections.Distinct(Projections.Property&amp;lt;GroupTestReviewDo&amp;gt;(p =&amp;gt; p.ReviewId)));
+
+//The expression defined above will be used in the below database query.
+var reviews =
+        NHibernateSession.QueryOver&amp;lt;ReviewDo&amp;gt;()
+        .WithSubquery.WhereProperty(r =&amp;gt; r.Id).In(groupTestReviewsIdsDetachedQuery)
+        .Where(r =&amp;gt; r.IsPublished)
+        .Fetch(r =&amp;gt; r.ProductDo).Eager
+        .OrderBy(r =&amp;gt; r.Title).Asc
+        .ReadOnly().List();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You can read more on NHibernate subqueries &lt;a href=&quot;http://www.andrewwhitaker.com/blog/2014/10/24/queryover-series-part-8-working-with-subqueries/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;7. Refactoring legacy loop code to use NHibernate Future Query / multiple result sets&lt;/h3&gt;
+&lt;p&gt;In this example, imagine we encounter some pre-existing legacy code that executes a database select statement within a for loop. This results in unnecessary round trips to the database e.g. connecting, executing query, returning results, NHibernate automatically transforming results to C# classes etc.&lt;/p&gt;
+&lt;p&gt;Database queries in loops are generally discouraged.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;private IEnumerable&amp;lt;ListingCategoryDo&amp;gt; GetMostRecentListingCategoriesByListing(List&amp;lt;Listing&amp;gt; listingResults)
+{
+    for (int i = 0; i &amp;lt; listingResults.Count; i++)
+    {
+        var listing = listingResults[i];
+        ListingCategoryDo topListingCategoryForListing =
+                    NHibernateSession.CreateQuery(&amp;quot;FROM ListingCategoryDo l WHERE l.ListingId = :listingId ORDER BY l.PublishDate DESC&amp;quot;)
+                        .SetParameter(&amp;quot;listingId&amp;quot;, listingId)
+                        .SetReadOnly(true)
+                        .SetMaxResults(1)
+                        .UniqueResult&amp;lt;ListingCategoryDo&amp;gt;();
+
+        yield return topListingCategoryForListing;
+    }
+}
+
+//this will hit the database (n times)
+//n round-trips will be made (n = listingResults.Count)
+List&amp;lt;ListingCategoryDo&amp;gt; mostRecentListingCategoriesForListings = GetMostRecentListingCategoriesByListing(listingResults).ToList();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Fortunately we can refactor the above query code, quite easily to perform a batch SELECT command, that will return multiple result sets.&lt;/p&gt;
+&lt;p&gt;In the below example: the for loop is only generating the batch SQL behind the scenes. The database round-trip happens just once, on demand after the entire loop is complete. This improves efficiency drastically.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;private IEnumerable&amp;lt;IFutureValue&amp;lt;ListingCategoryDo&amp;gt;&amp;gt; GetMostRecentListingCategoriesByListing(List&amp;lt;Listing&amp;gt; listingResults)
+{
+    for (int i = 0; i &amp;lt; listingResults.Count; i++)
+    {
+        var listing = listingResults[i];
+        IFutureValue&amp;lt;ListingCategoryDo&amp;gt; topListingCategoryForListing =
+                NHibernateSession.CreateQuery(&amp;quot;FROM ListingCategoryDo l WHERE l.ListingId = :listingId ORDER BY l.PublishDate DESC&amp;quot;)
+                    .SetParameter(&amp;quot;listingId&amp;quot;, listingId)
+                    .SetReadOnly(true)
+                    .SetMaxResults(1)
+                    .UniqueResult&amp;lt;ListingCategoryDo&amp;gt;();
+
+        yield return topListingCategoryForListing;
+    }
+}
+
+//this will set up all the SQL select statements
+var mostRecentListingCategoriesForListingsFuture = GetMostRecentListingCategoriesByListing(listingResults).ToList(); 
+
+//this will perform the database query with multiple result sets
+var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListingsFuture.Select(fq =&amp;gt; fq.Value).ToList();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You can read more on future queries &lt;a href=&quot;https://ayende.com/blog/3979/nhibernate-futures&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I think that we can all benefit from using type safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ubuntu 16.04.3 (x64) bash script for developers after fresh install]]></title><description><![CDATA[Get your development environment up and running quickly! In the post we will go through an automated bash script, which will turn your fresh…]]></description><link>https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</link><guid isPermaLink="false">https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</guid><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;Get your development environment up and running quickly!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the post we will go through an automated bash script, which will turn your fresh Ubuntu install into a fully fledged development machine within no time. This script I have tested on Ubuntu 16.04.3 as of Nov-13-2017. You’ll get a chance to un-check the software that you are not interested in. I’ve included a range of software for you to choose from.&lt;/p&gt;
+&lt;p&gt;It is as simple as:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download &lt;a href=&quot;http://mirrors.bloomu.edu/ubuntu-releases/16.04.3/ubuntu-16.04.3-desktop-amd64.iso&quot;&gt;Ubuntu 16.04.3&lt;/a&gt; and install it, if you do not already have Ubuntu installed&lt;/li&gt;
+&lt;li&gt;Copy the file &lt;a href=&quot;https://gist.github.com/paulness/73238d84996cb8fc21aff644218a49a2&quot;&gt;post_install.sh&lt;/a&gt; to your Ubuntu desktop open a terminal in your desktop and run the below command.&lt;/li&gt;
+&lt;li&gt;Open the terminal&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-6a965.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.75105485232068%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADC0lEQVQoz2OoCS5wt7dxdXN0dLC2szF1dLSyszW3szGzB5GmdrYWdrZmQIaDvaW9nbm9lUm3l8tMH6fJHpbTva0Y5mZ3dFVXTe/vmNXfMWPapJ6a8hmT+2fPmjZj6oS5c2fPmNg1c0r/nNkzJnc2zZ07c860yZucbPZZ6Bxz0T/lpsPQnJDyePf6H6d3/Dqz8/+vrxcXzaopLmhqrCnMTmluaX59++LfLx/+/////u6Fv39+//nxY0+w7xYz7b3Ohoc99BiqYoovX7j05OnjN2/eABWd3L/NxtrU3s7SxFjP08Plxrnj3z5//Pv3z+PL5379/Pnj8+edAV5bzXR2OxgcctNjqKhuuH75yts3r9+/ewvUfGr3eicHKzdXBwc7y8AAn8cPH/7/BwLfv3wGyv78/GWHv89mM70dtkZ7nfQZukpKrl649O7dW4jmCycP+3i5eHm62NqYB/h7vXz5EigI1AzEQMaPz1+2+vutN9HfamOyw9aQYVZM3LWLl96+ff3x/Tug9M3bt7y9XD3cnaytTP2xaP682TdgjbHRRmuzzTamDLPyii+dOf/w4YMnjx/9//f/xvXr3p4uQQHenh5OwYG+L1+8AOr5++fvvz9/gYzvHz+t9wlcYWi6xsJyk60lQ09O4+P7Dz98ePf6NciS69evOTvZ+ni7AmPb09PlBVgzwuYvX9Z4hy7WN19hbrvBzoFhQn7rozsPPrx99+r5i5/ffjy896Cns727va2+pgrIePPy1fcvXz+9//D5w8evn7+8e/ZiuUf4PB2bZRZOa+xcGCJU/aqti2psSyutCutsStocKyd7N03zbZjlXzfHv2qqW94kx5TJjonTneJnucTOdYmeZew5W995kYX7MmsPBgcm4zTpmFTJ6BSJ6FTJqHTJiCyJsHzJsBKp0HKZoFqF4GblwDZV/y41n151rwmaHpN1PWYYeMy38Flg4c2QaBSeLh+XIR8PQVkKcTmKMflK0SXK0ZUq0XVq0Y3qEa0aYR1aIV3aQb06Af3aPlMN/WaZBcw28wcAm0CyUkJpe7YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Right click and open a terminal in the Desktop folder&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-48538.png&quot;
+        srcset=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-bed0f.png 200w,
+/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-5fd34.png 400w,
+/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-48538.png 800w,
+/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-6a965.png 1185w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;And run the commands&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# ensure the line endings are unix (after downloading from GIT)&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sed&lt;/span&gt; -i -e &lt;span class=&quot;token string&quot;&gt;&apos;s/\r$//&apos;&lt;/span&gt; post_install.sh
+
+&lt;span class=&quot;token comment&quot;&gt;# execute the script&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x post_install.sh&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; ./post_install.sh
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;This is what you’ll see in the terminal right before you execute the script&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-b70ec.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 63.83333333333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAACvUlEQVQoz3WN209SAQDGz1MBraT0ISTlchAOcDhw4NwvcJIzQVDBMhGTREFFEFFKo3nJ2yjDdM50S6fpzJk5SzNz2UttPfVXhb30kG2/ffv2bb99wFTvZBwLj3QM93ti3WQoybakuVCaaeyj6gYYX5b1DvOeHC8+YYVRjh/nmFlRWA56F3z8op8DZjOFHJQq+PPTjqGRW7EpMJbXtc9Bba/g1lXk3ibauGOve2cVP6CuYwd3TFKnlOOMQn7eRn55YCDbnRmwxLsMoRgdSjojKWc47QqlnXcTpC9Fe9NMTYZ2D9JChuTGSGaPJI9Y/ISzn7msPzwIkO0c6ofiDTo3B6HVZtKpxwUjx6jtmALGlBZMiRAVKFFhM5UaRaVplyCOaOKEtX/lrd9FBOgbm+lDemrLOVuZ2l4KovIqVA5jciNWYsSuQcXEz7vBLjf6bpp3CPIjRR6z2BcW/eayAi8mJgaQTuEqbbykQiQ6i0RrkWjgYkr/gsi00GWNeEO/TdAHJH1IE59ZxymHAm/SmYdQm3CdMUtV1is6RAb+i1UGmiRasdSwhbHvCfaAoor+JwYDNnKjWTjqKqHOZdnFsk0Gmv/I6w5+B+f3CGafpA4ZClgame+3xF0lBCxV22Q660UUd7MEdJdCq6hryyG8xfhdnD3geOB5drIfiQty0ixV/+dZa7uiNUs1Yhm0YnNvoO5Nu7CNufY5N1DIvxzEE9HylmZFQ1gRjCiCUUUgpqzvqvAnKr0pVU1GLWY11Y9AYVwvLFu8r601azZxExd3WS+wsbAxaO9JKKNJVUdSFU2roll19LEmOgK2T+juT+vDzwyhgrFp3nxnEQ4swv4lS+0K4lnHfVu0H8j3zfToIt3KSHdFkQeJyrZeVWtaHc5qwjlt6yjY8rSqeVrflDc0zhqDc6aGBVP9kqVuFQ+sEYHf1QTYX4VjhicAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Terminal just before executing the script&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-48538.png&quot;
+        srcset=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-bed0f.png 200w,
+/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-5fd34.png 400w,
+/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-48538.png 800w,
+/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-b70ec.png 1200w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;And once you press enter, you’ll see text streaming down&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-ac231.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.18887015177066%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADAklEQVQozxWP208TeRiG52KTVeLhzgNonc5v2k7pMKdO59xpO21n2k7LQBlri9BCoYWWWjksCC5dRQMBN56BbNxs1rAb1sSNGokndG/WxAv/Ksfky5vn5sn7ftCNwuIEW1xJZCeDFycYu87mG6GBFtc/y2fnxcySlFpR9OtSbFVSbyrKmixsm8mdrPYoLe2aEvRg5PaasPRva3NTWurAtXXv5JZv7H7vyDZefELZe8HBfcZ8RsZfMJEDVjrk+EOe/iSTXxLEVx2HrhWqbawxh80sYJNXAsU2XZhn7EU2v8JZq5zZYfUOE73FqhucfFeSH4bFPSX0XqE/aeTnFAEt2+1ZpLHgnmqDciGUshR9KGJmhYSTlmwYTCTNRnVGjRNyBONoF1nz4h8V6lAl/9cJ6OrsctGbL2KD44h9kchkArEsHk+iskXrKSzicNqvGt6wcpahjqK+H5Byt+9DOPhWpv7TSGi9dbWCliqeYg0UC5SZJbUcmcgEov100sSjDieAKJ2lmZM+qgv4j4LKOf8bOXQgBd+pNLRrD8+C+gJotkBliEiZRCxHxJMe2dFyhGZgqubmxVOEeJpgjnn8P4LRnt7XEv9SZA+UELRba8+AahupN5GKTWdytGbRScMXHmAMy5mAxwyvIp+hxDMkc/y7fLk78EKQnvPCa1WCtuqdGbTack80wZiNm7lA0iJ0R3Z+zvijJq6FuxmnOXjCR3eBwBEw0o0/49R/OOWVGoF+qf7URKtNd3UarqQpURNIneY1IKbwSAwVFRfLnyb6jqGBLqSvC2BHkPJ54q9g7G8u9lxNQJs/bzjNzQvjU+fLBW/S7lMueeJl2Kwg6Qlg1IDe8CZrcLjmkqZgYRrmbmLyH3Rijzf2ZQN6vHy34R6fOld25EbPWKtnbM5VWYRHr7tHOkhpDS2se4bu+PP3egce4rntPnOHSP9Gpf4Usk8FE5pLTdddo47p3He4cLkJD1+BS/Pu0jVkeBUt3fAUbnvtDSy/hVm/9vbfC2R36P4n3MDvnPUNq6jnRTFdWlcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Script in progress&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-48538.png&quot;
+        srcset=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-bed0f.png 200w,
+/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-5fd34.png 400w,
+/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-48538.png 800w,
+/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-ac231.png 1186w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;You’ll see this prompt window, you may un-check software you do not wish to install. The themes I have unchecked by default since I prefer the default theme in Ubuntu.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-267a4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.38655462184873%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADJElEQVQozwEZA+b8AIBbeGY4X4BKUms6Wmk1Wmw4WG86V243UHA2THM4Snc5SHo7Rnw6Qn05PoE6PIM7OZJJQ5ZLQZRJO5lLOwCNYYR8NHOpaIaLQnl7IGWDJWSHJl+NKlyULFiaL1WhM1GmMkyoMESuMkC0NTu6Nze7NzG8Oy/FRC7KRiwAdlpkbSlmcSVrcydlbSpXai5TbzBTczJQdzNNezVKezNEei4+fjA7gTI4hjQ2izg2njw1tzswu0Evw0guAHVXcG0mZXEjZmcbWoFtfqSroKKjnZugnJyhnZacmpKYlJ6imp+jm56imqaooJKenWQ/SbY3LLo/MMJGLgBxd3xuKmdyJGdjGFiUiZ3Y4NTP08u+xMK5wL+ks7q4wsTT2M/T18/R1c3c3tW/zMlgPEmzNi24PTK9QS8Ah3BzbyhkcSRoYxhZkIOX0dnNyczFw8O6vby0vsK5zc/Hys3Gys7GyMzE09XMuMO/YDtIsDUvtDw0tz0xAJhaXW8mYHEkaWIYWZCDmNLazsrOxsHCvLu8trW7tL7Cu8PHwMrOxsrOxtTWzbnEwF87Sa0zMrA6N7M7NACWbHVsJ2BwJGdjGFqPgpjQ2M3IzMW9wLq6u7WwtK66v7jJzcbJzcbHy8XS1My3w79dOkqoMjWsODqyPDoAi2uBaydibSNkYRdblYib3eHT1NTL0NHGu8K5x8vE09TK0dPJ1NbL09bL29zTwsrEXTlKoy84qDc9rz0/AIBoeGspY2wiYmQZXGxniYianYWQloSSl3GEj3yMlYaTmICNk4OQloORl4qWnHiNllg4TaAuO6U3Qqs9RACLf4ltLGRqH2FoHl5VIFtLH1ZQH1ZSIFRYJFRYJFFZJE9dJk5eJkxhJ0pjKEhkKkh/LkWcMEOiN0emO0gAlX2QayhjZxteZx1eah1dbx9cdCBceSFcfSFbgSNZhSVWiCZTjChRkCpOlCxMlixJlSxIlzBInzhMoDhLAHFMamUgXGccXmcdXmYeXmgfXWogW20hWnEiWnYjWnskWn8lWIImVYQoU4gpUYoqT40qTZQwTpk2UJo2T/RSZ7QufGa2AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Choosing software to install&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-48538.png&quot;
+        srcset=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-bed0f.png 200w,
+/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-5fd34.png 400w,
+/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-48538.png 800w,
+/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-267a4.png 1190w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;After pressing OK to install the software, you’ll see more prompts, type appropriate passwords, accept license agreements, accept certificates and choose the obvious options along the way to ensure all software is installed.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-ac231.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.02023608768971%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAAC9klEQVQoz13L508aARjH8fs32rQiZTgRUOGOcVAUXKCI1OIp4Dg5NucBIkPrVlQUqzZVa1q7tEltWnBy4iSoJDZp4qv+N702adI0+bx4nl/yBSYNYaewO9rUhkNmJ7+jr7LdJzD4KnT+isaQQD0I1o2KasZAxYQQjkKSWRG4qpRv1Eo3asHNeiEQMw0PCf1b1mgUDoRp6BgLnWab54uMK6Vtazz923LdB37DNrfqS7k8KRCnQJCEyo8lvKySm6vlAP06k5tt9eRjBLMH5yEuyECIDD6RPiBqHhBrBsCakEAxCMpHIHhSLJmGxetSwZGEl1ZwM3VlgK+V8LAwgoG5GWbscZe9xePQeayNTovagTbYzSrLb8peSpcK66x3BySqAxGHlPEuVGWAFw/gbGsfw2qnGQf0wXh4ec6/EPMvxIm5BXwmTsQWvbHFgefx4NJSeGU+uPpM2pgEOYdw+YmCC0zZPTjLQrBs2H1kMRjL3WUvrk8uc6dXt+eZm9NM7vT69iL3I3v1/fLu5206exaRqb8KePvSykOYD7xoeeph9vQxbZb77Qv+2dTx0W4isZdM7iYT+7u7FDKVIo+ODvf3s5cXib2DkEy9U1mREIN7UgGwiOIuZjfOtFrutS+F41c3mROSPDtJn52m02QqTZLn1P3HVeYyeXAYkjVu8wU7kDgJi4EZNOJioy46aqd1elu840NTI8Hx0dDEP6h3nBqnhqYH+yf6Ic17vugTCH+TyYFIl9fJRp30HhutEwUtvQoXKrOjcorjPxa5E1MRfmHTa670I1j1GVYCseFZKnbQuq0PzD10BGUhGKvNxjY4C1vdhfq+Yp2vRBsobQpy1JGyhgi3bopT/YqnfAfVbknqgLg36mB0UaX1IcXkyDPiNKOfZgzRjUOPkFGmYYL1JFqgmyvSxos1yyUNK5z6l7z6N5BmE9IArupejGb6G5tteSZHfoebjhB0JMBABpnIMMswxm6dLNBHi3Rzxdr5Ys0KX7smbF4Xan8BByVC2dT7SH4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;Typing MySQL server password&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-48538.png&quot;
+        srcset=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-bed0f.png 200w,
+/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-5fd34.png 400w,
+/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-48538.png 800w,
+/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-ac231.png 1186w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;When you are done you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
+&lt;p&gt;Credits:
+&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulsness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulsness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div style=&quot;font-size:65%&quot;&gt;
+&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
+&lt;div&gt;&lt;br/&gt;
+  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
+&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
+&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
+&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
+&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
+&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Online readers are well aware that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
+&lt;p&gt;In-text citation&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
+&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
+  &lt;ul&gt;
+    &lt;li&gt;Digit&lt;/li&gt;
+    &lt;li&gt;Digit comma digit …&lt;/li&gt;
+    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
+  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
+  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulsness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulsness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/npi-search-presentation-98fe442f903f262c49d17a60ba9ca25e.pptx&quot;&gt;See technical presentation for the app (PPT)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;/npi-search-app-learn-how-to-understand-the-search-results-89647de30bf0e36315f73963eab79e1a.pdf&quot;&gt;Complicated business requirements for search&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Underpowered tablets, storage, CPU and RAM&lt;/li&gt;
+&lt;li&gt;The database exceeded the maximum size permitted for bundling on Google Play
+The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This blog post hopes to help others in overcoming any challenges in building an app with such a large database.&lt;/p&gt;
+&lt;h2&gt;Underpowered tablets and pre-processing step&lt;/h2&gt;
+&lt;p&gt;The devices had insufficient processing power to perform any query other than an exact match search on an indexed column. Indeed not powerful enough to execute SQLite LIKE searches on across this database. Only exact queries on indexed columns would return results in an acceptable time-frame.&lt;/p&gt;
+&lt;p&gt;Since the &lt;a href=&quot;/npi-search-app-learn-how-to-understand-the-search-results-89647de30bf0e36315f73963eab79e1a.pdf&quot;&gt;business requirements&lt;/a&gt; for name searching required LIKE search in addition to many other types of search. It was imperative to pre-arrange all data that the app needed, such that an exact match would return all results desired by the business. For example, JOHN SMITH would return JOHNNIE SMITH, JON SMITH, etc.&lt;/p&gt;
+&lt;h3&gt;Multi-threaded C# SQLite database builder&lt;/h3&gt;
+&lt;p&gt;In order to solve this problem, I created a multi-threaded program in C# that transformed the &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt; and produced a SQLite database.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Associated all names that would match ‘if SQL Like was possible’&lt;/li&gt;
+&lt;li&gt;Associated all names that matched due to name variation&lt;/li&gt;
+&lt;li&gt;Associated all names that matched when broken down into pieces&lt;/li&gt;
+&lt;li&gt;Produced a searchable SQLite NPI database, such that the tablet did not have do any of the ‘work.’&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I knew that a modern computer would have sufficient power to process even the most complicated associations on this CSV file. By pushing the workload onto the computer, I was alleviating the workload on the devices. This program ran on a computer with 32 cores and 32GB of RAM, only once per month.&lt;/p&gt;
+&lt;p&gt;Sample unit test code for showing some of name matching rules&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;using System.Collections.Generic;
+using System.Linq;
+using DBBuilder.Business.Services.Stage1SingleName;
+using DBBuilder.Business.Services.Stage2CompleteName;
+using DBBuilder.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace DBBuilder.Business.Test
+{
+    [TestClass]
+    public class TestNameMatchLogic
+    {
+        [TestMethod]
+        public void TestMatchToEmptyName()
+        {
+            List&amp;lt;NameAndLinkedNames&amp;gt; firstNames = new List&amp;lt;NameAndLinkedNames&amp;gt;()
+            {
+                new NameAndLinkedNames(){Name = &amp;quot;KY&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 64334 }},
+                new NameAndLinkedNames(){Name = &amp;quot;&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 100001 }}
+            };
+
+            firstNames = NameAssociatorService.FindLinkedNames(firstNames, new Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt;());
+        }
+
+        [TestMethod]
+        public void TestShortNameBrokenNameMatchLogic()
+        {
+            //FULL NAME 1 - LUCY LU CHANG (64334)
+            //FULL NAME 2 - LU CHANGER (100001)
+            var fullUnprocessedNames = new NpiUnprocessedNamePair[] {
+                new NpiUnprocessedNamePair() { FirstName = &amp;quot;LUCY L&amp;quot;, LastName = &amp;quot;CHANG&amp;quot; },
+                new NpiUnprocessedNamePair() { FirstName = &amp;quot;L&amp;quot;, LastName = &amp;quot;CHANGER&amp;quot; },
+            };
+
+
+            List&amp;lt;NameAndLinkedNames&amp;gt; firstNames = new List&amp;lt;NameAndLinkedNames&amp;gt;()
+            {
+                new NameAndLinkedNames(){Name = &amp;quot;LUCY L&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 64334 }},
+                new NameAndLinkedNames(){Name = &amp;quot;L&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 100001 }}
+            };
+
+            List&amp;lt;NameAndLinkedNames&amp;gt; lastNames = new List&amp;lt;NameAndLinkedNames&amp;gt;()
+            {
+                new NameAndLinkedNames(){Name = &amp;quot;CHANG&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 64334 }},
+                new NameAndLinkedNames(){Name = &amp;quot;CHANGER&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 100001 }}
+            };
+
+            Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt; nameVariationsDictionary = new Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt;();
+            firstNames = NameAssociatorService.FindLinkedNames(firstNames, nameVariationsDictionary);
+            lastNames = NameAssociatorService.FindLinkedNames(lastNames, nameVariationsDictionary);
+
+            var results = NameJoinerService.PerformFinalTranslationOnProcessedResults(fullUnprocessedNames, firstNames, lastNames);
+
+            Assert.AreEqual(results.Find(n =&amp;gt; n.FirstName == &amp;quot;L&amp;quot; &amp;amp;&amp;amp; n.LastName == &amp;quot;CHANGER&amp;quot;).AdditionalMatchesByBrokenUpNameMatch[0], 64334);
+            Assert.AreEqual(results.Find(n =&amp;gt; n.FirstName == &amp;quot;LUCY L&amp;quot; &amp;amp;&amp;amp; n.LastName == &amp;quot;CHANG&amp;quot;).AdditionalMatches[0], 100001);
+        }
+
+        /// &amp;lt;summary&amp;gt;
+        /// This tests the core name matching logic from start to finish. 
+        /// If this test starts failing you have broken something major!
+        /// &amp;lt;/summary&amp;gt;
+        [TestMethod]
+        public void TestBrokenNameMatchLogic()
+        {
+            Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt; nameVariationsDictionary = new Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt;()
+            {
+                { &amp;quot;HELEN&amp;quot;, new HashSet&amp;lt;string&amp;gt; {&amp;quot;ELLEN&amp;quot;, &amp;quot;NELLY&amp;quot; } },
+                { &amp;quot;VAN&amp;quot;, new HashSet&amp;lt;string&amp;gt; {&amp;quot;JON&amp;quot; } },
+                { &amp;quot;HELEN-MARIA VAN-DAM&amp;quot;, new HashSet&amp;lt;string&amp;gt; { &amp;quot;VUNDERBELT&amp;quot; } }
+            };
+
+            List&amp;lt;NameAndLinkedNames&amp;gt; firstNames = new List&amp;lt;NameAndLinkedNames&amp;gt;()
+            {
+                new NameAndLinkedNames(){Name = &amp;quot;VUNDERBELT&amp;quot;, ExactMatches = new List&amp;lt;int&amp;gt; { 64334, 100001 }}, //variation of full name
+                new NameAndLinkedNames(){Name = &amp;quot;VUNDERBELT2&amp;quot;, ExactMatches =  new List&amp;lt;int&amp;gt; {70}}, //nothing
+                new NameAndLinkedNames(){Name = &amp;quot;HELEN VAN DAM&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {98989898}}, //partial piece
+                new NameAndLinkedNames(){Name = &amp;quot;HELEN VAN&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {8888}}, //partial piece
+                new NameAndLinkedNames(){Name = &amp;quot;MARIA VAN&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {555}}, //partial piece
+                new NameAndLinkedNames(){Name = &amp;quot;VAN DAM&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {1111}}, //partial piece
+                new NameAndLinkedNames(){Name = &amp;quot;HELEN&amp;quot;, ExactMatches =  new List&amp;lt;int&amp;gt; {49999999}}, //partial piece of name 
+                new NameAndLinkedNames(){Name = &amp;quot;JON&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {49999997}}, //partial piece that is also a variation
+                new NameAndLinkedNames(){Name = &amp;quot;ELLEN&amp;quot;,  ExactMatches = new List&amp;lt;int&amp;gt; {666666}} //partial piece that is also a variation
+            };
+
+            firstNames = NameAssociatorService.FindLinkedNames(firstNames, nameVariationsDictionary);
+
+
+            //check VUNDERBELT
+            var vunderbeltMatches = firstNames.First(n =&amp;gt; n.Name == &amp;quot;VUNDERBELT&amp;quot;);
+
+            //VUNDERBELT LongerNameLikeMatches
+            Assert.AreEqual(vunderbeltMatches.LongerNameLikeMatches.Count, 1);
+            Assert.IsTrue(vunderbeltMatches.LongerNameLikeMatches[0].Name == &amp;quot;VUNDERBELT2&amp;quot;);
+            Assert.AreEqual(vunderbeltMatches.LongerNameLikeMatches[0], firstNames.First(n =&amp;gt; n.Name == &amp;quot;VUNDERBELT2&amp;quot;));
+
+            //VUNDERBELT LongerNameLikeMatches all other matches are empty
+            Assert.IsFalse(vunderbeltMatches.ShorterNameLikeMatches.Any());
+            Assert.IsNull(vunderbeltMatches.NameVariationMatches);
+            Assert.IsNull(vunderbeltMatches.PartialNameMatches);
+            Assert.IsNull(vunderbeltMatches.PartialNameVariationMatches);
+
+
+
+            //check HELEN
+            var helensMatches = firstNames.First(n =&amp;gt; n.Name == &amp;quot;HELEN VAN DAM&amp;quot;);
+
+            //HELEN LongerNameLikeMatches empty
+            Assert.IsTrue(helensMatches.LongerNameLikeMatches == null || !helensMatches.LongerNameLikeMatches.Any());
+
+            //HELEN ShorterNameLikeMatches
+            Assert.AreEqual(helensMatches.ShorterNameLikeMatches.Count, 3);
+            Assert.IsTrue(helensMatches.ShorterNameLikeMatches.Any(m =&amp;gt; m.Name == &amp;quot;HELEN VAN&amp;quot;));
+            Assert.IsTrue(helensMatches.ShorterNameLikeMatches.Any(m =&amp;gt; m.Name == &amp;quot;VAN DAM&amp;quot;));
+            Assert.IsTrue(helensMatches.ShorterNameLikeMatches.Any(m =&amp;gt; m.Name == &amp;quot;HELEN&amp;quot;));
+
+            //HELEN partial name matches
+            Assert.IsTrue(helensMatches.PartialNameMatches.Any(m =&amp;gt; m.Name == &amp;quot;VAN DAM&amp;quot;));
+
+            var names = new NpiUnprocessedNamePair[] { new NpiUnprocessedNamePair() { FirstName = &amp;quot;HELEN VAN DAM&amp;quot;, LastName = &amp;quot;SMITH&amp;quot; } };
+
+
+            List&amp;lt;NameAndLinkedNames&amp;gt; lastNames = new List&amp;lt;NameAndLinkedNames&amp;gt;()
+            {
+                 new NameAndLinkedNames()
+                 {
+                     Name = &amp;quot;SMITH&amp;quot;, 
+                     ExactMatches = new List&amp;lt;int&amp;gt; {98989898}
+                 },
+                 new NameAndLinkedNames()
+                 {
+                     Name = &amp;quot;SMITHY&amp;quot;, 
+                     ExactMatches = new List&amp;lt;int&amp;gt; {49999997}
+                 },
+                 new NameAndLinkedNames()
+                 {
+                     Name = &amp;quot;SMIT&amp;quot;, 
+                     ExactMatches = new List&amp;lt;int&amp;gt; {555}
+                 },
+                 new NameAndLinkedNames()
+                 {
+                     Name = &amp;quot;SM&amp;quot;, 
+                     ExactMatches = new List&amp;lt;int&amp;gt; {1111}
+                 },
+            };
+
+            lastNames = NameAssociatorService.FindLinkedNames(lastNames, nameVariationsDictionary);
+
+            var results = NameJoinerService.PerformFinalTranslationOnProcessedResults(names, firstNames, lastNames);
+
+            //verify counts
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].AdditionalMatches.Count, 1);
+            Assert.AreEqual(results[0].AdditionalMatchesByBrokenUpNameMatch.Count, 1);
+            Assert.AreEqual(results[0].AssociatedNpiEntriesByPartialNameVariation.Count, 1);
+            Assert.AreEqual(results[0].ExactMatches.Count, 1);
+
+            //verify name
+            Assert.AreEqual(results[0].FirstName, &amp;quot;HELEN VAN DAM&amp;quot;);
+            Assert.AreEqual(results[0].LastName, &amp;quot;SMITH&amp;quot;);
+
+            //verify date
+            Assert.IsTrue(results[0].AdditionalMatches[0] == 1111);
+            Assert.IsTrue(results[0].AdditionalMatchesByBrokenUpNameMatch[0] == 555);
+            Assert.IsTrue(results[0].AssociatedNpiEntriesByPartialNameVariation[0] == 49999997);
+            Assert.IsTrue(results[0].ExactMatches[0] == 98989898);
+
+
+
+        }
+
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;using System.Collections.Generic;
+using System.IO;
+using DBBuilder.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace DBBuilder.Business.Test
+{
+    [TestClass]
+    public class TestIntersectionOfFirstNameAndLastNameLookups
+    {
+        [TestMethod]
+        public void TestIntersectionWithVariedData()
+        {
+            ProcessNpiMonthlyFile.LeaveStreamsOpen = true;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                List&amp;lt;NpiUnprocessedNamePair&amp;gt; npiUnprocessedNames = new List&amp;lt;NpiUnprocessedNamePair&amp;gt;
+                {
+                    new NpiUnprocessedNamePair()
+                    {
+                        FirstName = &amp;quot;JOHN-TODD&amp;quot;,
+                        LastName = &amp;quot;SMITH-JOHNNIE&amp;quot;
+                    },
+                    new NpiUnprocessedNamePair()
+                    {
+                        FirstName = &amp;quot;JOHN-TODD&amp;quot;,
+                        LastName = &amp;quot;HOWARD&amp;quot;
+                    }
+                };
+
+
+                NpiProcessedNames firstNameProcessedNames = new NpiProcessedNames()
+                {
+                    NameDataStore = new List&amp;lt;NpiProcessedName&amp;gt;()
+                    {
+                        new NpiProcessedName()
+                        {
+                            Name = &amp;quot;JOHN-TODD&amp;quot;,
+                            ExactMatches = new List&amp;lt;int&amp;gt; { 1, 99 }, //JOHN-TODD
+                            AdditionalMatches = new List&amp;lt;int&amp;gt; { 2 }, //JOHN-TODDLER
+                            AdditionalMatchesByBrokenUpNameMatch = new List&amp;lt;int&amp;gt; {3, 4, 9}, //TODD and TIM
+                            AssociatedNpiEntriesByPartialNameVariation = new List&amp;lt;int&amp;gt; { 5 } //JOHNNIE
+                        }
+                    },
+                    LookupIndexesForNameDataStore = new Dictionary&amp;lt;string, int&amp;gt;()
+                    {
+                        { &amp;quot;JOHN-TODD&amp;quot;, 0 }
+                    }
+
+                };
+                NpiProcessedNames lastNameProcessedNames = new NpiProcessedNames() 
+                {
+                    NameDataStore = new List&amp;lt;NpiProcessedName&amp;gt;()
+                    {
+                        new NpiProcessedName()
+                        {
+                            Name = &amp;quot;SMITH-JOHNNIE&amp;quot;,
+                            ExactMatches = new List&amp;lt;int&amp;gt; { 1, 9, 99 }, //SMITH-JOHNNIE
+                            AdditionalMatches = new List&amp;lt;int&amp;gt; { 2, 3, 99 }, //SMITHY and TODD
+                            AdditionalMatchesByBrokenUpNameMatch = new List&amp;lt;int&amp;gt; { 5, 99, 9 },
+                            AssociatedNpiEntriesByPartialNameVariation = new List&amp;lt;int&amp;gt; { 99 }
+                        },
+                        new NpiProcessedName()
+                        {
+                            Name = &amp;quot;HOWARD&amp;quot;,
+                            ExactMatches = new List&amp;lt;int&amp;gt; { 99 }, //HOWARD
+                            AdditionalMatches = new List&amp;lt;int&amp;gt; { 777, 888, 2 }, //HOWARDEN and HOWIE
+                            AdditionalMatchesByBrokenUpNameMatch = new List&amp;lt;int&amp;gt; {  },
+                            AssociatedNpiEntriesByPartialNameVariation = new List&amp;lt;int&amp;gt; {  }
+                        }
+                    },
+                    LookupIndexesForNameDataStore = new Dictionary&amp;lt;string, int&amp;gt;()
+                    {
+                        { &amp;quot;SMITH-JOHNNIE&amp;quot;, 0 },
+                        { &amp;quot;HOWARD&amp;quot;, 1 }
+                    }
+                };
+
+
+                var results = ProcessNpiMonthlyFile.ProduceAndSaveCompletedNpiSearchLookup(ms, npiUnprocessedNames, firstNameProcessedNames, lastNameProcessedNames);
+
+                using (var sr = new StreamReader(ms))
+                {
+                    ms.Position = 0;
+                    var csvRow = sr.ReadLine();
+
+                    //1 and 99 are exact matches in both (99 is a name broken up match in lastnames but exact matches trump last names)
+                    //2 is an additional match in both
+                    //3 is a name broken up match in firstnames and 3 is a additional match in lastnames (broken up matches trumps additional matches)
+                    //9 is a name broken up match in both and also an exact match in last names (therefore it is a name broken up match)
+                    //5 is a name broken up variation match in firstnames and is a standard name broken up match in lastnames
+
+                    //4 only exists in firstnames which is why it doesn&amp;#39;t exist in the output
+
+                    Assert.AreEqual(@&amp;quot;JOHN-TODD,SMITH-JOHNNIE,&amp;quot;&amp;quot;1,99&amp;quot;&amp;quot;,2,&amp;quot;&amp;quot;3,9&amp;quot;&amp;quot;,5&amp;quot;, csvRow);
+
+
+                    csvRow = sr.ReadLine();
+
+                    Assert.AreEqual(@&amp;quot;JOHN-TODD,HOWARD,99,2,,&amp;quot;, csvRow);
+                };
+            }
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Sample code from the NameAssociatorService.cs&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;using System;
+using System.Collections.Generic;
+using System.Linq;
+using DBBuilder.Core.Extensions;
+using DBBuilder.Data;
+using NPIAPI.Data;
+
+namespace DBBuilder.Business.Services.Stage1SingleName
+{
+    public class NameAssociatorService
+    {
+        public static List&amp;lt;NpiSplitNameUnprocessed&amp;gt; FindLinkedNamesViaPartialPieceMatch(List&amp;lt;NpiSplitNameUnprocessed&amp;gt; unprocessedSplitNames, List&amp;lt;NameAndLinkedNames&amp;gt; peopleWithFullNamesEqualToAPartialPiece)
+        {
+            //process partial to partial
+            List&amp;lt;NpiSplitNameUnprocessed&amp;gt; allUnprocessedSplitNames = unprocessedSplitNames;
+            unprocessedSplitNames = unprocessedSplitNames.AsParallel().Select(thisPerson =&amp;gt;
+                {
+                    thisPerson.MatchedPeopleByPartialToPartialNameMatch = allUnprocessedSplitNames.Where(otherPerson =&amp;gt;
+                        {
+                            bool isOtherPersonRelated = otherPerson.ThisPerson != thisPerson.ThisPerson &amp;amp;&amp;amp; thisPerson.NamePieces.Intersect(otherPerson.NamePieces).Any();
+                            return isOtherPersonRelated;
+                        }).Select(o =&amp;gt; o.ThisPerson).ToList();
+
+                    return thisPerson;
+                }).ToList();
+
+            //process partial to full name
+            unprocessedSplitNames = unprocessedSplitNames.AsParallel().Select(thisPerson =&amp;gt;
+                {
+                    thisPerson.MatchedPeopleByPartialToFullNameMatch = peopleWithFullNamesEqualToAPartialPiece.Where(otherPerson =&amp;gt;
+                        thisPerson.NamePieces.Contains(otherPerson.Name)).ToList();
+
+                    return thisPerson;
+                }).ToList();
+
+
+            return unprocessedSplitNames;
+        }
+
+        public static List&amp;lt;NpiSplitNameUnprocessed&amp;gt; FindLinkedNamesViaPartialVariationPieceMatch(List&amp;lt;NpiSplitNameUnprocessed&amp;gt; unprocessedSplitNames, List&amp;lt;NameAndLinkedNames&amp;gt; peopleWithFullNamesEqualToAVariationOfAPartialPiece, Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt; nameVariationLookup)
+        {
+            List&amp;lt;NpiSplitNameUnprocessed&amp;gt; unprocessedSplitNamesWithVariations = unprocessedSplitNames.Where(up =&amp;gt; up.NamePieceVariations.Any()).ToList();
+            List&amp;lt;NpiSplitNameUnprocessed&amp;gt; unprocessedSplitNamesWithNoVariations = unprocessedSplitNames.Except(unprocessedSplitNamesWithVariations).ToList();
+            List&amp;lt;NpiSplitNameUnprocessed&amp;gt; allUnprocessedSplitNames = unprocessedSplitNames;
+
+            //process partial variation to partial
+            unprocessedSplitNamesWithVariations = unprocessedSplitNamesWithVariations.AsParallel().Select(thisPerson =&amp;gt;
+            {
+                thisPerson.MatchedPeopleByPartialVariationToPartialNameMatch = allUnprocessedSplitNames.Where(otherPerson =&amp;gt;
+                    {
+                        bool isOtherPersonRelated = otherPerson.ThisPerson != thisPerson.ThisPerson &amp;amp;&amp;amp; thisPerson.NamePieceVariations.Any(nv =&amp;gt; otherPerson.NamePieces.Any(onp =&amp;gt; nameVariationLookup[nv].Contains(onp)));
+                        return isOtherPersonRelated;
+                    }).Select(o =&amp;gt; o.ThisPerson).ToList();
+
+                return thisPerson;
+            }).ToList();
+
+            //process partial variation to full name
+            unprocessedSplitNamesWithVariations = unprocessedSplitNamesWithVariations.AsParallel().Select(thisPerson =&amp;gt;
+            {
+                thisPerson.MatchedPeopleByPartialVariationToFullNameMatch = peopleWithFullNamesEqualToAVariationOfAPartialPiece.Where(otherPerson =&amp;gt;
+                    thisPerson.NamePieceVariations.Any(nv =&amp;gt; nameVariationLookup[nv].Contains(otherPerson.Name))).ToList();
+
+                return thisPerson;
+            }).ToList();
+
+            return unprocessedSplitNamesWithVariations.Concat(unprocessedSplitNamesWithNoVariations).ToList();
+        }
+
+        public static List&amp;lt;NameAndLinkedNames&amp;gt; FindLinkedNames(List&amp;lt;NameAndLinkedNames&amp;gt; uniqueNamesAndExactMatches, Dictionary&amp;lt;string, HashSet&amp;lt;string&amp;gt;&amp;gt; nameVariationLookup)
+        {
+            List&amp;lt;NameAndLinkedNames&amp;gt; results;
+
+            Console.WriteLine(@&amp;quot;uniqueNamesAndExactMatches count: {0}&amp;quot;, uniqueNamesAndExactMatches.Count);
+
+            //process normal names using standard smart like match
+            {
+                NamesGroupedByNameCharLength[] uniqueFirstnamesAndExactMatchesGroupedByNameLength = uniqueNamesAndExactMatches.AsParallel()
+                    .GroupBy(n =&amp;gt; n.Name.Length)
+                    .Select(n =&amp;gt; new NamesGroupedByNameCharLength() { NameCharLength = n.Key, AllNamesAtThisCharLength = n.Select(k =&amp;gt; k).ToList() })
+                    .OrderBy(n =&amp;gt; n.NameCharLength)
+                    .ToArray();
+
+                results = NameAssociatorService.FindLinkedNamesWithSmartLikeMatch(uniqueFirstnamesAndExactMatchesGroupedByNameLength);
+
+                Console.WriteLine(@&amp;quot;namesAssociatedWithSmartLikeMatch count: {0}&amp;quot;, results.Count);
+            }
+
+
+            //process broken piece names using standard smart like match
+            {
+                List&amp;lt;NameAndLinkedNames&amp;gt; peopleWithNamesThatCanBeBrokenUp = results.AsParallel().Where(s =&amp;gt; s.Name.NameCanBeSplitOrIsInitial()).ToList();
+                Console.WriteLine(@&amp;quot;peopleWithNamesThatCanBeBrokenUp count: {0}&amp;quot;, peopleWithNamesThatCanBeBrokenUp.Count);
+
+                //remove from results
+                results = results.Except(peopleWithNamesThatCanBeBrokenUp).ToList();
+
+                //process broken piece names further and finally add the processed results 
+                HashSet&amp;lt;string&amp;gt; allUniqueNamePieces =
+                    new HashSet&amp;lt;string&amp;gt;(peopleWithNamesThatCanBeBrokenUp.AsParallel().SelectMany(s =&amp;gt; s.Name.SplitNameIntoPieces()).Distinct());
+                Console.WriteLine(@&amp;quot;allUniqueNamePieces count: {0}&amp;quot;, allUniqueNamePieces.Count);
+
+                HashSet&amp;lt;string&amp;gt; allUniqueNamePieceVariations = new HashSet&amp;lt;string&amp;gt;(allUniqueNamePieces.Where(nameVariationLookup.ContainsKey).SelectMany(namePiece =&amp;gt; nameVariationLookup[namePiece]));
+                Console.WriteLine(@&amp;quot;allUniqueNamePieceVariations count: {0}&amp;quot;, allUniqueNamePieceVariations.Count);
+
+                List&amp;lt;NameAndLinkedNames&amp;gt; peopleWithFullNamesEqualToAPartialPiece = uniqueNamesAndExactMatches.Except(peopleWithNamesThatCanBeBrokenUp).AsParallel().Where(s =&amp;gt; allUniqueNamePieces.Contains(s.Name)).ToList();
+                Console.WriteLine(@&amp;quot;peopleWithFullNamesEqualToAPartialPiece count: {0}&amp;quot;, peopleWithFullNamesEqualToAPartialPiece.Count);
+
+                List&amp;lt;NameAndLinkedNames&amp;gt; peopleWithFullNamesEqualToAVariationOfAPartialPiece = uniqueNamesAndExactMatches.Except(peopleWithNamesThatCanBeBrokenUp).AsParallel().Where(s =&amp;gt; allUniqueNamePieceVariations.Contains(s.Name)).ToList();
+                Console.WriteLine(@&amp;quot;peopleWithFullNamesEqualToAVariationOfAPartialPiece count: {0}&amp;quot;, peopleWithFullNamesEqualToAVariationOfAPartialPiece.Count);
+
+                //ready data (all these people have already been filtered from peopleWithNamesThatCanBeBrokenUp)
+                List&amp;lt;NpiSplitNameUnprocessed&amp;gt; readiedDataForSplitNameMatches = peopleWithNamesThatCanBeBrokenUp.AsParallel().Select(thisPerson =&amp;gt;
+                {
+                    var thisPersonsNamePieces = thisPerson.Name.SplitNameIntoPieces().ToList();
+                    var thisPersonsNamePieceVariations = thisPersonsNamePieces.Where(nameVariationLookup.ContainsKey).ToList();
+                    return new NpiSplitNameUnprocessed { ThisPerson = thisPerson, NamePieces = thisPersonsNamePieces, NamePieceVariations = thisPersonsNamePieceVariations };
+                }).ToList();
+
+                //process non-variation
+                readiedDataForSplitNameMatches = FindLinkedNamesViaPartialPieceMatch(readiedDataForSplitNameMatches, peopleWithFullNamesEqualToAPartialPiece);
+
+                //process variation
+                readiedDataForSplitNameMatches = FindLinkedNamesViaPartialVariationPieceMatch(readiedDataForSplitNameMatches, peopleWithFullNamesEqualToAVariationOfAPartialPiece, nameVariationLookup);
+
+                //add to main list
+                results.AddRange(readiedDataForSplitNameMatches.Select(Mappers.MapFrom));
+            }
+
+            //process all names using standard variation match
+            {
+                //get from results
+                NameAndLinkedNames[] peopleWithNameVariations = results.Where(s =&amp;gt; nameVariationLookup.ContainsKey(s.Name)).ToArray();
+
+                Console.WriteLine(@&amp;quot;peopleWithNameVariations count: {0}&amp;quot;, peopleWithNameVariations.Length);
+
+                //remove from results
+                results = results.Except(peopleWithNameVariations).ToList();
+
+                //process
+                NameAndLinkedNames[] processedPeopleWithNameVariations = peopleWithNameVariations.AsParallel().Select(thisPerson =&amp;gt;
+                {
+                    HashSet&amp;lt;string&amp;gt; variations = nameVariationLookup[thisPerson.Name];
+
+                    List&amp;lt;NameAndLinkedNames&amp;gt; relatedPeopleByNameVariation = peopleWithNameVariations.Where(otherPerson =&amp;gt; variations.Contains(otherPerson.Name)).ToList();
+
+                    thisPerson.NameVariationMatches = relatedPeopleByNameVariation;
+
+                    return thisPerson;
+
+                }).ToArray();
+
+                //add back to results
+                results.AddRange(processedPeopleWithNameVariations);
+
+                Console.WriteLine(@&amp;quot;processedPeopleWithNameVariations count: {0}&amp;quot;, results.Count);
+            }
+
+            return results;
+        }
+
+        private static List&amp;lt;NameAndLinkedNames&amp;gt; FindLinkedNamesWithSmartLikeMatch(NamesGroupedByNameCharLength[] namesOrderedByNameLengthAsc)
+        {
+            if (namesOrderedByNameLengthAsc == null || namesOrderedByNameLengthAsc.Length &amp;lt; 1)
+            {
+                return new List&amp;lt;NameAndLinkedNames&amp;gt;();
+            }
+
+            int lastIndex = namesOrderedByNameLengthAsc.Length - 1;
+            Console.WriteLine(@&amp;quot;Shortest name length: {0}&amp;quot;, namesOrderedByNameLengthAsc[0].NameCharLength);
+            Console.WriteLine(@&amp;quot;Longest name length: {0}&amp;quot;, namesOrderedByNameLengthAsc[lastIndex].NameCharLength);
+
+            for (int i = 0; i &amp;lt; namesOrderedByNameLengthAsc.Length; i++)
+            {
+                int nameLength = namesOrderedByNameLengthAsc[i].NameCharLength;
+
+                if (nameLength &amp;lt; 2)
+                {
+                    continue;
+                }
+
+                Console.WriteLine(@&amp;quot;Starting processing of all names with name char length of : {0}&amp;quot;, nameLength);
+
+                List&amp;lt;NameAndLinkedNames&amp;gt; allNamesAtThisCharLength = namesOrderedByNameLengthAsc[i].AllNamesAtThisCharLength;
+
+                int indexOfNext = i + 1;
+                int countOfRemainingElementsAfterNext = namesOrderedByNameLengthAsc.Length - (indexOfNext);
+
+                ArraySegment&amp;lt;NamesGroupedByNameCharLength&amp;gt;? allShorterNames = null, allLongerNames = null;
+                bool processShortNames = false, processLongerNames = false;
+
+                if (i &amp;gt; 0)
+                {
+                    allShorterNames = new ArraySegment&amp;lt;NamesGroupedByNameCharLength&amp;gt;(namesOrderedByNameLengthAsc, 0, i);
+                    processShortNames = true;
+                }
+
+                if (i &amp;lt; lastIndex)
+                {
+                    allLongerNames = new ArraySegment&amp;lt;NamesGroupedByNameCharLength&amp;gt;(namesOrderedByNameLengthAsc, indexOfNext, countOfRemainingElementsAfterNext);
+                    processLongerNames = true;
+                }
+
+
+                if (processShortNames &amp;amp;&amp;amp; processLongerNames)
+                {
+                    namesOrderedByNameLengthAsc[i].AllNamesAtThisCharLength = allNamesAtThisCharLength.AsParallel().Select(thisPerson =&amp;gt;
+                    {
+                        string thisPersonsName = thisPerson.Name;
+                        thisPerson.ShorterNameLikeMatches = allShorterNames.Value.SelectMany(s =&amp;gt; s.AllNamesAtThisCharLength)
+                                .Where(personWithShorterName =&amp;gt; thisPersonsName.StringContainsFast(personWithShorterName.Name)).ToList();
+
+                        thisPerson.LongerNameLikeMatches = allLongerNames.Value.SelectMany(s =&amp;gt; s.AllNamesAtThisCharLength)
+                                .Where(personWithLongerName =&amp;gt; personWithLongerName.Name.StringContainsFast(thisPersonsName)).ToList();
+
+                        return thisPerson;
+                    }).ToList();
+                }
+                else if (processShortNames)
+                {
+                    namesOrderedByNameLengthAsc[i].AllNamesAtThisCharLength = allNamesAtThisCharLength.AsParallel().Select(thisPerson =&amp;gt;
+                    {
+                        string thisPersonsName = thisPerson.Name;
+                        thisPerson.ShorterNameLikeMatches = allShorterNames.Value.SelectMany(s =&amp;gt; s.AllNamesAtThisCharLength)
+                                .Where(personWithShorterName =&amp;gt; thisPersonsName.StringContainsFast(personWithShorterName.Name)).ToList();
+
+                        return thisPerson;
+                    }).ToList();
+                }
+                else if (processLongerNames)
+                {
+                    namesOrderedByNameLengthAsc[i].AllNamesAtThisCharLength = allNamesAtThisCharLength.AsParallel().Select(thisPerson =&amp;gt;
+                    {
+                        string thisPersonsName = thisPerson.Name;
+                        thisPerson.LongerNameLikeMatches = allLongerNames.Value.SelectMany(s =&amp;gt; s.AllNamesAtThisCharLength)
+                                .Where(personWithLongerName =&amp;gt; personWithLongerName.Name.StringContainsFast(thisPersonsName)).ToList();
+
+                        return thisPerson;
+
+                    }).ToList();
+                }
+            }
+
+            List&amp;lt;NameAndLinkedNames&amp;gt; results = namesOrderedByNameLengthAsc.AsParallel().SelectMany(n =&amp;gt; n.AllNamesAtThisCharLength).ToList();
+
+            return results;
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Attaching multiple databases&lt;/h2&gt;
+&lt;p&gt;On the device itself, there was a filesystem limitation of 2GB per file. I had to attach multiple SQLite databases to avoid the 2GB file size limitation. See PhoneGap plugin JavaScript code below:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; window&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sqlitePlugin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;openDatabase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;npi-lookup-database-v2.db&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;lookup&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executeSql&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ATTACH DATABASE &apos;/sdcard/npi-datastore-database1.db&apos; as &apos;datastore1&apos;;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;forceUserToRedownloadDatabases&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executeSql&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ATTACH DATABASE &apos;/sdcard/npi-datastore-database2.db&apos; as &apos;datastore2&apos;;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;forceUserToRedownloadDatabases&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executeSql&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ATTACH DATABASE &apos;/sdcard/npi-datastore-database3.db&apos; as &apos;datastore3&apos;;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; undefined&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;forceUserToRedownloadDatabases&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Querying those three databases, using UNION ALL&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;Database&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;queryDatabaseByNpiNumber&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;npinumber&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; self &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; commonSqlSelectStatement &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos; SELECT rowid, NPI, ProviderFirstName, ProviderMiddleName, ProviderLastNameLegalName, ProviderFirstLineBusinessMailingAddress, ProviderSecondLineBusinessMailingAddress,&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos; ProviderBusinessMailingAddressCityName, ProviderBusinessMailingAddressStateName, ProviderBusinessMailingAddressPostalCode, ProviderBusinessMailingAddressCountryCodeIfoutsideUS &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; fromDataStore1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos; FROM datastore1.NPI WHERE NPI = ?1 UNION ALL &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; fromDataStore2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos; FROM datastore2.NPI WHERE NPI = ?1 UNION ALL &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; fromDataStore3 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos; FROM datastore3.NPI WHERE NPI = ?1 LIMIT 1;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; sqlStatement &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; commonSqlSelectStatement &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; fromDataStore1 &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; commonSqlSelectStatement &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; fromDataStore2 &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; commonSqlSelectStatement &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; fromDataStore3&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; sqlStatement&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;In summary&lt;/h2&gt;
+&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item></channel></rss>
