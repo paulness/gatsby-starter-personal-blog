@@ -12,12 +12,11 @@ It uses two packages in beta stage: [gatsby-plugin-algolia](https://github.com/a
 
 ### External services
 
-The starter uses external services for some functions: contact form, comments, searching, analytics. To use them you have to secure some access data. No worries, all services are free or have generous free tiers big enough for a personal blog.
+The starter uses external services for some functions: contact form, comments, searching. To use them you have to secure some access data. No worries, all services are free or have generous free tiers big enough for a personal blog.
 
 The starter needs an `.env` file like this in the root folder
 
 ```
-GOOGLE_ANALYTICS_ID=...
 ALGOLIA_APP_ID=...
 ALGOLIA_SEARCH_ONLY_API_KEY=...
 ALGOLIA_ADMIN_API_KEY=...
