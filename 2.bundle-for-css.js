@@ -1140,7 +1140,7 @@ webpackJsonp([2],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function getTumblrShareCount(shareUrl, callback) {
-	  var endpoint = 'http://api.tumblr.com/v2/share/stats';
+	  var endpoint = 'https://api.tumblr.com/v2/share/stats';
 
 	  return (0, _jsonp2.default)(endpoint + (0, _objectToGetParams2.default)({
 	    url: shareUrl
@@ -1853,7 +1853,8 @@ webpackJsonp([2],{
 	      var _this$props = _this.props,
 	          disabled = _this$props.disabled,
 	          onClick = _this$props.onClick,
-	          openWindow = _this$props.openWindow;
+	          openWindow = _this$props.openWindow,
+	          beforeOnClick = _this$props.beforeOnClick;
 
 
 	      if (disabled) {
@@ -1864,12 +1865,22 @@ webpackJsonp([2],{
 
 	      var link = _this.link();
 
-	      if (openWindow) {
-	        _this.openWindow(link);
-	      }
+	      var clickHandler = openWindow ? function () {
+	        return _this.openWindow(link);
+	      } : function () {
+	        return onClick(link);
+	      };
 
-	      if (onClick) {
-	        onClick(link);
+	      if (beforeOnClick) {
+	        var returnVal = beforeOnClick();
+
+	        if (isPromise(returnVal)) {
+	          returnVal.then(clickHandler);
+	        } else {
+	          clickHandler();
+	        }
+	      } else {
+	        clickHandler();
 	      }
 	    }, _this.onKeyPress = function (e) {
 	      if (e.key === 'Enter' || e.key === 13) {
@@ -1877,7 +1888,6 @@ webpackJsonp([2],{
 	      }
 	    }, _this.openWindow = function (link) {
 	      var _this$props2 = _this.props,
-	          beforeOnClick = _this$props2.beforeOnClick,
 	          onShareWindowClose = _this$props2.onShareWindowClose,
 	          windowWidth = _this$props2.windowWidth,
 	          windowHeight = _this$props2.windowHeight;
@@ -1888,21 +1898,7 @@ webpackJsonp([2],{
 	        width: windowWidth
 	      };
 
-	      var windowOpenBound = function windowOpenBound() {
-	        return windowOpen(link, windowOptions, onShareWindowClose);
-	      };
-
-	      if (beforeOnClick) {
-	        var returnVal = beforeOnClick();
-
-	        if (isPromise(returnVal)) {
-	          returnVal.then(windowOpenBound);
-	        } else {
-	          windowOpenBound();
-	        }
-	      } else {
-	        windowOpenBound();
-	      }
+	      windowOpen(link, windowOptions, onShareWindowClose);
 	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
 	  }
 
@@ -2534,7 +2530,7 @@ webpackJsonp([2],{
 	  var subject = _ref.subject,
 	      body = _ref.body;
 
-	  return 'mailto:' + (0, _objectToGetParams2.default)({ subject: subject, body: body || subject });
+	  return 'mailto:' + (0, _objectToGetParams2.default)({ subject: subject, body: body || url });
 	}
 
 	var EmailShareButton = (0, _createShareButton2.default)('email', emailLink, function (props) {
