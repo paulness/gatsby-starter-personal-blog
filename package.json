@@ -6,10 +6,10 @@
   "version": "1.0.2",
   "license": "MIT",
   "scripts": {
-    "deploy": "gatsby build && gh-pages -d public -b master",
-    "develop": "gatsby develop",
+    "deploy": "rm -rf .cache && gatsby build && gh-pages -d public -b master",
+    "develop": "rm -rf .cache && gatsby develop",
     "develop-host": "gatsby develop --host 192.168.0.112",
-    "build": "gatsby build",
+    "build": "rm -rf .cache && gatsby build",
     "serve": "gatsby serve",
     "format-output": "prettier src/**/*.{js,jsx}",
     "format": "prettier --write src/**/*.{js,jsx}",
