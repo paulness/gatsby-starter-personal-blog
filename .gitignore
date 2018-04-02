@@ -60,6 +60,8 @@ typings/
 .cache/
 .DS_Store
 public
+!public/CNAME
+!public/404.html
 yarn-error.log
 
 # editors
