@@ -1,5 +1,5 @@
 ---
-title: Cherry Pickup Algorithm
+title: Cherry pickup algorithm
 subTitle: An in-depth look into the Cherry Pickup problem on Leetcode.com.
 cover: berry-pickup-two-people-same-time.jpg
 category: algorithms
@@ -24,7 +24,7 @@ The problem as described by Leetcode is as follows:
 > -   When passing through a path cell containing a cherry, you pick it up and the cell becomes an empty cell (0);
 > -   If there is no valid path between (0, 0) and (N-1, N-1), then no cherries can be collected.
 
-## Symbols we will use to describe problem
+## Symbols we will use to describe the problem
 
 This post aims to simplify the problem and we will be using different symbols. These are outlined below.
  - [[],[]] / Matrix of matrixes - Field of cherries
@@ -42,7 +42,7 @@ A few quiz questions below will help to understand the problem by example.
 
 ----------
 
-**Question 1** What is the maximum number of cherries, the collector collect can collect in the following field?
+**Question 1** What is the maximum number of cherries, the collector can collect in the following field?
 ``` javascript
 [[🍓, ᚦ, 0, 0, 0, 0],
  [🍓, ᚦ, 0, 0, 0, 0],
@@ -88,11 +88,11 @@ Lets find out!
 
 Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in a down/right on the way down, then up/left on the return journey.
 
-Lets think about this further and come up with some other truths that may later help us, before writing any code
+Let us think about this further and come up with some other truths that may later help us, before writing any code
 
   - Cherries can only be picked up once. They are gone once picked up
   - You cannot hit a thorn and continue. You must avoid thorns
-  - You may cross over a path you have already travelled, sometimes this is wise to avoid thorns and/or get to other cherries
+  - You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and/or get to other cherries
   - Every path that can be travelled by going up/left from the destination (N-1, N-1) can also be identically
    travelled by going down and right from the origin (0,0).
 	  - **Optimization alert**. Therefore two people travelling down/right 'one way' can make the cherry pickups as one person doing a 'round-trip'
