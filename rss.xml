@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulsness.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 03 Apr 2018 21:00:41 GMT</lastBuildDate><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines light on this problem for many people struggling…]]></description><link>https://www.paulsness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines light on this problem for many people struggling with the solution.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulsness.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 03 Apr 2018 21:08:09 GMT</lastBuildDate><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines light on this problem for many people struggling…]]></description><link>https://www.paulsness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -78,7 +78,7 @@
       &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt; = 8&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in a down/right on the way down, then up/left on the return journey.&lt;/p&gt;
+&lt;p&gt;Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in down/right on the way down, then up/left on the return journey.&lt;/p&gt;
 &lt;p&gt;Let us think about this further and come up with some other truths that may later help us, before writing any code&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Cherries can only be picked up once. They are gone once picked up&lt;/li&gt;
@@ -88,7 +88,7 @@
 &lt;p&gt;Every path that can be travelled by going up/left from the destination (N-1, N-1) can also be identically
 travelled by going down and right from the origin (0,0).&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Optimization alert&lt;/strong&gt;. Therefore two people travelling down/right ‘one way’ can make the cherry pickups as one person doing a ‘round-trip’&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Optimization alert&lt;/strong&gt;. Therefore two people travelling down/right ‘one way’ can make the same cherry pickups as one person doing a ‘round-trip’&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -99,7 +99,7 @@ travelled by going down and right from the origin (0,0).&lt;/p&gt;
 &lt;p&gt;The recursion ensures all viable paths are explored&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;The Math.Max ensures that the best two paths are chosen&lt;/p&gt;
+&lt;p&gt;The Math.max ensures that the best two paths are chosen&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
