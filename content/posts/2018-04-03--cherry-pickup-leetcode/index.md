@@ -86,7 +86,7 @@ Lets find out!
 
 ----------
 
-Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in a down/right on the way down, then up/left on the return journey.
+Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in down/right on the way down, then up/left on the return journey.
 
 Let us think about this further and come up with some other truths that may later help us, before writing any code
 
@@ -95,13 +95,13 @@ Let us think about this further and come up with some other truths that may late
   - You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and/or get to other cherries
   - Every path that can be travelled by going up/left from the destination (N-1, N-1) can also be identically
    travelled by going down and right from the origin (0,0).
-	  - **Optimization alert**. Therefore two people travelling down/right 'one way' can make the cherry pickups as one person doing a 'round-trip'
+	  - **Optimization alert**. Therefore two people travelling down/right 'one way' can make the same cherry pickups as one person doing a 'round-trip'
 
 ## Source code
 Source code in JavaScript for working out the max number of cherries you can pick up with two people, starting at the origin 0,0 and ending at the destination N-1, N-1 both with the restriction of only being able to move down or right.
 
 - The recursion ensures all viable paths are explored
-- The Math.Max ensures that the best two paths are chosen
+- The Math.max ensures that the best two paths are chosen
     
 ``` javascript
 var cherryPickup = function (grid) {
