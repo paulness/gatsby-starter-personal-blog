@@ -5,7 +5,7 @@ module.exports = {
   siteTitle: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
   shortSiteTitle: "Blog of Paul S. Ness",
   siteDescription: "Helpful tutorials, code snippets for software developers.",
-  siteUrl: "https://www.paulsness.com",
+  siteUrl: "http://paulsness.com",
   pathPrefix: "",
   siteLanguage: "en",
   // author
