@@ -13,13 +13,16 @@ Below are some pros and cons of using static files for autocomplete searches:
 
 *Pros*
 
-* No server side logic == much much faster!
-* Reliability, less points of failure, no database issues, files can be served from any server.
+* No server-side logic == much much faster!
+* Reliability, fewer points of failure, no database issues
+* Cheaper and more options for hosting
 
 *Cons*
 
 * More space used on the server, one file for each letter sequence that results. For example: A -> { Andrew, Adam, Anthony }, AN -> { Andrew } etc...
 * Data is not real time. Generating the static files must be done upfront during build time.
+* Generating the static files can be a burden
+* Basic autocomplete only, no match for ElasticSearch or SOLR
 
 #### In this series I will walk through the following topics, step by step:
 

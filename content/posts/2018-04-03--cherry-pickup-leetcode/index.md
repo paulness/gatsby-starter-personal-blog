@@ -1,11 +1,11 @@
 ---
 title: Cherry pickup algorithm
-subTitle: An in-depth look into the Cherry Pickup problem on Leetcode.com.
+subTitle: An in-depth look at the Cherry Pickup problem on Leetcode.com.
 cover: berry-pickup-two-people-same-time.jpg
 category: algorithms
 ---
 
-One of the harder questions on Leetcode.com is the [Cherry Pickup](https://leetcode.com/problems/cherry-pickup/description/). I hope this post shines light on this problem for many people struggling with the solution.
+One of the harder questions on Leetcode.com is the [Cherry Pickup](https://leetcode.com/problems/cherry-pickup/description/). I hope this post shines a light on this problem for many people struggling with the solution.
 
 ## Problem description by Leetcode.com
 
@@ -33,8 +33,8 @@ This post aims to simplify the problem and we will be using different symbols. T
  - -1 - ᚦ (thorn that blocks the cherry collector)
  - 🚶 - Cherry collector
     - Can one make one round-trip collection
-	- Can only move down or right on his way to x=N-1, y=N-1
-	- Can only move up or left on his way to x=0, y=0
+    - Can only move down or right on his way to x=N-1, y=N-1
+    - Can only move up or left on his way to x=0, y=0
 
 ## Quiz
 
@@ -86,22 +86,22 @@ Lets find out!
 
 ----------
 
-Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in down/right on the way down, then up/left on the return journey.
+Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field. The reason we cannot possibly pick up all of the cherries in the field is because we can only move in down/right on the way down, then up/left on the return journey. We can only make one roundtrip cherry collection.
 
 Let us think about this further and come up with some other truths that may later help us, before writing any code
 
   - Cherries can only be picked up once. They are gone once picked up
   - You cannot hit a thorn and continue. You must avoid thorns
-  - You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and/or get to other cherries
-  - Every path that can be travelled by going up/left from the destination (N-1, N-1) can also be identically
-   travelled by going down and right from the origin (0,0).
-	  - **Optimization alert**. Therefore two people travelling down/right 'one way' can make the same cherry pickups as one person doing a 'round-trip'
+  - You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and get to other cherries
+  - Every path that can be traveled by going up/left from the destination (N-1, N-1) can also be identically
+traveled by going down and right from the origin (0,0).
+      - **Optimization alert**. Therefore two people traveling down/right 'one way' can make the same cherry pickups as one person doing a 'round-trip.'
 
 ## Source code
 Source code in JavaScript for working out the max number of cherries you can pick up with two people, starting at the origin 0,0 and ending at the destination N-1, N-1 both with the restriction of only being able to move down or right.
 
-- The recursion ensures all viable paths are explored
-- The Math.max ensures that the best two paths are chosen
+- The recursion ensures that we explore all viable paths
+- The Math.max ensures that we choose the two most lucrative paths
     
 ``` javascript
 var cherryPickup = function (grid) {

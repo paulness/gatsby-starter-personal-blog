@@ -1,18 +1,18 @@
 ---
 title: Representing numbers, using sticks and stones.
-subTitle: In this post we will be experimenting with storing a list of numbers in a data structure, underpinned by linked lists. Each number will be determined by it's distance from the puddle (0), sticks will represent the presence of a number. An interactive demonstration built in React JS will allow you to play around with this.
+subTitle: In this post, we will be experimenting with storing a list of numbers in a data structure, underpinned by linked lists. We determine the value for each given number by its distance from the puddle (0), sticks will represent the presence of a number. An interactive demonstration built in React JS will allow you to play around with this.
 cover: AdobeStock_80967783.jpeg
 category: data structures
 ---
 
-> Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird 'stone age' data structure is this?
+> Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird 'stone age' data structure is this?
 
-In this blog post I will touching on subjects that are rarely discussed. We will be investigating a strange data structure, for learning purposes we will be using sticks and stones.
+In this blog post, I will be touching on subjects in fun and different way. We will be investigating a strange data structure, for learning purposes, we will be using sticks and stones.
 
 * Numbers can indeed be represented using sticks and stones *
 * All numbers in this strange formation are by definition 'in order', no need for sorting algorithms here
 
-_* This demonstration only supports decimal values with 1 digit of precision. It is certainly possible to modify this code and leverage the positional nature of the lists to provide additional precision._
+_* This demonstration only supports decimal values with one digit of precision. It is possible to modify this code yourself later and leverage the positional nature of the lists to provide additional precision._
 
 Before continuing, I recommend that you fiddle around with the numbers in the following demonstration:
 
@@ -20,11 +20,11 @@ Before continuing, I recommend that you fiddle around with the numbers in the fo
 
 ## Rules of play
 
-Assuming you have fiddled around with the above demonstration you will understand:
+Assuming you have fiddled around with the above demonstration, you will understand:
 
 * The puddle is zero
 * Sticks directly under the puddle represent occurrences of zero in the list
-* Rocks directly under the puddle may represent, 0.1, 0.11 etc..
+* Rocks directly under the puddle may represent, 0.1, 0.11, etc..
 * Upper rocks signify whole numbers
 * Lower rocks signify decimal/remaining numbers
 * As you move further to the left of the puddle, you are discovering negative numbers
@@ -33,31 +33,31 @@ Assuming you have fiddled around with the above demonstration you will understan
 
 ## Getting the numbers back out of the rock formation 'in order'
 
-Simple algorithm described below:
+The simple algorithm described below:
 
 ```
 Move from the puddle rock to the first rock on the left
     If there are 'n' stick(s) under that rock, we have a 'n' occurrences of -1 so add those to the list of numbers
     If that rock has rocks underneath, look for the one that has sticks underneath
     If the third rock has one stick underneath we have found -1.3, so add that to the list of numbers found
-etc...
+etc.
 
-Reverse the numbers found so far
+Reverse the numbers found so far.
 
 Try the puddle
     If there are 3 sticks under the puddle add 3 occurrences of 0 to the list of numbers found so far
     If there are 2 rocks under the puddle and 1 stick under those rocks add 0.2 to the list of numbers found so far
 
 Move from the puddle rock to the first rock on the right
-    If there are 'n' stick(s) under that rock, we have a 'n' occurrences of 1 so add those to the list of numbers
+    If there are 'n' stick(s) under that rock, we have 'n' occurrences of 1 so add those to the list of numbers
     If that rock has rocks underneath, look for the one that has sticks underneath
-    If the eleventh rock has one stick underneath we have found one occurrences of 1.11, so add that to the list of numbers found
-etc...
+    If the eleventh rock has one stick underneath we have found one occurrence of 1.11, so add that to the list of numbers found
+etc.
 ```
 
-## What kind of data structure is being used here?
+## What kind of data structure are we using here?
 
-The data structure being used for this is a doubly linked list representing numbers in unary numeral system. 
+The data structure used for this is a doubly linked list representing numbers in unary numeral system. 
 
 * The numeric whole number value is determined by the node position from the zero position node
 * Each node is capable of starting a new list of decimal nodes
@@ -113,9 +113,9 @@ The unary numeral system is the simplest numeral system to represent natural num
 
 ## Optimizing this data structure
 
-Obviously this data structure is not widely used in computer science. It certainly uses a lot of memory! Adding more and more numbers to the above demonstration, would almost certainly result in a JavaScript heap of memory exception.
+You would not use this data structure to solve cutting-edge problems in computer science. It uses a lot of memory! Adding more and more numbers to the above demonstration would almost certainly result in a JavaScript heap out of memory exception.
 
-How can we make this more efficient? Please look into skip lists next, to see how you can add a skip to each node in the above tree structure. This would remove the need to add empty nodes in the list purely for positional reasons, thereby alleviating the memory issues.
+How can we make this more efficient? Please look into skip lists next, to see how you can add a skip to each node in the above tree structure. This optimization would remove the need to add empty nodes in the list purely for positional reasons, thereby alleviating the memory issues.
 
 [Academic paper on skip trees by Xavier Messeguer](http://webdiis.unizar.es/asignaturas/TAP/material/skiptrees.pdf)
 

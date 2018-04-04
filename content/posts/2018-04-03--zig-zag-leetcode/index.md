@@ -1,11 +1,11 @@
 ---
 title: ZigZag conversion algorithm
-subTitle: A dive into the ZigZag letter conversion on Leetcode.com. Letters initially written in a zig-zag formation must be read back from left to right.
+subTitle: A dive into the ZigZag letter conversion on Leetcode.com. Letters initially are written in a zig-zag formation and must be read back from left to right.
 cover: zigzag.png
 category: algorithms
 ---
 
-The [ZigZag conversion problem](https://leetcode.com/problems/zigzag-conversion/) appears on Leetcode.com. In summary, letters are written in a ZigZag formation across multiple lines. You must know what letters are part of this formation and output them as you are reading them from left to right.
+The [ZigZag conversion problem](https://leetcode.com/problems/zigzag-conversion/) appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.
 
 ## Leetcode Requirement
 
@@ -27,7 +27,7 @@ convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
 
 ## Writing letters in ZigZag formation
 
-To understand how to read letters that were written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.
+To understand how to read letters written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.
 
 ```
 G   S   G   S
@@ -70,14 +70,14 @@ Reading down to the bottom and then back up the zig-zag we get the values we ins
 However, reading left to right then down we get the expected output: AEBDC
 ```
 
-## Erroneous characters not part of the zig zig write
+## Erroneous characters not part of the zig-zag write
 
-In the LeetCode exercise you've been asked to read the characters that have been written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.
+In the LeetCode exercise, you've been asked to read the characters originally written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.
 
-For example in the following example, read the characters left to right but only the characters that were written in the ZigZag formation.
+For example, read the characters left to right but only the characters that originally written in the ZigZag formation.
 
 ```
-"ABCDE" was originally written into 3 rows, the X should be ignored = 
+"ABCDE" was originally written into 3 rows. The X should be ignored = 
 A X E
  B D
   C

@@ -5,7 +5,7 @@ cover: autocomplete-visualization.jpg
 category: autocomplete
 ---
 
-In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics:
+In this post, we will be building an autocomplete static file generator in JavaScript. With the following characteristics:
 
 * Input: 1 x CSV
 * Output: 1 x ZIP archive, containing many files
@@ -16,7 +16,7 @@ In this post we will be building an autocomplete static file generator in JavaSc
 This application will be transforming the input CSV such that:
 
 * One column in the CSV will be designated as the column to be searched on
-* All partial search terms that lead to results, will be saved as separate files. The name of each file will be the partial search term
+* All partial search terms that lead to results will be saved as separate files. The name of each file will be the partial search term
 * Within each of those files will contain the entire list of results for that search term
 
 An example transformation is shown below:
@@ -57,7 +57,7 @@ class PrefixTreeNode {
 
 ### Adding methods
 
-We will want to add two methods to the Trie. We could add them to the existing class however, to keep the code cleaner we will extend the PrefixTreeNode class
+We will want to add two methods to the Trie. We could add them to the existing class, however, to keep the code cleaner we will extend the PrefixTreeNode class
 
 ``` javascript
 class PrefixTree extends PrefixTreeNode {
@@ -83,7 +83,7 @@ Start with the head of the Trie.
 
 ```
 :addWordToTrie
-Does the the next level of the trie contain the first letter of the word?
+Does the next level of the trie contain the first letter of the word?
     If it doesn't, add the first letter of the word (as a new node) into that level.
 
 Is the remaining word only one letter long?
@@ -119,7 +119,7 @@ addWord(word, additionalInfo) {
 
 We need a method that gets us all node paths (partial words) from the Trie that ultimately lead to full words. Pseudocode is as follows:
 
-Start with the top of the trie. Once the method is fully done, the hashTable allValidLettersCombinations should be full. Each hashKey would be a filename and the file's contents would be full words.
+Start with the top of the trie. Once the method has completed, the hashTable allValidLettersCombinations should be full. Each hashKey would be a filename, and the file's contents would be full words.
 
 ```
 

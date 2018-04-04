@@ -1,6 +1,6 @@
 ---
 title: NHibernate QueryOver examples using the C# library
-subTitle: QueryOver is a powerful wrapper for the NHibernate ORM Criteria API. It is type-safe with a familiar syntax to Lambda expressions and LINQ. This post covers a nice range of real world usage examples.
+subTitle: QueryOver is a powerful wrapper for the NHibernate ORM Criteria API. It is type-safe with a familiar syntax to Lambda expressions and LINQ. This post covers a nice range of real-world usage examples.
 cover: AdobeStock_125269092.jpeg
 ---
 
@@ -15,7 +15,7 @@ Examples
 
 ### 1. ReadOnly usage
 
-ReadOnly is a safety measure that you can apply to NHibernate queries. I highly recommend you use this property when you are not intending to perform database updates/inserts. Take the following example:
+ReadOnly is a safety measure that you can apply to NHibernate queries. I highly recommend you use this property when you do not intend to perform database updates/inserts. Take the following example:
 
 ``` c#
 Customer customerAndOrders =
@@ -52,9 +52,9 @@ navBarList.ForEach(ni => ni.Images = ni.Images.OrderBy(c => c.Position).ToList()
 
 ### 3. Projecting and inner joins with multiple criteria/conditions
 
-This below query shows both of the following
+This below query shows both of the following.
 
-* Inner joins with additional conditions, part of join criteria. In this example we are getting all the GroupTests and Reviews by just the reviewIds
+* Inner joins with additional conditions, part of join criteria. In this example, we are getting all the GroupTests and Reviews by just the reviewIds
 * Projecting/selecting only a few properties instead many unneeded columns, using the AliasToBean transformer
 
 ``` c#
@@ -74,7 +74,7 @@ return
 
 ### 4. Eager fetching down two levels
 
-In this example we are attempting to retrieve all the ListingCategories and the Categories for each of those ListingCategories. Doing this all in the same query using the Fetch Eager.
+In this example, we are attempting to retrieve all the ListingCategories and the Categories for each of those ListingCategories. Doing this all in the same query using the Fetch Eager.
 
 ``` c#
 if (fetchListingCategories) {
@@ -119,7 +119,7 @@ You can read more on NHibernate subqueries [here](http://www.andrewwhitaker.com/
 
 ### 7. Refactoring legacy loop code to use NHibernate Future Query / multiple result sets
 
-In this example, imagine we encounter some pre-existing legacy code that executes a database select statement within a for loop. This results in unnecessary round trips to the database e.g. connecting, executing query, returning results, NHibernate automatically transforming results to C# classes etc.
+In this example, imagine we encounter some pre-existing legacy code that executes a database select statement within a for loop. This results in unnecessary round trips to the database, e.g., connecting, executing query, returning results, NHibernate automatically transforming results to C# classes etc.
 
 Database queries in loops are generally discouraged.
 
@@ -145,9 +145,9 @@ private IEnumerable<ListingCategoryDo> GetMostRecentListingCategoriesByListing(L
 List<ListingCategoryDo> mostRecentListingCategoriesForListings = GetMostRecentListingCategoriesByListing(listingResults).ToList();
 ```
 
-Fortunately we can refactor the above query code, quite easily to perform a batch SELECT command, that will return multiple result sets.
+Fortunately, we can refactor the above query code quite easily, to perform a batch SELECT command, that will return multiple result sets.
 
-In the below example: the for loop is only generating the batch SQL behind the scenes. The database round-trip happens just once, on demand after the entire loop is complete. This improves efficiency drastically.
+In the below example: the for loop is only generating the batch SQL behind the scenes. The database round-trip happens once, on demand after the entire loop is complete. Improving efficiency drastically.
 
 ``` c#
 private IEnumerable<IFutureValue<ListingCategoryDo>> GetMostRecentListingCategoriesByListing(List<Listing> listingResults)
@@ -173,6 +173,6 @@ var mostRecentListingCategoriesForListingsFuture = GetMostRecentListingCategorie
 var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListingsFuture.Select(fq => fq.Value).ToList();
 ```
 
-You can read more on future queries [here](https://ayende.com/blog/3979/nhibernate-futures)
+You can read more about future queries [here](https://ayende.com/blog/3979/nhibernate-futures)
 
-I think that we can all benefit from using type safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.
+I think that we can all benefit from using type-safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.

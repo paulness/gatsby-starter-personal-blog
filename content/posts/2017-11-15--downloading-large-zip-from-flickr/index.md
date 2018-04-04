@@ -1,6 +1,6 @@
 ---
 title: Downloading a large ZIP archive from Flickr
-subTitle: Have you also been frustrated when trying to download large archives on Flickr? Unless you have an amazing connection, it seems you'll be lucky to reach 23% downloaded before it fails! There is no doubt there is something seriously wrong with their web server. Luckily you can still get your files out, with the help of a really good modern download manager.
+subTitle: Have you also been frustrated when trying to download large ZIP archives on Flickr? Unless you have an amazing connection, it seems you'll be lucky to reach 23% downloaded before it fails! There is no doubt there is something seriously wrong with their web server. Luckily you can still get your files out, with the help of a really good modern download manager.
 cover: aJZNErvd_400x400.png
 category: productivity
 ---

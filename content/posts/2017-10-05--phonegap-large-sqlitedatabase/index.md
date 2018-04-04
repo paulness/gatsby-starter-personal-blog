@@ -12,9 +12,9 @@ A few years ago I was tasked with creating an Android application, which held an
 This was quite a challenging app to build for the following reasons:
 
 * [Complicated business requirements for search](npi-search-app-learn-how-to-understand-the-search-results.pdf)
-* Underpowered tablets, storage, CPU and RAM
+* Underpowered tablets, storage, CPU, and RAM
 * The database exceeded the maximum size permitted for bundling on Google Play
-The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files
+The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files.
 
 This blog post hopes to help others in overcoming any challenges in building an app with such a large database.
 
@@ -26,12 +26,12 @@ Since the [business requirements](npi-search-app-learn-how-to-understand-the-sea
 
 ### Multi-threaded C# SQLite database builder
 
-In order to solve this problem, I created a multi-threaded program in C# that transformed the [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html) and produced a SQLite database.
+To solve this problem, I created a multi-threaded program in C# that transformed the [NPI Data Dissemination CSV](http://download.cms.gov/nppes/NPI_Files.html) and produced a SQLite database.
 
-1. Associated all names that would match 'if SQL Like was possible'
+1. Associated all names that would match 'if SQL Like was possible.'
 1. Associated all names that matched due to name variation
 1. Associated all names that matched when broken down into pieces
-1. Produced a searchable SQLite NPI database, such that the tablet did not have do any of the 'work.'
+1. Produced a searchable SQLite NPI database, such that the tablet did not have to do any of the 'work.'
 
 I knew that a modern computer would have sufficient power to process even the most complicated associations on this CSV file. By pushing the workload onto the computer, I was alleviating the workload on the devices. This program ran on a computer with 32 cores and 32GB of RAM, only once per month.
 

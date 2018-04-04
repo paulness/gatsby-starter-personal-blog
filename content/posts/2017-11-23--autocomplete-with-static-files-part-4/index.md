@@ -1,20 +1,20 @@
 ---
 title: Autocomplete with static files [4/4] - Implementing autocomplete with generated static files
-subTitle: At this stage we should have already have generated our 'data source' of autocomplete JSON files. We can now finally implement a working text box with autocomplete functionality, that consumes these files.
+subTitle: At this stage, we should have already have generated our 'data source' of autocomplete JSON files. We can now finally implement a working text box with autocomplete functionality, which consumes these files.
 cover: demo-in-action.jpg
 category: autocomplete
 ---
 
-This post finalizes the autocomplete series, you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.
+This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.
 
 ### Dynamic content vs static content
 
 On a traditional web server when a user searches for JO, something similar to the following will occur:
 
-1. Request would be made to the server
-2. Query string value would be extracted, by server side website/API code
+1. The client sends a search request to the server, containing the partial word the user has typed. e.g., JO
+2. The partial word is then extracted, by server-side website/API code
 3. Database queries would be made to find records starting with JO
-4. Any results would be returned back to the user
+4. Any results would then be returned to the user
 
 ``` javascript
 var userSearchedFor = "JO";
@@ -24,9 +24,9 @@ var normalUrl =
 
 With static file autocomplete, the flow is as follows:
 
-1. Request made to server
-1. We are looking for a file called JO or JO.json
-1. If the file exists we return the file contents, which have already been prepared for us
+1. Request made to the server
+1. We are looking for an exact file called JO or JO.json
+1. If that file exists, we return the file contents, which have already been prepared for us
 1. If it doesn't exist (404), we must assume there are no results for JO.
 
 ``` javascript
