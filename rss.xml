@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulsness.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Apr 2018 01:36:55 GMT</lastBuildDate><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulsness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulsness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulsness.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Apr 2018 13:09:11 GMT</lastBuildDate><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulsness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulsness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
 &lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
 &lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -45,7 +45,7 @@
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines light on this problem for many people struggling…]]></description><link>https://www.paulsness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines light on this problem for many people struggling with the solution.&lt;/p&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulsness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -125,17 +125,17 @@
       &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt; = 8&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field, because we can only move in down/right on the way down, then up/left on the return journey.&lt;/p&gt;
+&lt;p&gt;Notice one cherry is still left in the field, in the top right corner. Picking up that cherry would have meant leaving more cherries unpicked in the field. The reason we cannot possibly pick up all of the cherries in the field is because we can only move in down/right on the way down, then up/left on the return journey. We can only make one roundtrip cherry collection.&lt;/p&gt;
 &lt;p&gt;Let us think about this further and come up with some other truths that may later help us, before writing any code&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Cherries can only be picked up once. They are gone once picked up&lt;/li&gt;
 &lt;li&gt;You cannot hit a thorn and continue. You must avoid thorns&lt;/li&gt;
-&lt;li&gt;You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and/or get to other cherries&lt;/li&gt;
+&lt;li&gt;You may cross over a path you have already traveled. Sometimes this is wise to avoid thorns and get to other cherries&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Every path that can be travelled by going up/left from the destination (N-1, N-1) can also be identically
-travelled by going down and right from the origin (0,0).&lt;/p&gt;
+&lt;p&gt;Every path that can be traveled by going up/left from the destination (N-1, N-1) can also be identically
+traveled by going down and right from the origin (0,0).&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Optimization alert&lt;/strong&gt;. Therefore two people travelling down/right ‘one way’ can make the same cherry pickups as one person doing a ‘round-trip’&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Optimization alert&lt;/strong&gt;. Therefore two people traveling down/right ‘one way’ can make the same cherry pickups as one person doing a ‘round-trip.’&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -143,10 +143,10 @@ travelled by going down and right from the origin (0,0).&lt;/p&gt;
 &lt;p&gt;Source code in JavaScript for working out the max number of cherries you can pick up with two people, starting at the origin 0,0 and ending at the destination N-1, N-1 both with the restriction of only being able to move down or right.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;The recursion ensures all viable paths are explored&lt;/p&gt;
+&lt;p&gt;The recursion ensures that we explore all viable paths&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;The Math.max ensures that the best two paths are chosen&lt;/p&gt;
+&lt;p&gt;The Math.max ensures that we choose the two most lucrative paths&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -210,7 +210,7 @@ travelled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, letters are written in a ZigZag formation across multiple lines. You…]]></description><link>https://www.paulsness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, letters are written in a ZigZag formation across multiple lines. You must know what letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulsness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulsness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
 &lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
 &lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -225,7 +225,7 @@ Write the code that will take a string and make this conversion given a number o
 convert(&amp;quot;PAYPALISHIRING&amp;quot;, 3) should return &amp;quot;PAHNAPLSIIGYIR&amp;quot;.&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;Writing letters in ZigZag formation&lt;/h2&gt;
-&lt;p&gt;To understand how to read letters that were written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.&lt;/p&gt;
+&lt;p&gt;To understand how to read letters written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;G   S   G   S
  E K F R E K
@@ -262,11 +262,11 @@ A   E
 Reading down to the bottom and then back up the zig-zag we get the values we inserted in order.
 However, reading left to right then down we get the expected output: AEBDC&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h2&gt;Erroneous characters not part of the zig zig write&lt;/h2&gt;
-&lt;p&gt;In the LeetCode exercise you’ve been asked to read the characters that have been written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.&lt;/p&gt;
-&lt;p&gt;For example in the following example, read the characters left to right but only the characters that were written in the ZigZag formation.&lt;/p&gt;
+&lt;h2&gt;Erroneous characters not part of the zig-zag write&lt;/h2&gt;
+&lt;p&gt;In the LeetCode exercise, you’ve been asked to read the characters originally written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.&lt;/p&gt;
+&lt;p&gt;For example, read the characters left to right but only the characters that originally written in the ZigZag formation.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABCDE&amp;quot; was originally written into 3 rows, the X should be ignored = 
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABCDE&amp;quot; was originally written into 3 rows. The X should be ignored = 
 A X E
  B D
   C&lt;/code&gt;&lt;/pre&gt;
@@ -321,14 +321,14 @@ A X E
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;concat&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rowArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series, you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series, you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
 &lt;h3&gt;Dynamic content vs static content&lt;/h3&gt;
 &lt;p&gt;On a traditional web server when a user searches for JO, something similar to the following will occur:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Request would be made to the server&lt;/li&gt;
-&lt;li&gt;Query string value would be extracted, by server side website/API code&lt;/li&gt;
+&lt;li&gt;The client sends a search request to the server, containing the partial word the user has typed. e.g., JO&lt;/li&gt;
+&lt;li&gt;The partial word is then extracted, by server-side website/API code&lt;/li&gt;
 &lt;li&gt;Database queries would be made to find records starting with JO&lt;/li&gt;
-&lt;li&gt;Any results would be returned back to the user&lt;/li&gt;
+&lt;li&gt;Any results would then be returned to the user&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; userSearchedFor &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;JO&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -338,9 +338,9 @@ A X E
       &lt;/div&gt;
 &lt;p&gt;With static file autocomplete, the flow is as follows:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Request made to server&lt;/li&gt;
-&lt;li&gt;We are looking for a file called JO or JO.json&lt;/li&gt;
-&lt;li&gt;If the file exists we return the file contents, which have already been prepared for us&lt;/li&gt;
+&lt;li&gt;Request made to the server&lt;/li&gt;
+&lt;li&gt;We are looking for an exact file called JO or JO.json&lt;/li&gt;
+&lt;li&gt;If that file exists, we return the file contents, which have already been prepared for us&lt;/li&gt;
 &lt;li&gt;If it doesn’t exist (404), we must assume there are no results for JO.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -390,7 +390,7 @@ A X E
 &lt;p&gt;Dependencies:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://goodies.pixabay.com/javascript/auto-complete/demo.html&quot;&gt;AutoCompleteJs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [3/4] - Building an autocomplete static file generator]]></title><description><![CDATA[In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics: Input: 1 x CSV…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-3/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-3/</guid><content:encoded>&lt;p&gt;In this post we will be building an autocomplete static file generator in JavaScript. With the following characteristics:&lt;/p&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [3/4] - Building an autocomplete static file generator]]></title><description><![CDATA[In this post, we will be building an autocomplete static file generator in JavaScript. With the following characteristics: Input: 1 x CSV…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-3/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-3/</guid><content:encoded>&lt;p&gt;In this post, we will be building an autocomplete static file generator in JavaScript. With the following characteristics:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Input: 1 x CSV&lt;/li&gt;
 &lt;li&gt;
@@ -404,7 +404,7 @@ A X E
 &lt;p&gt;This application will be transforming the input CSV such that:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;One column in the CSV will be designated as the column to be searched on&lt;/li&gt;
-&lt;li&gt;All partial search terms that lead to results, will be saved as separate files. The name of each file will be the partial search term&lt;/li&gt;
+&lt;li&gt;All partial search terms that lead to results will be saved as separate files. The name of each file will be the partial search term&lt;/li&gt;
 &lt;li&gt;Within each of those files will contain the entire list of results for that search term&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;An example transformation is shown below:&lt;/p&gt;
@@ -436,7 +436,7 @@ AD.JSON
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h3&gt;Adding methods&lt;/h3&gt;
-&lt;p&gt;We will want to add two methods to the Trie. We could add them to the existing class however, to keep the code cleaner we will extend the PrefixTreeNode class&lt;/p&gt;
+&lt;p&gt;We will want to add two methods to the Trie. We could add them to the existing class, however, to keep the code cleaner we will extend the PrefixTreeNode class&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTree&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PrefixTreeNode&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -458,7 +458,7 @@ AD.JSON
 &lt;p&gt;Start with the head of the Trie.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;:addWordToTrie
-Does the the next level of the trie contain the first letter of the word?
+Does the next level of the trie contain the first letter of the word?
     If it doesn&amp;#39;t, add the first letter of the word (as a new node) into that level.
 
 Is the remaining word only one letter long?
@@ -490,7 +490,7 @@ Is the remaining word more than one letter long?
       &lt;/div&gt;
 &lt;h3&gt;Method that gets all the information out of the Trie&lt;/h3&gt;
 &lt;p&gt;We need a method that gets us all node paths (partial words) from the Trie that ultimately lead to full words. Pseudocode is as follows:&lt;/p&gt;
-&lt;p&gt;Start with the top of the trie. Once the method is fully done, the hashTable allValidLettersCombinations should be full. Each hashKey would be a filename and the file’s contents would be full words.&lt;/p&gt;
+&lt;p&gt;Start with the top of the trie. Once the method has completed, the hashTable allValidLettersCombinations should be full. Each hashKey would be a filename, and the file’s contents would be full words.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Array savedLettersSoFar
 Hashtable allValidLettersCombinations 
@@ -572,14 +572,14 @@ Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&l
 &lt;iframe src=&quot;https://rawgit.com/paulness/AutocompleteStaticFileGeneratorHtml/master/index.htm&quot; style=&quot;width:100%; border:0; border-radius: 4px; overflow:hidden;&quot; sandbox=&quot;allow-modals allow-forms allow-popups allow-scripts allow-same-origin&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [2/4] - Visualization of words in a Trie]]></title><description><![CDATA[This post allows you to visualize how autocomplete data would be arranged within a Prefix Trie data structure. If you would like an…]]></description><link>https://www.paulsness.com/autocomplete-with-static-files-part-2/</link><guid isPermaLink="false">https://www.paulsness.com/autocomplete-with-static-files-part-2/</guid><content:encoded>&lt;p&gt;This post allows you to visualize how autocomplete data would be arranged within a Prefix Trie data structure. If you would like an introduction to Trie data structures before continuing, please check out &lt;a href=&quot;https://medium.freecodecamp.org/trie-prefix-tree-algorithm-ee7ab3fe3413&quot;&gt;Julia’s article on Medium&lt;/a&gt;.&lt;/p&gt;
 &lt;h3&gt;Using the visualization&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;The words can be changed on the fly, this will adjust the Trie diagram&lt;/li&gt;
+&lt;li&gt;The words can be changed on the fly; this will adjust the Trie diagram&lt;/li&gt;
 &lt;li&gt;Sentences may be used instead of words&lt;/li&gt;
 &lt;li&gt;The letters constituting each of the words are represented in the tree as nodes&lt;/li&gt;
 &lt;li&gt;The end of each full word is marked on the node with the text “endWord”&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Clicking on any of the nodes will trace down from that node. You will be shown the words and have an option to download them.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;em&gt;This is the basis, we will expand on when we implement our autocomplete static file generator&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;This is the basis; we will expand on when we implement our autocomplete static file generator&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -594,13 +594,16 @@ Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&l
 &lt;p&gt;Below are some pros and cons of using static files for autocomplete searches:&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Pros&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;No server side logic == much much faster!&lt;/li&gt;
-&lt;li&gt;Reliability, less points of failure, no database issues, files can be served from any server.&lt;/li&gt;
+&lt;li&gt;No server-side logic == much much faster!&lt;/li&gt;
+&lt;li&gt;Reliability, fewer points of failure, no database issues&lt;/li&gt;
+&lt;li&gt;Cheaper and more options for hosting&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;Cons&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;More space used on the server, one file for each letter sequence that results. For example: A -&gt; { Andrew, Adam, Anthony }, AN -&gt; { Andrew } etc…&lt;/li&gt;
 &lt;li&gt;Data is not real time. Generating the static files must be done upfront during build time.&lt;/li&gt;
+&lt;li&gt;Generating the static files can be a burden&lt;/li&gt;
+&lt;li&gt;Basic autocomplete only, no match for ElasticSearch or SOLR&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;In this series I will walk through the following topics, step by step:&lt;/h4&gt;
 &lt;ol&gt;
@@ -660,23 +663,23 @@ Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&l
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;Keep in mind that you may have luck on a different internet connection. I had all this trouble with my Time Warner Cable 50Mbps connection YMMV. Using ethernet instead of wireless would definitely help too. I hope this post helps you out.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Representing numbers, using sticks and stones.]]></title><description><![CDATA[Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data…]]></description><link>https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</link><guid isPermaLink="false">https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</guid><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;Can numbers really be represented with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is this?&lt;/p&gt;
+&lt;p&gt;Keep in mind that you may have luck on a different internet connection. I had all this trouble with my Time Warner Cable 50Mbps connection YMMV. Using ethernet instead of wireless would definitely help too. I hope this post helps you out.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Representing numbers, using sticks and stones.]]></title><description><![CDATA[Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is…]]></description><link>https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</link><guid isPermaLink="false">https://www.paulsness.com/unary-numeral-linked-list-of-numbers/</guid><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is this?&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;In this blog post I will touching on subjects that are rarely discussed. We will be investigating a strange data structure, for learning purposes we will be using sticks and stones.&lt;/p&gt;
+&lt;p&gt;In this blog post, I will be touching on subjects in fun and different way. We will be investigating a strange data structure, for learning purposes, we will be using sticks and stones.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Numbers can indeed be represented using sticks and stones *&lt;/li&gt;
 &lt;li&gt;All numbers in this strange formation are by definition ‘in order’, no need for sorting algorithms here&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;* This demonstration only supports decimal values with 1 digit of precision. It is certainly possible to modify this code and leverage the positional nature of the lists to provide additional precision.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;* This demonstration only supports decimal values with one digit of precision. It is possible to modify this code yourself later and leverage the positional nature of the lists to provide additional precision.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Before continuing, I recommend that you fiddle around with the numbers in the following demonstration:&lt;/p&gt;
 &lt;iframe src=&quot;https://rawgit.com/paulness/UnaryNumeral-DoublyLinkedList/master/representing-numbers-with-rocks-and-sticks-in-react/build/index.html&quot; style=&quot;width:100%; height: 1000px; border:0; border-radius: 4px; overflow:scroll;&quot;&gt;&lt;/iframe&gt;
 &lt;h2&gt;Rules of play&lt;/h2&gt;
-&lt;p&gt;Assuming you have fiddled around with the above demonstration you will understand:&lt;/p&gt;
+&lt;p&gt;Assuming you have fiddled around with the above demonstration, you will understand:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The puddle is zero&lt;/li&gt;
 &lt;li&gt;Sticks directly under the puddle represent occurrences of zero in the list&lt;/li&gt;
-&lt;li&gt;Rocks directly under the puddle may represent, 0.1, 0.11 etc..&lt;/li&gt;
+&lt;li&gt;Rocks directly under the puddle may represent, 0.1, 0.11, etc..&lt;/li&gt;
 &lt;li&gt;Upper rocks signify whole numbers&lt;/li&gt;
 &lt;li&gt;Lower rocks signify decimal/remaining numbers&lt;/li&gt;
 &lt;li&gt;As you move further to the left of the puddle, you are discovering negative numbers&lt;/li&gt;
@@ -684,28 +687,28 @@ Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&l
 &lt;li&gt;Rocks without sticks underneath do not represent the occurrence of numbers&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Getting the numbers back out of the rock formation ‘in order’&lt;/h2&gt;
-&lt;p&gt;Simple algorithm described below:&lt;/p&gt;
+&lt;p&gt;The simple algorithm described below:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Move from the puddle rock to the first rock on the left
     If there are &amp;#39;n&amp;#39; stick(s) under that rock, we have a &amp;#39;n&amp;#39; occurrences of -1 so add those to the list of numbers
     If that rock has rocks underneath, look for the one that has sticks underneath
     If the third rock has one stick underneath we have found -1.3, so add that to the list of numbers found
-etc...
+etc.
 
-Reverse the numbers found so far
+Reverse the numbers found so far.
 
 Try the puddle
     If there are 3 sticks under the puddle add 3 occurrences of 0 to the list of numbers found so far
     If there are 2 rocks under the puddle and 1 stick under those rocks add 0.2 to the list of numbers found so far
 
 Move from the puddle rock to the first rock on the right
-    If there are &amp;#39;n&amp;#39; stick(s) under that rock, we have a &amp;#39;n&amp;#39; occurrences of 1 so add those to the list of numbers
+    If there are &amp;#39;n&amp;#39; stick(s) under that rock, we have &amp;#39;n&amp;#39; occurrences of 1 so add those to the list of numbers
     If that rock has rocks underneath, look for the one that has sticks underneath
-    If the eleventh rock has one stick underneath we have found one occurrences of 1.11, so add that to the list of numbers found
-etc...&lt;/code&gt;&lt;/pre&gt;
+    If the eleventh rock has one stick underneath we have found one occurrence of 1.11, so add that to the list of numbers found
+etc.&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h2&gt;What kind of data structure is being used here?&lt;/h2&gt;
-&lt;p&gt;The data structure being used for this is a doubly linked list representing numbers in unary numeral system. &lt;/p&gt;
+&lt;h2&gt;What kind of data structure are we using here?&lt;/h2&gt;
+&lt;p&gt;The data structure used for this is a doubly linked list representing numbers in unary numeral system. &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The numeric whole number value is determined by the node position from the zero position node&lt;/li&gt;
 &lt;li&gt;Each node is capable of starting a new list of decimal nodes&lt;/li&gt;
@@ -752,8 +755,8 @@ O&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;4 is represented as:
 ||||&lt;/p&gt;
 &lt;h2&gt;Optimizing this data structure&lt;/h2&gt;
-&lt;p&gt;Obviously this data structure is not widely used in computer science. It certainly uses a lot of memory! Adding more and more numbers to the above demonstration, would almost certainly result in a JavaScript heap of memory exception.&lt;/p&gt;
-&lt;p&gt;How can we make this more efficient? Please look into skip lists next, to see how you can add a skip to each node in the above tree structure. This would remove the need to add empty nodes in the list purely for positional reasons, thereby alleviating the memory issues.&lt;/p&gt;
+&lt;p&gt;You would not use this data structure to solve cutting-edge problems in computer science. It uses a lot of memory! Adding more and more numbers to the above demonstration would almost certainly result in a JavaScript heap out of memory exception.&lt;/p&gt;
+&lt;p&gt;How can we make this more efficient? Please look into skip lists next, to see how you can add a skip to each node in the above tree structure. This optimization would remove the need to add empty nodes in the list purely for positional reasons, thereby alleviating the memory issues.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://webdiis.unizar.es/asignaturas/TAP/material/skiptrees.pdf&quot;&gt;Academic paper on skip trees by Xavier Messeguer&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.geeksforgeeks.org/skip-list/&quot;&gt;GeeksForGeeks article on skip lists&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Skip_list&quot;&gt;Wikipedia article on skip lists&lt;/a&gt;&lt;/p&gt;
@@ -766,7 +769,7 @@ O&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;p&gt;Examples&lt;/p&gt;
 &lt;h3&gt;1. ReadOnly usage&lt;/h3&gt;
-&lt;p&gt;ReadOnly is a safety measure that you can apply to NHibernate queries. I highly recommend you use this property when you are not intending to perform database updates/inserts. Take the following example:&lt;/p&gt;
+&lt;p&gt;ReadOnly is a safety measure that you can apply to NHibernate queries. I highly recommend you use this property when you do not intend to perform database updates/inserts. Take the following example:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;Customer customerAndOrders =
             NHibernateSession.QueryOver&amp;lt;Customer&amp;gt;()
@@ -796,9 +799,9 @@ NastyMethodThatModifiesData(customerAndOrders.Orders);&lt;/code&gt;&lt;/pre&gt;
 navBarList.ForEach(ni =&amp;gt; ni.Images = ni.Images.OrderBy(c =&amp;gt; c.Position).ToList());&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h3&gt;3. Projecting and inner joins with multiple criteria/conditions&lt;/h3&gt;
-&lt;p&gt;This below query shows both of the following&lt;/p&gt;
+&lt;p&gt;This below query shows both of the following.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Inner joins with additional conditions, part of join criteria. In this example we are getting all the GroupTests and Reviews by just the reviewIds&lt;/li&gt;
+&lt;li&gt;Inner joins with additional conditions, part of join criteria. In this example, we are getting all the GroupTests and Reviews by just the reviewIds&lt;/li&gt;
 &lt;li&gt;Projecting/selecting only a few properties instead many unneeded columns, using the AliasToBean transformer&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -816,7 +819,7 @@ return
     .List&amp;lt;GroupTestDo&amp;gt;();&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h3&gt;4. Eager fetching down two levels&lt;/h3&gt;
-&lt;p&gt;In this example we are attempting to retrieve all the ListingCategories and the Categories for each of those ListingCategories. Doing this all in the same query using the Fetch Eager.&lt;/p&gt;
+&lt;p&gt;In this example, we are attempting to retrieve all the ListingCategories and the Categories for each of those ListingCategories. Doing this all in the same query using the Fetch Eager.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;if (fetchListingCategories) {
 query = query.Fetch(c =&amp;gt; c.ListingCategories).Eager
@@ -851,7 +854,7 @@ var reviews =
       &lt;/div&gt;
 &lt;p&gt;You can read more on NHibernate subqueries &lt;a href=&quot;http://www.andrewwhitaker.com/blog/2014/10/24/queryover-series-part-8-working-with-subqueries/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h3&gt;7. Refactoring legacy loop code to use NHibernate Future Query / multiple result sets&lt;/h3&gt;
-&lt;p&gt;In this example, imagine we encounter some pre-existing legacy code that executes a database select statement within a for loop. This results in unnecessary round trips to the database e.g. connecting, executing query, returning results, NHibernate automatically transforming results to C# classes etc.&lt;/p&gt;
+&lt;p&gt;In this example, imagine we encounter some pre-existing legacy code that executes a database select statement within a for loop. This results in unnecessary round trips to the database, e.g., connecting, executing query, returning results, NHibernate automatically transforming results to C# classes etc.&lt;/p&gt;
 &lt;p&gt;Database queries in loops are generally discouraged.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;private IEnumerable&amp;lt;ListingCategoryDo&amp;gt; GetMostRecentListingCategoriesByListing(List&amp;lt;Listing&amp;gt; listingResults)
@@ -874,8 +877,8 @@ var reviews =
 //n round-trips will be made (n = listingResults.Count)
 List&amp;lt;ListingCategoryDo&amp;gt; mostRecentListingCategoriesForListings = GetMostRecentListingCategoriesByListing(listingResults).ToList();&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;Fortunately we can refactor the above query code, quite easily to perform a batch SELECT command, that will return multiple result sets.&lt;/p&gt;
-&lt;p&gt;In the below example: the for loop is only generating the batch SQL behind the scenes. The database round-trip happens just once, on demand after the entire loop is complete. This improves efficiency drastically.&lt;/p&gt;
+&lt;p&gt;Fortunately, we can refactor the above query code quite easily, to perform a batch SELECT command, that will return multiple result sets.&lt;/p&gt;
+&lt;p&gt;In the below example: the for loop is only generating the batch SQL behind the scenes. The database round-trip happens once, on demand after the entire loop is complete. Improving efficiency drastically.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-c#&quot;&gt;&lt;code class=&quot;language-c#&quot;&gt;private IEnumerable&amp;lt;IFutureValue&amp;lt;ListingCategoryDo&amp;gt;&amp;gt; GetMostRecentListingCategoriesByListing(List&amp;lt;Listing&amp;gt; listingResults)
 {
@@ -899,11 +902,11 @@ var mostRecentListingCategoriesForListingsFuture = GetMostRecentListingCategorie
 //this will perform the database query with multiple result sets
 var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListingsFuture.Select(fq =&amp;gt; fq.Value).ToList();&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;You can read more on future queries &lt;a href=&quot;https://ayende.com/blog/3979/nhibernate-futures&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;I think that we can all benefit from using type safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ubuntu 16.04.3 (x64) bash script for developers after fresh install]]></title><description><![CDATA[Get your development environment up and running quickly! In the post we will go through an automated bash script, which will turn your fresh…]]></description><link>https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</link><guid isPermaLink="false">https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</guid><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;You can read more about future queries &lt;a href=&quot;https://ayende.com/blog/3979/nhibernate-futures&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I think that we can all benefit from using type-safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ubuntu 16.04.3 (x64) bash script for developers after a fresh install]]></title><description><![CDATA[Get your development environment up and running quickly! In the post, we will go through an automated bash script, which will turn your…]]></description><link>https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</link><guid isPermaLink="false">https://www.paulsness.com/ubuntu-bash-script-setup-dev-software/</guid><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;Get your development environment up and running quickly!&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;In the post we will go through an automated bash script, which will turn your fresh Ubuntu install into a fully fledged development machine within no time. This script I have tested on Ubuntu 16.04.3 as of Nov-13-2017. You’ll get a chance to un-check the software that you are not interested in. I’ve included a range of software for you to choose from.&lt;/p&gt;
+&lt;p&gt;In the post, we will go through an automated bash script, which will turn your fresh Ubuntu install into a fully fledged development machine within no time. This script I have tested on Ubuntu 16.04.3 as of Nov-13-2017. You’ll get a chance to un-check the software that you are not interested in. I’ve included a range of software for you to choose from.&lt;/p&gt;
 &lt;p&gt;It is as simple as:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Download &lt;a href=&quot;http://mirrors.bloomu.edu/ubuntu-releases/16.04.3/ubuntu-16.04.3-desktop-amd64.iso&quot;&gt;Ubuntu 16.04.3&lt;/a&gt; and install it, if you do not already have Ubuntu installed&lt;/li&gt;
@@ -944,7 +947,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;And run the commands&lt;/p&gt;
+&lt;p&gt;And run the commands.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# ensure the line endings are unix (after downloading from GIT)&lt;/span&gt;
 &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sed&lt;/span&gt; -i -e &lt;span class=&quot;token string&quot;&gt;&apos;s/\r$//&apos;&lt;/span&gt; post_install.sh
@@ -953,7 +956,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
 &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x post_install.sh&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; ./post_install.sh
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;This is what you’ll see in the terminal right before you execute the script&lt;/p&gt;
+&lt;p&gt;This is what you’ll see in the terminal, right before you execute the script.&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -988,7 +991,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;And once you press enter, you’ll see text streaming down&lt;/p&gt;
+&lt;p&gt;And once you press enter, you’ll see text streaming down.&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -1023,7 +1026,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;You’ll see this prompt window, you may un-check software you do not wish to install. The themes I have unchecked by default since I prefer the default theme in Ubuntu.&lt;/p&gt;
+&lt;p&gt;You’ll see this prompt window; you may un-check software you do not wish to install. The themes I have unchecked by default since I prefer the default theme in Ubuntu.&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -1093,7 +1096,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;When you are done you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
+&lt;p&gt;When you have finished, you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
 &lt;p&gt;Credits:
 &lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulsness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulsness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
@@ -1152,21 +1155,21 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
 &lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;/npi-search-app-learn-how-to-understand-the-search-results-89647de30bf0e36315f73963eab79e1a.pdf&quot;&gt;Complicated business requirements for search&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Underpowered tablets, storage, CPU and RAM&lt;/li&gt;
+&lt;li&gt;Underpowered tablets, storage, CPU, and RAM&lt;/li&gt;
 &lt;li&gt;The database exceeded the maximum size permitted for bundling on Google Play
-The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files&lt;/li&gt;
+The file system on the tablet could not support single files over 2GB. Therefore the database was split across three files.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;This blog post hopes to help others in overcoming any challenges in building an app with such a large database.&lt;/p&gt;
 &lt;h2&gt;Underpowered tablets and pre-processing step&lt;/h2&gt;
 &lt;p&gt;The devices had insufficient processing power to perform any query other than an exact match search on an indexed column. Indeed not powerful enough to execute SQLite LIKE searches on across this database. Only exact queries on indexed columns would return results in an acceptable time-frame.&lt;/p&gt;
 &lt;p&gt;Since the &lt;a href=&quot;/npi-search-app-learn-how-to-understand-the-search-results-89647de30bf0e36315f73963eab79e1a.pdf&quot;&gt;business requirements&lt;/a&gt; for name searching required LIKE search in addition to many other types of search. It was imperative to pre-arrange all data that the app needed, such that an exact match would return all results desired by the business. For example, JOHN SMITH would return JOHNNIE SMITH, JON SMITH, etc.&lt;/p&gt;
 &lt;h3&gt;Multi-threaded C# SQLite database builder&lt;/h3&gt;
-&lt;p&gt;In order to solve this problem, I created a multi-threaded program in C# that transformed the &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt; and produced a SQLite database.&lt;/p&gt;
+&lt;p&gt;To solve this problem, I created a multi-threaded program in C# that transformed the &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt; and produced a SQLite database.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Associated all names that would match ‘if SQL Like was possible’&lt;/li&gt;
+&lt;li&gt;Associated all names that would match ‘if SQL Like was possible.’&lt;/li&gt;
 &lt;li&gt;Associated all names that matched due to name variation&lt;/li&gt;
 &lt;li&gt;Associated all names that matched when broken down into pieces&lt;/li&gt;
-&lt;li&gt;Produced a searchable SQLite NPI database, such that the tablet did not have do any of the ‘work.’&lt;/li&gt;
+&lt;li&gt;Produced a searchable SQLite NPI database, such that the tablet did not have to do any of the ‘work.’&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I knew that a modern computer would have sufficient power to process even the most complicated associations on this CSV file. By pushing the workload onto the computer, I was alleviating the workload on the devices. This program ran on a computer with 32 cores and 32GB of RAM, only once per month.&lt;/p&gt;
 &lt;p&gt;Sample unit test code for showing some of name matching rules&lt;/p&gt;
