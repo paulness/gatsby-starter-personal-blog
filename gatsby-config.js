@@ -13,7 +13,7 @@ const query = `{
           title
           subTitle
         }
-        excerpt
+        excerpt(pruneLength: 14000)
       }
     }
   }
