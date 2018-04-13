@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "color": "^3.0.0",
-    "gatsby": "^1.9.244",
+    "gatsby": "^1.9.248",
     "gatsby-image": "^1.0.42",
     "gatsby-link": "1.6.39",
     "gatsby-plugin-algolia": "^0.0.3",
