@@ -130,7 +130,8 @@ docker pull wonderfall/isso
 You should be able to run the docker container with the following command. It will be listening on port 30000.
 
 ``` bash 
-docker run -it --name isso -p 30000:8080 \
+docker run --name isso -p 30000:8080 \
+             --restart=always \
              -e USERID=1000 -e GROUPID=1000 \
              -v /var/lib/docker/isso/config:/config \
              -v /var/lib/docker/isso/db:/db \
