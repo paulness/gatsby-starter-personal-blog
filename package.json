@@ -8,7 +8,7 @@
   "scripts": {
     "deploy": "rm -rf .cache && gatsby build && gh-pages -d public -b master",
     "develop": "rm -rf .cache && gatsby develop",
-    "develop-host": "gatsby develop --host 192.168.0.112",
+    "develop-docker-host": "gatsby develop --host 0.0.0.0",
     "build": "rm -rf .cache && gatsby build",
     "serve": "gatsby serve",
     "format-output": "prettier src/**/*.{js,jsx}",

@@ -1,31 +1,50 @@
-# PersonalBlog starter for Gatsby
+# Paulness.com - Personal Website / Blog
 
-[DEMO website](https://gatsby-starter-personal-blog.greglobinski.com/)
+This is a personal website used showcasing anything new that I have come across that could be of interest to the tech community.
 
-More details soon. For now a couple of annotations.
+## Getting started
 
-The starter is ready to play with. You should to know at least two things.
+### .env file
 
-### Packages in beta
+This application depends on [Algolia](https://www.algolia.com/) for search functionality. Make sure you have an `.env` file with these variables inside. You get these from signing up for an account.
 
-It uses two packages in beta stage: [gatsby-plugin-algolia](https://github.com/algolia/gatsby-plugin-algolia) and [material-ui-next](https://material-ui-next.com/)
-
-### External services
-
-The starter uses external services for some functions: contact form, comments, searching. To use them you have to secure some access data. No worries, all services are free or have generous free tiers big enough for a personal blog.
-
-The starter needs an `.env` file like this in the root folder
-
-```
+```text
 ALGOLIA_APP_ID=...
 ALGOLIA_SEARCH_ONLY_API_KEY=...
 ALGOLIA_ADMIN_API_KEY=...
 ALGOLIA_INDEX_NAME=...
-FB_APP_ID=...
 ```
 
-The contact form does not need any settings it should work out of the box if you deploy the website to [Netlify](https://www.netlify.com/)
+### Local run instructions
 
-### An educational project
+This site was built using node:8 so all the npm commands inside of `docker run -p 8000:8000 -it --rm -v $(pwd):/wd node:8 bash`
 
-This is an educational project. I'm going to write a series of articles describing what, how and why I did. I'm aiming at helping beginners to understand how the code works. So stay tuned. To be in touch follow me at [@greglobinski](https://twitter.com/greglobinski)
+```bash
+cd /wd
+
+# Install the modules defined in package-lock.json
+npm i
+
+# Build the static /public dir
+npm run build
+
+# Launch the application on localhost:8000
+npm run develop-docker-host
+```
+
+### Local deploy instructions
+
+The static site is deployed via GitHub pages, the master branch is essentially the /public directory. While the develop branch is used for local development.
+
+`npm run deploy`
+
+### Revert a broken deployment
+
+Since this blog just uses master branch as the public directory for GitHub pages you can just revert master with git commands to the last commit.
+
+```bash
+git checkout master
+git pull
+git reset --hard HEAD~1
+git push -f master:master
+```

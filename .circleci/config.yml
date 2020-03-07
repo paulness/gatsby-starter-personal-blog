@@ -1,0 +1,36 @@
+version: 2.1
+
+jobs:
+  deploy_to_github_pages:
+    docker:
+      - image: node:8
+    steps:
+      - run:
+          name: Ensure environment variables are present
+          command: |
+            set -eu
+            echo "${ALGOLIA_APP_ID}{ALGOLIA_SEARCH_ONLY_API_KEY}{ALGOLIA_ADMIN_API_KEY}${ALGOLIA_INDEX_NAME}" &> /dev/null \
+              || "Some environment variables are missing, investigate!"
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
+      - run:
+          name: install node modules
+          command: npm i
+      - run:
+          name: deploy to github pages (master branch is used for public site)
+          command: npm run deploy
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - deploy_to_github_pages:
+          filters:
+            branches:
+              only: develop
