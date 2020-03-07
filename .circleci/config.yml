@@ -9,8 +9,8 @@ jobs:
           name: Ensure environment variables are present
           command: |
             set -eu
-            echo "${ALGOLIA_APP_ID}{ALGOLIA_SEARCH_ONLY_API_KEY}{ALGOLIA_ADMIN_API_KEY}${ALGOLIA_INDEX_NAME}" &> /dev/null \
-              || "Some environment variables are missing, investigate!"
+            echo "${ALGOLIA_APP_ID}${ALGOLIA_SEARCH_ONLY_API_KEY}${ALGOLIA_ADMIN_API_KEY}${ALGOLIA_INDEX_NAME}" &> /dev/null
+            echo "${GIT_AUTHOR_EMAIL}${GIT_COMMITTER_NAME}${EMAIL}" &> /dev/null
       - checkout
       - restore_cache:
           keys:
