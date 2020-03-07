@@ -14,15 +14,18 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ checksum "package-lock.json" }}
+            - v2-npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: install node modules
           command: npm i
       - run:
           name: deploy to github pages (master branch is used for public site)
           command: npm run deploy
+      - run:
+          name: remove gh-pages cache before saving node_modules cache
+          command: rm -rf node_modules/gh-pages/.cache
       - save_cache:
-          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          key: v2-npm-deps-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
 
