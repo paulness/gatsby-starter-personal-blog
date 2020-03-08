@@ -6,7 +6,7 @@
   "version": "1.0.2",
   "license": "MIT",
   "scripts": {
-    "deploy": "rm -rf .cache && cp -R .circleci ./static/ && gatsby build && gh-pages -d public -b master",
+    "deploy": "gh-pages -d public -b master",
     "develop": "rm -rf .cache && gatsby develop",
     "develop-docker-host": "gatsby develop --host 0.0.0.0",
     "build": "rm -rf .cache && gatsby build",

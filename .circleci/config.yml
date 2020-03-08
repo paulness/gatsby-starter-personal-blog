@@ -19,11 +19,14 @@ jobs:
           name: install node modules
           command: npm i
       - run:
-          name: deploy to github pages (master branch is used for public site)
-          command: npm run deploy
+          name: build static site to ./public dir
+          command: npm run build
       - run:
-          name: remove gh-pages cache before saving node_modules cache
-          command: rm -rf node_modules/gh-pages/.cache
+          name: add .circleci dir to ./public dir
+          command: cp -R .circleci ./public/
+      - run:
+          name: deploy ./public to github pages - master branch
+          command: npm run deploy
       - save_cache:
           key: v2-npm-deps-{{ checksum "package-lock.json" }}
           paths:

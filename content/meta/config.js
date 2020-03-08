@@ -1,22 +1,21 @@
 const colors = require("../../src/styles/colors");
 
 module.exports = {
-  homeTitle: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
-  siteTitle: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
-  shortSiteTitle: "Blog of Paul S. Ness",
+  homeTitle: "Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  siteTitle: "Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  shortSiteTitle: "Blog of Paul Ness",
   siteDescription: "Helpful tutorials, code snippets for software developers.",
-  siteUrl: "http://paulsness.com",
+  siteUrl: "http://www.paulness.com",
   pathPrefix: "",
   siteLanguage: "en",
   // author
-  authorName: "Paul S. Ness",
-  authorTwitterAccount: "greglobinski",
+  authorName: "Paul Ness",
   // info
-  infoTitle: "Paul S. Ness",
+  infoTitle: "Paul Ness",
   infoTitleNote: "",
   // manifest.json
-  manifestName: "Blog of Paul S. Ness | C#, SQL, MongoDB, React, Java, programming, ...",
-  manifestShortName: "Blog of Paul S. Ness", // max 12 characters
+  manifestName: "Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...",
+  manifestShortName: "Blog of Paul Ness", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
   manifestThemeColor: colors.bg,

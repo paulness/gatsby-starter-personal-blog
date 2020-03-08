@@ -17,9 +17,9 @@ class PostComments extends React.Component {
   componentDidMount() {
     const scriptElem = document.createElement('script');
     scriptElem.type = 'text/javascript';
-    scriptElem.setAttribute('data-isso', 'http://comments.paulsness.com:30000/');
+    scriptElem.setAttribute('data-isso', 'http://comments.paulness.com:30000/');
     scriptElem.setAttribute('data-isso-css', 'true');
-    scriptElem.setAttribute('src', 'http://comments.paulsness.com:30000/js/embed.min.js');
+    scriptElem.setAttribute('src', 'http://comments.paulness.com:30000/js/embed.min.js');
     scriptElem.async = true;
 
     const sectionElem = document.createElement('section');

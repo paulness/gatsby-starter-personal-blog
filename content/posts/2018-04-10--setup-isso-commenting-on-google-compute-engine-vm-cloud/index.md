@@ -142,7 +142,7 @@ You will never really have to look inside the Docker container, it will log erro
 
 ## Testing the ISSO server from the outside world
 
-Test your Isso server is running and accessible with your subdomain. For example http://comments.paulsness.com:30000
+Test your Isso server is running and accessible with your subdomain. For example http://comments.paulness.com:30000
 
 If you have followed all the instructions above, everything should be set up correctly. You should get a page that looks like the following.
 
