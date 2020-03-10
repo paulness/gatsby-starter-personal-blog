@@ -32,6 +32,10 @@ npm run build
 npm run develop-docker-host
 ```
 
+#### VSCode dev container
+
+If you are using VSCode and dev containers you can just open this in VSCode and run same `npm` commands above.
+
 ### Local deploy instructions
 
 The static site is deployed via GitHub pages, the master branch is essentially the /public directory. While the develop branch is used for local development.
