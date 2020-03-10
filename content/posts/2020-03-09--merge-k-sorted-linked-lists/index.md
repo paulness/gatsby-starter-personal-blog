@@ -20,7 +20,7 @@ A good solution for time complexity is `O(N log k)` where `O` is the number of o
 You want to merge the following 3 linked lists 
 
 ```text
-1 -> 2 -> 3 -> 4
+2 -> 3 -> 4 -> 5
 4 -> 5 -> 6 -> 7 -> 8
 20
 ```
@@ -28,17 +28,17 @@ You want to merge the following 3 linked lists
 So that you have the following flattened final linked list
 
 ```text
-1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6 -> 7 -> 8 -> 20
+2 -> 3 -> 4 -> 4 -> 5 -> 5 -> 6 -> 7 -> 8 -> 20
 ```
 
 You'll need to compare the head of each list with each iteration. The head with the smallest value is what you are looking for
 
 ```text
-1 vs 4 vs 20 = 1
 2 vs 4 vs 20 = 2
-4 vs 4 vs 20 = 3
+3 vs 4 vs 20 = 3
 4 vs 4 vs 20 = 4
-4 vs 20 = 4
+5 vs 4 vs 20 = 4
+5 vs 5 vs 20 = 5
 5 vs 20 = 5
 6 vs 20 = 6
 7 vs 20 = 7
