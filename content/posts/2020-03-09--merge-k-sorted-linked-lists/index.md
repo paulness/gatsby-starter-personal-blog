@@ -55,7 +55,6 @@ You'll need to compare the head of each list with each iteration. The head with 
 
 ## Code
 
-
 ```python
 # Definition for singly-linked list.
 class ListNode:
@@ -104,8 +103,11 @@ class Solution:
             lists[index] = item.next
         else:
             lists.remove(item)
+```
 
-        
+### Sample run code for experimentation and debugging
+
+```python        
 sln = Solution()
 
 # test data
