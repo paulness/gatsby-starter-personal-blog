@@ -1,4 +1,112 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 08 Mar 2020 01:22:07 GMT</lastBuildDate><item><title><![CDATA[Setup Isso comments on your website today]]></title><description><![CDATA[Isso commenting  is an open source application that is a superior “in-place replacement” for Disqus and Facebook comments. Internally it is…]]></description><link>https://www.paulness.com/setup-isso-commenting-on-google-compute-engine-vm-cloud/</link><guid isPermaLink="false">https://www.paulness.com/setup-isso-commenting-on-google-compute-engine-vm-cloud/</guid><content:encoded>&lt;p&gt;&lt;a href=&quot;https://posativ.org/isso/&quot;&gt;Isso commenting&lt;/a&gt; is an open source application that is a superior “in-place replacement” for Disqus and Facebook comments. Internally it is built with Python and SQLite. We will be running it inside a Docker container on the Google Compute Container Optimized OS. After completing the instructions in this guide, you’ll just include a snippet on your site to get Isso comments working on your site.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Mar 2020 02:07:51 GMT</lastBuildDate><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;k sorted linked lists&lt;/code&gt; = just some number of sorted linked lists&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Problem description&lt;/h2&gt;
+&lt;p&gt;Given &lt;code class=&quot;language-text&quot;&gt;k&lt;/code&gt; number of linked lists, create a new single linked list that is ordered. Analyze the time and space complexity.&lt;/p&gt;
+&lt;p&gt;A good solution for time complexity is &lt;code class=&quot;language-text&quot;&gt;O(N log k)&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;O&lt;/code&gt; is the number of operations &lt;code class=&quot;language-text&quot;&gt;N&lt;/code&gt; is the total number of items in the list and &lt;code class=&quot;language-text&quot;&gt;k&lt;/code&gt; is the number of linked lists. A good solution should also require no additional space/memory other than the memory already used e.g. constant &lt;code class=&quot;language-text&quot;&gt;O(1)&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;The algorithm&lt;/h2&gt;
+&lt;p&gt;You want to merge the following 3 linked lists &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 -&amp;gt; 2 -&amp;gt; 3 -&amp;gt; 4
+4 -&amp;gt; 5 -&amp;gt; 6 -&amp;gt; 7 -&amp;gt; 8
+20&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;So that you have the following flattened final linked list&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 -&amp;gt; 2 -&amp;gt; 3 -&amp;gt; 4 -&amp;gt; 4 -&amp;gt; 5 -&amp;gt; 6 -&amp;gt; 7 -&amp;gt; 8 -&amp;gt; 20&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You’ll need to compare the head of each list with each iteration. The head with the smallest value is what you are looking for&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 vs 4 vs 20 = 1
+2 vs 4 vs 20 = 2
+4 vs 4 vs 20 = 3
+4 vs 4 vs 20 = 4
+4 vs 20 = 4
+5 vs 20 = 5
+6 vs 20 = 6
+7 vs 20 = 7
+8 vs 20 = 8
+20 = 20&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Steps&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Evaluate each head node of each input list to find the head with the lowest value&lt;/li&gt;
+&lt;li&gt;Attach this head node to the tail of your flattened output list&lt;/li&gt;
+&lt;li&gt;Make the head of the input list point the next node if one exists otherwise you’ve exhuasted this list. You just remove the node, so that you won’t see it again in the next iteration&lt;/li&gt;
+&lt;li&gt;Repeat until there are no lists with nodes left&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Definition for singly-linked list.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; x
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;mergeKLists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;ListNode&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Returns a single sorted list from multiple sorted lists
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Ignore empty lists&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            lists &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;l &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; l &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; lists &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Get the list which has the lowest value, keep that value for later&lt;/span&gt;
+        list_with_lowest_value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;lambda&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Progress that list to the next value&lt;/span&gt;
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_progress_to_next_item_in_list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Keep references to the HEAD of the new flattened list and the current&lt;/span&gt;
+        merged_list_head &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list_with_lowest_value
+        merged_list_cur &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; merged_list_head
+        
+        &lt;span class=&quot;token comment&quot;&gt;# While at least one input list isn&apos;t exhausted&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            list_with_lowest_value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;lambda&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            merged_list_cur&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list_with_lowest_value
+            merged_list_cur &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; merged_list_cur&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
+            self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_progress_to_next_item_in_list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; merged_list_head
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_progress_to_next_item_in_list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;ListNode&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Either changes the list to reference the new item or removes the item from the list if it&apos;s at the end
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            index &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            lists&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;remove&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        
+sln &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Solution&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# test data&lt;/span&gt;
+list1_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+list1_item2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+list1_item3 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+list1_item1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item2
+list1_item2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item3
+
+list2_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Run application with test data&lt;/span&gt;
+sln&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mergeKLists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;list1_item1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; list2_item1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Useful links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=ptYUCjfNhJY&quot;&gt;https://www.youtube.com/watch?v=ptYUCjfNhJY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://medium.com/better-programming/a-gentle-explanation-of-logarithmic-time-complexity-79842728a702&quot;&gt;https://medium.com/better-programming/a-gentle-explanation-of-logarithmic-time-complexity-79842728a702&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Setup Isso comments on your website today]]></title><description><![CDATA[Isso commenting  is an open source application that is a superior “in-place replacement” for Disqus and Facebook comments. Internally it is…]]></description><link>https://www.paulness.com/setup-isso-commenting-on-google-compute-engine-vm-cloud/</link><guid isPermaLink="false">https://www.paulness.com/setup-isso-commenting-on-google-compute-engine-vm-cloud/</guid><content:encoded>&lt;p&gt;&lt;a href=&quot;https://posativ.org/isso/&quot;&gt;Isso commenting&lt;/a&gt; is an open source application that is a superior “in-place replacement” for Disqus and Facebook comments. Internally it is built with Python and SQLite. We will be running it inside a Docker container on the Google Compute Container Optimized OS. After completing the instructions in this guide, you’ll just include a snippet on your site to get Isso comments working on your site.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Let crack on to get tracking-free / ad-free commenting functionality on your site!&lt;/p&gt;
 &lt;/blockquote&gt;
