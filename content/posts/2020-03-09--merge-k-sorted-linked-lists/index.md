@@ -17,7 +17,7 @@ A good solution for time complexity is `O(N log k)` where `O` is the number of o
 
 ## The algorithm
 
-You want to merge the following 3 linked lists 
+You want to merge the following 3 linked lists, `list1`, `list2` and `list3`
 
 ```text
 2 -> 3 -> 4 -> 5
@@ -31,20 +31,22 @@ So that you have the following flattened final linked list
 2 -> 3 -> 4 -> 4 -> 5 -> 5 -> 6 -> 7 -> 8 -> 20
 ```
 
-You'll need to compare the head of each list with each iteration. The head with the smallest value is what you are looking for
+As you construct the newly merged linked list you'll be moving through the existing linked lists. Once an item has been added to the merged list there is no reason to return to this item. Therefore updating the head of the list as we construct a new merged list is an acceptable approach.
 
-```text
-2 vs 4 vs 20 = 2
-3 vs 4 vs 20 = 3
-4 vs 4 vs 20 = 4
-5 vs 4 vs 20 = 4
-5 vs 5 vs 20 = 5
-5 vs 20 = 5
-6 vs 20 = 6
-7 vs 20 = 7
-8 vs 20 = 8
-20 = 20
-```
+> With each iteration, 1 item from the front of `list1` or `list2` or `list3` will be plucked
+
+| list1 Head | list2 Head | list3 Head | Lowest Value     |
+| ---------- | ---------- | ---------- | ---------------- |
+| 2          | 4          | 20         | 2                |
+| 3          | 4          | 20         | 3                |
+| 4          | 4          | 20         | 4 (from `list1`) |
+| 5          | 4          | 20         | 4                |
+| 5          | 5          | 20         | 5 (from `list1`) |
+|            | 5          | 20         | 5                |
+|            | 6          | 20         | 6                |
+|            | 7          | 20         | 7                |
+|            | 8          | 20         | 8                |
+|            |            | 20         | 20               |
 
 ### Steps
 
@@ -56,71 +58,98 @@ You'll need to compare the head of each list with each iteration. The head with 
 ## Code
 
 ```python
-# Definition for singly-linked list.
+#!/usr/bin/python3
+
+"""
+https://leetcode.com/problems/merge-k-sorted-lists/
+"""
+
 class ListNode:
+    """
+    Basic data structure for a singly-linked list.
+    """
+
     def __init__(self, x):
         self.val = x
         self.next = None
 
 class Solution:
+    """
+    Wrapper class for LeetCode solution
+    """
+
     def mergeKLists(self, lists: [ListNode]) -> ListNode:
         """
-        Returns a single sorted list from multiple sorted lists
+        Parameters
+        ----------
+        lists: list of ListNode
+            Multiple linked lists, each can be traversed using the next property
+
+        Returns
+        -------
+        ListNode
+            The head of a newly constructed ordered and flattened linked list
         """
 
-        # Ignore empty lists
         if lists:
             lists = [l for l in lists if l]
+
         if not lists:
             return None
 
-        # Get the list which has the lowest value, keep that value for later
+        # Setup the head of the new ordered merged linked list
         list_with_lowest_value = min(lists, key=lambda l: l.val)
-
-        # Progress that list to the next value
-        self._progress_to_next_item_in_list(lists=lists, item=list_with_lowest_value)
-
-        # Keep references to the HEAD of the new flattened list and the current
+        self._update_list_head(lists=lists, head_to_update=list_with_lowest_value)
         merged_list_head = list_with_lowest_value
         merged_list_cur = merged_list_head
-        
-        # While at least one input list isn't exhausted
+
+        # Build new ordered merged linked list
         while lists:
             list_with_lowest_value = min(lists, key=lambda l: l.val)
             merged_list_cur.next = list_with_lowest_value
             merged_list_cur = merged_list_cur.next
-            self._progress_to_next_item_in_list(lists=lists, item=list_with_lowest_value)
+            self._update_list_head(lists=lists, head_to_update=list_with_lowest_value)
         return merged_list_head
 
     @classmethod
-    def _progress_to_next_item_in_list(cls, lists: [ListNode], item: ListNode):
+    def _update_list_head(cls, lists: [ListNode], head_to_update: ListNode):
         """
-        Either changes the list to reference the new item or removes the item from the list if it's at the end
+        Updates the head reference of one list to the next item in that list
         """
 
-        if item.next:
-            index = lists.index(item)
-            lists[index] = item.next
+        if head_to_update.next:
+            index = lists.index(head_to_update)
+            lists[index] = head_to_update.next
         else:
-            lists.remove(item)
+            lists.remove(head_to_update)
 ```
 
 ### Sample run code for experimentation and debugging
 
-```python        
-sln = Solution()
+```python
+def main():
+    """ The entry point of the python script """
 
-# test data
-list1_item1 = ListNode(8)
-list1_item2 = ListNode(9)
-list1_item3 = ListNode(9)
-list1_item1.next = list1_item2
-list1_item2.next = list1_item3
+    sln = Solution()
 
-list2_item1 = ListNode(3)
+    # Test data 2 linked lists
+    list1_item1 = ListNode(8)
+    list1_item2 = ListNode(9)
+    list1_item3 = ListNode(9)
+    list1_item1.next = list1_item2
+    list1_item2.next = list1_item3
 
-# Run application with test data
-sln.mergeKLists([list1_item1, list2_item1])
+    list2_item1 = ListNode(3)
+
+    # Print out the flattened linked list
+    merged_list = sln.mergeKLists([list1_item1, list2_item1])
+    while (merged_list and merged_list.val):
+        print(merged_list.val)
+        merged_list = merged_list.next
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ## Useful links
