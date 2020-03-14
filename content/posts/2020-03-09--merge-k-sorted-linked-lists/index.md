@@ -35,18 +35,18 @@ As you construct the newly merged linked list you'll be moving through the exist
 
 > With each iteration, 1 item from the front of `list1` or `list2` or `list3` will be plucked
 
-| list1 Head | list2 Head | list3 Head | Lowest Value     |
-| ---------- | ---------- | ---------- | ---------------- |
-| 2          | 4          | 20         | 2                |
-| 3          | 4          | 20         | 3                |
-| 4          | 4          | 20         | 4 (from `list1`) |
-| 5          | 4          | 20         | 4                |
-| 5          | 5          | 20         | 5 (from `list1`) |
-|            | 5          | 20         | 5                |
-|            | 6          | 20         | 6                |
-|            | 7          | 20         | 7                |
-|            | 8          | 20         | 8                |
-|            |            | 20         | 20               |
+| `list1` | `list2` | `list3` | `lowest_value`   |
+| ------- | ------- | ------- | ---------------- |
+| 2       | 4       | 20      | 2                |
+| 3       | 4       | 20      | 3                |
+| 4       | 4       | 20      | 4 (from `list1`) |
+| 5       | 4       | 20      | 4                |
+| 5       | 5       | 20      | 5 (from `list1`) |
+|         | 5       | 20      | 5                |
+|         | 6       | 20      | 6                |
+|         | 7       | 20      | 7                |
+|         | 8       | 20      | 8                |
+|         |         | 20      | 20               |
 
 ### Steps
 
