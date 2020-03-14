@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Mar 2020 02:50:35 GMT</lastBuildDate><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 14 Mar 2020 14:01:53 GMT</lastBuildDate><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;k sorted linked lists&lt;/code&gt; = just some number of sorted linked lists&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -6,7 +6,7 @@
 &lt;p&gt;Given &lt;code class=&quot;language-text&quot;&gt;k&lt;/code&gt; number of linked lists, create a new single linked list that is ordered. Analyze the time and space complexity.&lt;/p&gt;
 &lt;p&gt;A good solution for time complexity is &lt;code class=&quot;language-text&quot;&gt;O(N log k)&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;O&lt;/code&gt; is the number of operations &lt;code class=&quot;language-text&quot;&gt;N&lt;/code&gt; is the total number of items in the list and &lt;code class=&quot;language-text&quot;&gt;k&lt;/code&gt; is the number of linked lists. A good solution should also require no additional space/memory other than the memory already used e.g. constant &lt;code class=&quot;language-text&quot;&gt;O(1)&lt;/code&gt;.&lt;/p&gt;
 &lt;h2&gt;The algorithm&lt;/h2&gt;
-&lt;p&gt;You want to merge the following 3 linked lists &lt;/p&gt;
+&lt;p&gt;You want to merge the following 3 linked lists, &lt;code class=&quot;language-text&quot;&gt;list1&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;list2&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;list3&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 -&amp;gt; 3 -&amp;gt; 4 -&amp;gt; 5
 4 -&amp;gt; 5 -&amp;gt; 6 -&amp;gt; 7 -&amp;gt; 8
@@ -16,19 +16,86 @@
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 -&amp;gt; 3 -&amp;gt; 4 -&amp;gt; 4 -&amp;gt; 5 -&amp;gt; 5 -&amp;gt; 6 -&amp;gt; 7 -&amp;gt; 8 -&amp;gt; 20&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;You’ll need to compare the head of each list with each iteration. The head with the smallest value is what you are looking for&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 vs 4 vs 20 = 2
-3 vs 4 vs 20 = 3
-4 vs 4 vs 20 = 4
-5 vs 4 vs 20 = 4
-5 vs 5 vs 20 = 5
-5 vs 20 = 5
-6 vs 20 = 6
-7 vs 20 = 7
-8 vs 20 = 8
-20 = 20&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
+&lt;p&gt;As you construct the newly merged linked list you’ll be moving through the existing linked lists. Once an item has been added to the merged list there is no reason to return to this item. Therefore updating the head of the list as we construct a new merged list is an acceptable approach.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;With each iteration, 1 item from the front of &lt;code class=&quot;language-text&quot;&gt;list1&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;list2&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;list3&lt;/code&gt; will be plucked&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;list1 Head&lt;/th&gt;
+&lt;th&gt;list2 Head&lt;/th&gt;
+&lt;th&gt;list3 Head&lt;/th&gt;
+&lt;th&gt;Lowest Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;4 (from 
+&lt;code class=&quot;language-text&quot;&gt;list1&lt;/code&gt;
+)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;5 (from 
+&lt;code class=&quot;language-text&quot;&gt;list1&lt;/code&gt;
+)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h3&gt;Steps&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Evaluate each head node of each input list to find the head with the lowest value&lt;/li&gt;
@@ -38,70 +105,97 @@
 &lt;/ol&gt;
 &lt;h2&gt;Code&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Definition for singly-linked list.&lt;/span&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;#!/usr/bin/python3&lt;/span&gt;
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+https://leetcode.com/problems/merge-k-sorted-lists/
+&quot;&quot;&quot;&lt;/span&gt;
+
 &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+    Basic data structure for a singly-linked list.
+    &quot;&quot;&quot;&lt;/span&gt;
+
     &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
         self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; x
         self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+    Wrapper class for LeetCode solution
+    &quot;&quot;&quot;&lt;/span&gt;
+
     &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;mergeKLists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;ListNode&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
-        Returns a single sorted list from multiple sorted lists
+        Parameters
+        ----------
+        lists: list of ListNode
+            Multiple linked lists, each can be traversed using the next property
+
+        Returns
+        -------
+        ListNode
+            The head of a newly constructed ordered and flattened linked list
         &quot;&quot;&quot;&lt;/span&gt;
 
-        &lt;span class=&quot;token comment&quot;&gt;# Ignore empty lists&lt;/span&gt;
         &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
             lists &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;l &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; l &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; lists &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
         &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
 
-        &lt;span class=&quot;token comment&quot;&gt;# Get the list which has the lowest value, keep that value for later&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# Setup the head of the new ordered merged linked list&lt;/span&gt;
         list_with_lowest_value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;lambda&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;token comment&quot;&gt;# Progress that list to the next value&lt;/span&gt;
-        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_progress_to_next_item_in_list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;token comment&quot;&gt;# Keep references to the HEAD of the new flattened list and the current&lt;/span&gt;
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_update_list_head&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; head_to_update&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
         merged_list_head &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list_with_lowest_value
         merged_list_cur &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; merged_list_head
-        
-        &lt;span class=&quot;token comment&quot;&gt;# While at least one input list isn&apos;t exhausted&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Build new ordered merged linked list&lt;/span&gt;
         &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
             list_with_lowest_value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;lambda&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
             merged_list_cur&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list_with_lowest_value
             merged_list_cur &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; merged_list_cur&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
-            self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_progress_to_next_item_in_list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_update_list_head&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lists&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;lists&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; head_to_update&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;list_with_lowest_value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; merged_list_head
 
     @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_progress_to_next_item_in_list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;ListNode&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_update_list_head&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;ListNode&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; head_to_update&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
-        Either changes the list to reference the new item or removes the item from the list if it&apos;s at the end
+        Updates the head reference of one list to the next item in that list
         &quot;&quot;&quot;&lt;/span&gt;
 
-        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-            index &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-            lists&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; head_to_update&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            index &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;head_to_update&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            lists&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; head_to_update&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
         &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-            lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;remove&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            lists&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;remove&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;head_to_update&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h3&gt;Sample run code for experimentation and debugging&lt;/h3&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;sln &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Solution&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot; The entry point of the python script &quot;&quot;&quot;&lt;/span&gt;
 
-&lt;span class=&quot;token comment&quot;&gt;# test data&lt;/span&gt;
-list1_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-list1_item2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-list1_item3 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-list1_item1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item2
-list1_item2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item3
+    sln &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Solution&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
-list2_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# Test data 2 linked lists&lt;/span&gt;
+    list1_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    list1_item2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    list1_item3 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    list1_item1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item2
+    list1_item2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list1_item3
 
-&lt;span class=&quot;token comment&quot;&gt;# Run application with test data&lt;/span&gt;
-sln&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mergeKLists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;list1_item1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; list2_item1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    list2_item1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ListNode&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# Print out the flattened linked list&lt;/span&gt;
+    merged_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sln&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mergeKLists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;list1_item1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; list2_item1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;merged_list &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; merged_list&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;merged_list&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        merged_list &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; merged_list&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;next&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    main&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;Useful links&lt;/h2&gt;
