@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 02:06:46 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also &lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot;&gt;listed on Leetcode.com&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 03:24:06 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also &lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot;&gt;listed on Leetcode.com&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Median = the value that splits the array into two equal length partitions&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -321,7 +321,158 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;Useful links&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=LPFhl65R7ww&quot;&gt;https://www.youtube.com/watch?v=LPFhl65R7ww&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=LPFhl65R7ww&quot;&gt;https://www.youtube.com/watch?v=LPFhl65R7ww&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[First missing positive]]></title><description><![CDATA[Given an array full of integers, find the first missing positive integer in the list. This tutorial goes over how you can do this in O(n…]]></description><link>https://www.paulness.com/first-positive/</link><guid isPermaLink="false">https://www.paulness.com/first-positive/</guid><content:encoded>&lt;p&gt;Given an array full of integers, find the first missing positive integer in the list. This tutorial goes over how you can do this in O(n) without using any additional space for hashtables or anything. This is avaliable for practice on &lt;a href=&quot;https://leetcode.com/problems/first-missing-positive/&quot;&gt;LeetCode&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Example lists&lt;/h2&gt;
+&lt;p&gt;Example of missing 5&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1,2,3,4,6&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Example of missing 1&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;-1,4,8,6,2&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Algorithm&lt;/h2&gt;
+&lt;p&gt;If the array has 4 elements and we are looking for the first missing positive. We can look at it this way, we expect &lt;code class=&quot;language-text&quot;&gt;1,2,3,4&lt;/code&gt; to be there.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;index&lt;/th&gt;
+&lt;th&gt;0&lt;/th&gt;
+&lt;th&gt;1&lt;/th&gt;
+&lt;th&gt;2&lt;/th&gt;
+&lt;th&gt;3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;expected values&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;actual values&lt;/td&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;values after algorithm&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You’ll have to scan the entire list once to find out that &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; is not missing of course and that &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; is the first missing positive.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Iterate the array once - O(n)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Get the value of the slot and &lt;code class=&quot;language-text&quot;&gt;-1&lt;/code&gt; from this value, so that it is in the same zero-index range as the slots&lt;/li&gt;
+&lt;li&gt;Throw away any value you encounter outside of the range of the indexes of the array &lt;code class=&quot;language-text&quot;&gt;0 between len(array)-1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;If the value you find is the same as the expected value for the slot overwrite the slot value with &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; to denote the value exists&lt;/li&gt;
+&lt;li&gt;If you find a value that is less than the index, set the index of that slot to &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; and the current slot value to &lt;code class=&quot;language-text&quot;&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;If you find a value that is greater than the current index, then swap the value in the current slot with the value in the expected future slot as it will be evaluated later anyway. Repeat this iteration once without progressing to the next slot so that you can evaluate the new value in this slot.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In the end, you’ll have an array of zeros and ones. Where &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; denotes the existence of the value and &lt;code class=&quot;language-text&quot;&gt;0&lt;/code&gt; means the value does not exist. The first occurrence of zero is your first positive missing value.&lt;/p&gt;
+&lt;h3&gt;Python Code&lt;/h3&gt;
+&lt;p&gt;This Python code &lt;a href=&quot;https://leetcode.com/submissions/detail/312533966/&quot;&gt;passes all tests in Leetcode&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+https://leetcode.com/problems/first-missing-positive/
+&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot; Wrapper for LeetCode solution &quot;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;firstMissingPositive&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Finds the first MISSING positive value in an array
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Simplify the problem so that the array is just full of 0 or 1&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# Where 1 indicates the presence of the value&lt;/span&gt;
+        self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_update_arr_to_just_flags&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# The first occurrence of 0 is the first missing value&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            first_missing_positive_integer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;except&lt;/span&gt; ValueError&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            first_missing_positive_integer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;first_missing_positive_integer&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; first_missing_positive_integer
+
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_update_arr_to_just_flags&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Updates an entire array so that instead of storing values it stores either 0 or 1
+
+        1 indicates the presence of a value, the index indicates the value
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        last_index &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+        i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; last_index&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;\nRunning iteration index {i}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;Current state of array {nums}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            current_value_target_index &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+            target_index_out_of_bounds &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;current_value_target_index &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;or&lt;/span&gt;
+                                          current_value_target_index &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; last_index&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; target_index_out_of_bounds&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;threw away value at {i} aka {nums[i]} as it was outside the range&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; current_value_target_index &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;already visited value {current_value_target_index}&quot;&lt;/span&gt;
+                       &lt;span class=&quot;token string&quot;&gt;&quot;aka {nums[current_value_target_index]}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;current_value_target_index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+                nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; current_value_target_index &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;current_value_target_index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; current_value_target_index &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token comment&quot;&gt;# the value is ahead and has not been considered yet&lt;/span&gt;
+                &lt;span class=&quot;token comment&quot;&gt;# swap it with current and re-evaluate current&lt;/span&gt;
+                are_same &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;current_value_target_index&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; are_same&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    cls&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_arr_swap&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; current_value_target_index&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;token keyword&quot;&gt;continue&lt;/span&gt;
+
+                &lt;span class=&quot;token comment&quot;&gt;# The current value will be evaluated later&lt;/span&gt;
+                nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+
+            i &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_arr_swap&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; j&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        temp &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; temp
+        &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;swapped slots {i} with {j} aka {nums[i]} with {nums[j]}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Sample run code for experimentation and debugging&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot; The entry point of the Python script &quot;&quot;&quot;&lt;/span&gt;
+
+    sln &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Solution&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    sln&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;firstMissingPositive&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    main&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Useful learning materials&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Q-o4mtw1zJM&quot;&gt;https://www.youtube.com/watch?v=Q-o4mtw1zJM&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;k sorted linked lists&lt;/code&gt; = just some number of sorted linked lists&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1022,54 +1173,7 @@ docker stop &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;co
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;/var/lib/docker/isso/db/comments.db
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
-&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
-&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
-8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;WireShark screengrab&quot;
-        title=&quot;&quot;
-        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
-        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1234,7 +1338,54 @@ traveled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
+&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
+&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
+8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;WireShark screengrab&quot;
+        title=&quot;&quot;
+        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
+        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
 &lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
 &lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -2122,59 +2273,7 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
     &lt;/p&gt;
 &lt;p&gt;When you have finished, you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
 &lt;p&gt;Credits:
-&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;div style=&quot;font-size:65%&quot;&gt;
-&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;
-  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
-&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
-&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
-&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
-&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
-&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;Online readers are well aware that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
-&lt;p&gt;In-text citation&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Reference&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
-&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
-  &lt;ul&gt;
-    &lt;li&gt;Digit&lt;/li&gt;
-    &lt;li&gt;Digit comma digit …&lt;/li&gt;
-    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
-  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
-  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;Source code&lt;/h3&gt;
-&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
+&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/npi-search-presentation-98fe442f903f262c49d17a60ba9ca25e.pptx&quot;&gt;See technical presentation for the app (PPT)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
 &lt;ul&gt;
@@ -2764,4 +2863,56 @@ self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span cla
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;In summary&lt;/h2&gt;
-&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div style=&quot;font-size:65%&quot;&gt;
+&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
+&lt;div&gt;&lt;br/&gt;
+  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
+&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
+&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
+&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
+&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
+&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Online readers are well aware that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
+&lt;p&gt;In-text citation&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
+&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
+  &lt;ul&gt;
+    &lt;li&gt;Digit&lt;/li&gt;
+    &lt;li&gt;Digit comma digit …&lt;/li&gt;
+    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
+  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
+  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item></channel></rss>
