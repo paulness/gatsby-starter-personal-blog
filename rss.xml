@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 03:24:06 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also &lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot;&gt;listed on Leetcode.com&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 15:10:00 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also &lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot;&gt;listed on Leetcode.com&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Median = the value that splits the array into two equal length partitions&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -25,8 +25,49 @@ large_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span
       &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 8 9 | 15
 7 11 | 18 19 21 25&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;9 is less than 18 and 11 is less than 15&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;9&lt;/code&gt; is less than &lt;code class=&quot;language-text&quot;&gt;18&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;11&lt;/code&gt; is less than &lt;code class=&quot;language-text&quot;&gt;15&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Since the total number of elements in the combined array is odd we simply use the larger of the two numbers to the left of either partition as the median. This is &lt;code class=&quot;language-text&quot;&gt;11&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;But how you do you find the partition that satisfies the above?&lt;/h4&gt;
+&lt;p&gt;Since the goal of the median is to have an equal number of elements of both arrays on the left as on the right and have the median as the splitting value that divides the array equally.&lt;/p&gt;
+&lt;p&gt;This array is odd, there 6 elements on the left, 5 elements on the right therefore the median has to be one of the numbers on the left. If this number is plucked as the median there will be 5 elements on either side.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 8 9 | 15
+7 11 | 18 19 21 25&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;It’s impossible to have partitions of both arrays over to the right and find the median. Therefore it makes no sense to look in for a partition in this search space.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 8 9 | 15
+7 11 18 19 21 | 25&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;With this knowledge, it’s possible to ascertain that if you desire to move the &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; partition over to the right. You must move the &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; partition in the opposite direction to the same degree.&lt;/p&gt;
+&lt;h4&gt;Example iterations&lt;/h4&gt;
+&lt;h5&gt;Iteration 1 - incorrect partitions&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; is partitioned at index &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; which is decided by the number of elements in the search divided by 2 as a whole number e.g. &lt;code class=&quot;language-text&quot;&gt;5 / 2 = 2.5&lt;/code&gt; which is just &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; when the decimal is truncated&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; is partitioned at index &lt;code class=&quot;language-text&quot;&gt;4&lt;/code&gt; which is decided by the total number of elements in both arrays + 1 divided by 2 minus the partition index of the &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; e.g. &lt;code class=&quot;language-text&quot;&gt;(11 + 1) / 2 - 2 = 4&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We compare the numbers around the current partition points to decide whether to change these partition points&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 | 8 9 15
+7 11 18 19 | 21 25&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;3&lt;/code&gt; is not less than &lt;code class=&quot;language-text&quot;&gt;21&lt;/code&gt;, this correct partition must be in between the higher numbers&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;19&lt;/code&gt; is not less than &lt;code class=&quot;language-text&quot;&gt;8&lt;/code&gt;, this correct partition is in the earlier numbers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Iteration 2 - correct partitions&lt;/h5&gt;
+&lt;p&gt;There were 3 ways of partitioning the &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; in this iteration &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;8 | 9&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;9 | 15&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;15 | +∞&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;9 | 15&lt;/code&gt; was chosen as it’s in the middle. The partition index here is &lt;code class=&quot;language-text&quot;&gt;4&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;However, since we moved the partition on the &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; forward &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; places from index &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; to &lt;code class=&quot;language-text&quot;&gt;4&lt;/code&gt; in this iteration. The partition on the &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; moved &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; places to the left, to ensure the balance of elements either side of the median.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 8 9 | 15
+7 11 | 18 19 21 25&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
 &lt;h3&gt;Example 2 - an array that when combined has an even length of 10&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;In an even array the median is the mean of the two middle numbers&lt;/p&gt;
@@ -115,6 +156,27 @@ large_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Since the combined array is of an odd length we just use the larger of the two numbers to the left of either partition as the median this is &lt;code class=&quot;language-text&quot;&gt;-1&lt;/code&gt; as &lt;code class=&quot;language-text&quot;&gt;-1 &amp;gt; -∞&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Example 4 - an array that when combined is all the same value&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;small_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+large_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The median we know here is &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; just by looking at it. Since LeetCode asked for only the value and not the index this algorithm takes a few shortcuts and therefore partitions incorrectly and still produces the correct result.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;The top left number is less than or equal to the bottom right number&lt;/li&gt;
+&lt;li&gt;The bottom left number is less than or equal to the top right number&lt;/li&gt;
+&lt;li&gt;The median is one of these four numbers&lt;/li&gt;
+&lt;li&gt;The median is one of the two left numbers as the array is odd and there are more elements on the left&lt;/li&gt;
+&lt;li&gt;The median is the greater of the two left numbers&lt;/li&gt;
+&lt;li&gt;The median is 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If the LeetCode exercise asked for both the value and the index e.g. &lt;code class=&quot;language-text&quot;&gt;(value, index)&lt;/code&gt; then this algorithm that we have would fail to deliver the results without adjustments.&lt;/p&gt;
 &lt;h2&gt;Python Code&lt;/h2&gt;
 &lt;p&gt;This code passes &lt;a href=&quot;https://leetcode.com/submissions/detail/312498996/&quot;&gt;all tests in LeetCode&lt;/a&gt;. Print statements are added for tutorial purposes&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -142,7 +204,7 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
         Returns
         -------
         int
-            Median number which partitions both arrays if they were already merged and sorted
+            The median number which partitions both arrays if they were already merged and sorted
         &quot;&quot;&quot;&lt;/span&gt;
 
         &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums1 &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
@@ -168,9 +230,9 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
         Parameters
         ----------
         small_array: [int]
-            A list of integers sorted
+            A sorted list of integers
         large_array: [int]
-            A list of integers sorted, must be larger or the same length as small_array
+            A sorted list of integers that must be larger or the same length as small_array
 
         Returns
         -------
@@ -280,7 +342,7 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
         Returns
         -------
         float
-            Median number which partitions the array such that both sides have equal number of elements.
+            The median number which partitions the array such that both sides have an equal number of elements.
         &quot;&quot;&quot;&lt;/span&gt;
 
         &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
@@ -1173,7 +1235,54 @@ docker stop &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;co
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;/var/lib/docker/isso/db/comments.db
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
+&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
+&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
+8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;WireShark screengrab&quot;
+        title=&quot;&quot;
+        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
+        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1338,54 +1447,7 @@ traveled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
-&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
-&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
-8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;WireShark screengrab&quot;
-        title=&quot;&quot;
-        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
-        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
 &lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
 &lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -2273,7 +2335,59 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
     &lt;/p&gt;
 &lt;p&gt;When you have finished, you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
 &lt;p&gt;Credits:
-&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
+&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div style=&quot;font-size:65%&quot;&gt;
+&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
+&lt;div&gt;&lt;br/&gt;
+  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
+&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
+&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
+&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
+&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
+&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Online readers are well aware that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
+&lt;p&gt;In-text citation&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
+&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
+  &lt;ul&gt;
+    &lt;li&gt;Digit&lt;/li&gt;
+    &lt;li&gt;Digit comma digit …&lt;/li&gt;
+    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
+  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
+  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/npi-search-presentation-98fe442f903f262c49d17a60ba9ca25e.pptx&quot;&gt;See technical presentation for the app (PPT)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
 &lt;ul&gt;
@@ -2863,56 +2977,4 @@ self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span cla
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;In summary&lt;/h2&gt;
-&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;div style=&quot;font-size:65%&quot;&gt;
-&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;
-  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
-&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
-&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
-&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
-&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
-&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;Online readers are well aware that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
-&lt;p&gt;In-text citation&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Reference&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
-&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
-  &lt;ul&gt;
-    &lt;li&gt;Digit&lt;/li&gt;
-    &lt;li&gt;Digit comma digit …&lt;/li&gt;
-    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
-  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
-  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;Source code&lt;/h3&gt;
-&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item></channel></rss>
