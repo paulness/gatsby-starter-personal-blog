@@ -5,7 +5,7 @@ cover: median-of-two-arrays.png
 category: algorithms
 ---
 
-Did you know that it's possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It's something that is often asked in interviews and is also listed on Leetcode.com.
+Did you know that it's possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It's something that is often asked in interviews and is also [listed on Leetcode.com](https://leetcode.com/problems/median-of-two-sorted-arrays/).
 
 > Median = the value that splits the array into two equal length partitions
 
