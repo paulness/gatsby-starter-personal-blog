@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 02:05:17 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also listed on Leetcode.com.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 02:06:46 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also &lt;a href=&quot;https://leetcode.com/problems/median-of-two-sorted-arrays/&quot;&gt;listed on Leetcode.com&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Median = the value that splits the array into two equal length partitions&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1022,7 +1022,54 @@ docker stop &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;co
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;/var/lib/docker/isso/db/comments.db
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
+&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
+&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
+8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;WireShark screengrab&quot;
+        title=&quot;&quot;
+        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
+        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1187,54 +1234,7 @@ traveled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
-&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
-&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
-8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;WireShark screengrab&quot;
-        title=&quot;&quot;
-        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
-        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
 &lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
 &lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
