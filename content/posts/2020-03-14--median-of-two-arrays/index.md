@@ -38,9 +38,63 @@ Since both arrays are ordered in ascending order, checking all elements is unnec
 7 11 | 18 19 21 25
 ```
 
-9 is less than 18 and 11 is less than 15
+`9` is less than `18` and `11` is less than `15`
 
 Since the total number of elements in the combined array is odd we simply use the larger of the two numbers to the left of either partition as the median. This is `11`.
+
+#### But how you do you find the partition that satisfies the above?
+
+Since the goal of the median is to have an equal number of elements of both arrays on the left as on the right and have the median as the splitting value that divides the array equally.
+
+This array is odd, there 6 elements on the left, 5 elements on the right therefore the median has to be one of the numbers on the left. If this number is plucked as the median there will be 5 elements on either side.
+
+```
+1 3 8 9 | 15
+7 11 | 18 19 21 25
+```
+
+It's impossible to have partitions of both arrays over to the right and find the median. Therefore it makes no sense to look in for a partition in this search space.
+
+```
+1 3 8 9 | 15
+7 11 18 19 21 | 25
+```
+
+With this knowledge, it's possible to ascertain that if you desire to move the `small_array` partition over to the right. You must move the `large_array` partition in the opposite direction to the same degree.
+
+#### Example iterations
+
+##### Iteration 1 - incorrect partitions
+
+- `small_array` is partitioned at index `2` which is decided by the number of elements in the search divided by 2 as a whole number e.g. `5 / 2 = 2.5` which is just `2` when the decimal is truncated
+- `large_array` is partitioned at index `4` which is decided by the total number of elements in both arrays + 1 divided by 2 minus the partition index of the `small_array` e.g. `(11 + 1) / 2 - 2 = 4`.
+
+We compare the numbers around the current partition points to decide whether to change these partition points
+
+```
+1 3 | 8 9 15
+7 11 18 19 | 21 25
+```
+
+- `3` is not less than `21`, this correct partition must be in between the higher numbers
+- `19` is not less than `8`, this correct partition is in the earlier numbers
+
+##### Iteration 2 - correct partitions
+
+There were 3 ways of partitioning the `small_array` in this iteration 
+
+- `8 | 9`
+- `9 | 15`
+- `15 | +∞`
+
+`9 | 15` was chosen as it's in the middle. The partition index here is `4`.
+
+However, since we moved the partition on the `small_array` forward `2` places from index `2` to `4` in this iteration. The partition on the `large_array` moved `2` places to the left, to ensure the balance of elements either side of the median.
+
+```
+1 3 8 9 | 15
+7 11 | 18 19 21 25
+```
 
 ### Example 2 - an array that when combined has an even length of 10
 
@@ -99,6 +153,29 @@ There are only a few ways that tiny arrays can be partitioned and the first way 
 
 Since the combined array is of an odd length we just use the larger of the two numbers to the left of either partition as the median this is `-1` as `-1 > -∞`
 
+### Example 4 - an array that when combined is all the same value
+
+```python
+small_array=[1,1,1,1,1]
+large_array=[1,1,1,1,1,1]
+```
+
+The median we know here is `1` just by looking at it. Since LeetCode asked for only the value and not the index this algorithm takes a few shortcuts and therefore partitions incorrectly and still produces the correct result.
+
+```python
+1 1 | 1 1 1
+1 1 1 1 | 1 1
+```
+
+- The top left number is less than or equal to the bottom right number
+- The bottom left number is less than or equal to the top right number
+- The median is one of these four numbers
+- The median is one of the two left numbers as the array is odd and there are more elements on the left
+- The median is the greater of the two left numbers
+- The median is 1
+
+If the LeetCode exercise asked for both the value and the index e.g. `(value, index)` then this algorithm that we have would fail to deliver the results without adjustments.
+
 ## Python Code
 
 This code passes [all tests in LeetCode](https://leetcode.com/submissions/detail/312498996/). Print statements are added for tutorial purposes
@@ -128,7 +205,7 @@ class Solution:
         Returns
         -------
         int
-            Median number which partitions both arrays if they were already merged and sorted
+            The median number which partitions both arrays if they were already merged and sorted
         """
 
         if not nums1 and not nums2:
@@ -154,9 +231,9 @@ class Solution:
         Parameters
         ----------
         small_array: [int]
-            A list of integers sorted
+            A sorted list of integers
         large_array: [int]
-            A list of integers sorted, must be larger or the same length as small_array
+            A sorted list of integers that must be larger or the same length as small_array
 
         Returns
         -------
@@ -266,7 +343,7 @@ class Solution:
         Returns
         -------
         float
-            Median number which partitions the array such that both sides have equal number of elements.
+            The median number which partitions the array such that both sides have an equal number of elements.
         """
 
         if len(nums) == 1:
