@@ -1,4 +1,327 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 14 Mar 2020 14:11:31 GMT</lastBuildDate><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 15 Mar 2020 02:05:17 GMT</lastBuildDate><item><title><![CDATA[Median of two arrays]]></title><description><![CDATA[Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or…]]></description><link>https://www.paulness.com/median-of-two-arrays/</link><guid isPermaLink="false">https://www.paulness.com/median-of-two-arrays/</guid><content:encoded>&lt;p&gt;Did you know that it’s possible to get the median of two separate arrays of different lengths, even or odd, without ever merging them or sorting them? It’s something that is often asked in interviews and is also listed on Leetcode.com.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Median = the value that splits the array into two equal length partitions&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;The premise&lt;/h2&gt;
+&lt;p&gt;Given two separate arrays that can have different lengths, overlapping values. There exists a solution to find the median across both arrays without sorting or merging the arrays.&lt;/p&gt;
+&lt;h3&gt;Example 1 - an array that when combined has an odd length of 11&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;small_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+large_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The solution should find the same median &lt;code class=&quot;language-text&quot;&gt;11&lt;/code&gt; as if this array was merged and sorted&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;merged_sorted_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Search for the first two partition points which satisfy the following conditions&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;All elements to the left of the partition on &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; are smaller or equal to all elements on the right of the partition of &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;All elements to the left of the partition on &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; are smaller or equal to all elements on the right of the partition of &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Since both arrays are ordered in ascending order, checking all elements is unnecessary. The partition that satisfies the above on &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; is as follows.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;1 3 8 9 | 15
+7 11 | 18 19 21 25&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;9 is less than 18 and 11 is less than 15&lt;/p&gt;
+&lt;p&gt;Since the total number of elements in the combined array is odd we simply use the larger of the two numbers to the left of either partition as the median. This is &lt;code class=&quot;language-text&quot;&gt;11&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Example 2 - an array that when combined has an even length of 10&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In an even array the median is the mean of the two middle numbers&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;small_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+large_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The solution should find the same median &lt;code class=&quot;language-text&quot;&gt;13.5&lt;/code&gt; derived from &lt;code class=&quot;language-text&quot;&gt;(11 + 16) / 2&lt;/code&gt; as if this array was merged and sorted&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;merged_sorted_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The partition points of these arrays are&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;-∞ | 23 26 31 35
+3 5 7 9 11 | 16&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Nothing exists on the left of partition in the &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt;, therefore we have substituted this with negative infinity &lt;code class=&quot;language-text&quot;&gt;-∞&lt;/code&gt;. This effectively means that all values of concern to the median are only in the &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; and we need both a left and right value in this array to compare.&lt;/p&gt;
+&lt;p&gt;We still satisfy the conditions earlier&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;All elements to the left of the partition on &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt; are smaller or equal to all elements on the right of the partition of &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;-∞ is less than all elements&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;All elements to the left of the partition on &lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt; are smaller or equal to all elements on the right of the partition of &lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;11 is less than 23&lt;/li&gt;
+&lt;li&gt;16 is also less than 23 but we satisfied both conditions already&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now the next step is to compare the 4 numbers next to the partition points&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;left&lt;/th&gt;
+&lt;th&gt;right&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;small_array&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;-∞&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;large_array&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;We will use the following formula &lt;code class=&quot;language-text&quot;&gt;(max(small_array_left_val, large_array_right_val) + min(small_array_right_val, large_array_right_val)) / 2&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;(11 + 16) / 2 = 13.15&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Example 3 - an array that when combined has an odd length of 3&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;small_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+large_array &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;There are only a few ways that tiny arrays can be partitioned and the first way gets the correct result&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;left&lt;/th&gt;
+&lt;th&gt;right&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;small_array&lt;/td&gt;
+&lt;td&gt;-∞&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;large_array&lt;/td&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;+∞&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Since the combined array is of an odd length we just use the larger of the two numbers to the left of either partition as the median this is &lt;code class=&quot;language-text&quot;&gt;-1&lt;/code&gt; as &lt;code class=&quot;language-text&quot;&gt;-1 &amp;gt; -∞&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Python Code&lt;/h2&gt;
+&lt;p&gt;This code passes &lt;a href=&quot;https://leetcode.com/submissions/detail/312498996/&quot;&gt;all tests in LeetCode&lt;/a&gt;. Print statements are added for tutorial purposes&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; sys
+
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+    Wrapper class for Leetcode solution
+    &quot;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;findMedianSortedArrays&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Parameters
+        ----------
+        nums1: [int]
+            A sorted array of numbers
+        nums2: [int]
+            A sorted array of numbers
+
+        Returns
+        -------
+        int
+            Median number which partitions both arrays if they were already merged and sorted
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums1 &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Invalid input&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Single array (trivial algorithm)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums1 &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; nums2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_get_median_single_array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; nums2 &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; nums1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_get_median_single_array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Get the median for two arrays, smallest array first&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_find_median_sorted_arrays&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;small_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;nums1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; large_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;nums2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_find_median_sorted_arrays&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;small_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;nums2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; large_array&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;nums1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_find_median_sorted_arrays&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; small_array&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; large_array&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Time complexity O(log(len(small_array)))
+
+        Parameters
+        ----------
+        small_array: [int]
+            A list of integers sorted
+        large_array: [int]
+            A list of integers sorted, must be larger or the same length as small_array
+
+        Returns
+        -------
+        float
+            The median that splits the two arrays equally as if they were sorted and merged
+        &quot;&quot;&quot;&lt;/span&gt;
+
+
+        total_elements &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;small_array&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;large_array&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Begin the search within the entire range of the smaller array&lt;/span&gt;
+        start_x&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+        end_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;small_array&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;start_x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; end_x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+
+            &lt;span class=&quot;token comment&quot;&gt;# Try and find the partition points for the x and y array such that an equal number of elements appear on both sides&lt;/span&gt;
+            partition_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; cls&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_get_partition_x&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;start_x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end_x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            partition_y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; cls&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_get_partition_y&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total_elements&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; partition_x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+            &lt;span class=&quot;token comment&quot;&gt;# Find immediate element to the left and to the right of partition_x in the x array&lt;/span&gt;
+            left_val_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; small_array&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;partition_x&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; partition_x &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;sys&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;maxsize
+            right_val_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; small_array&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;partition_x&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; partition_x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;small_array&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; sys&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;maxsize
+
+            &lt;span class=&quot;token comment&quot;&gt;# Find immediate element to the left and to the right of partitionY in the y array&lt;/span&gt;
+            left_val_y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; large_array&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;partition_y&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; partition_y &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;sys&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;maxsize
+            right_val_y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; large_array&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;partition_y&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; partition_y &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;large_array&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; sys&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;maxsize
+
+            &lt;span class=&quot;token comment&quot;&gt;# All values to the left on the x partition are less or equal to all the values on the right of the y partition&lt;/span&gt;
+            left_x_less_eq_to_right_y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; left_val_x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; right_val_y
+
+            &lt;span class=&quot;token comment&quot;&gt;# All values to the left of the y partition are less or equal to all the values to the right of the x partition&lt;/span&gt;
+            left_y_less_eq_to_right_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; left_val_y &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; right_val_x
+
+            &lt;span class=&quot;token comment&quot;&gt;# Print information about the current state&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;-- INFORMATION---&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;start_x={start_x} end_x={end_x}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;partition_x={partition_x} partitionY={partition_y}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;-----------------&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;The 4 values hugging the 2 partition points&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;maxLeftX={left_val_x}   minRightX={right_val_x}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;maxLeftY={left_val_y}   minRightY={right_val_y}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;left_x_less_eq_to_right_y={left_x_less_eq_to_right_y}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;left_y_less_eq_to_right_x={left_y_less_eq_to_right_x}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+            &lt;span class=&quot;token comment&quot;&gt;# Partition found where median can be calculated&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; left_x_less_eq_to_right_y &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; left_y_less_eq_to_right_x&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;Found the perfect partition indexes. partition_x={partition_x} partitionY={partition_y}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;small_array_left={small_array[0:max(0, partition_x)]} small_array_right={small_array[partition_x::]}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;large_array_left={large_array[0:max(0, partition_y)]} large_array_right={large_array[partition_y::]}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                is_even &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; total_elements &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; is_even&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    median &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;left_val_x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; left_val_y&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;right_val_x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; right_val_y&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    median &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;left_val_x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; left_val_y&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+                &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token string&quot;&gt;&quot;Found the perfect median {median}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; median
+
+            &lt;span class=&quot;token comment&quot;&gt;# Move search space backward or forward&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; left_val_x &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; right_val_y&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                end_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; partition_x &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                start_x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; partition_x &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_get_partition_x&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; start_x&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end_x&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Parameters
+        ----------
+        start_x: int
+            The current start_x
+        end_x: int
+            The current end_x
+
+        Returns
+        -------
+        int
+            The partition index for the x array, if &gt; len(x) then the median of both arrays is in y
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;start_x &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; end_x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_get_partition_y&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; total_elements&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; partition_x&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Parameters
+        ----------
+        total_elements: int
+            The total number of elements in both arrays
+        partition_x: int
+            The current partition_x
+
+        Returns
+        -------
+        int
+            The partition point of y
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total_elements &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; partition_x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    @&lt;span class=&quot;token builtin&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;_get_median_single_array&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cls&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+        Gets the median of the sorted array
+
+        Returns
+        -------
+        float
+            Median number which partitions the array such that both sides have equal number of elements.
+        &quot;&quot;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+        median &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;not&lt;/span&gt; median&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;is_integer&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token comment&quot;&gt;# Odd number then return the middle&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;median&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;# Even so must split&lt;/span&gt;
+        median &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;median&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;median&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; nums&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;median&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Sample run code for experimentation and debugging&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot; The entry point of the Python script &quot;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# Trying to find the median of the combined arrays&lt;/span&gt;
+    sln &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Solution&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# We know the median to this is 11&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# print(sln.findMedianSortedArrays(nums1=[1,3,8,9,15], nums2=[7,11,18,19,21,25]))&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# We know the median to this is between 11 and 16 so 13.5&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;sln&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;findMedianSortedArrays&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nums1&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nums2&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# The median here is -1&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;#print(sln.findMedianSortedArrays([3], [-2,-1]))&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# The median here is 3&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;#print(sln.findMedianSortedArrays([1,2,5],[1,3,5,6]))&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    main&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Useful links&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=LPFhl65R7ww&quot;&gt;https://www.youtube.com/watch?v=LPFhl65R7ww&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Merge k sorted linked lists]]></title><description><![CDATA[A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on  Leetcode .  = just…]]></description><link>https://www.paulness.com/merge-k-sorted-linked-lists/</link><guid isPermaLink="false">https://www.paulness.com/merge-k-sorted-linked-lists/</guid><content:encoded>&lt;p&gt;A common question interview candidates are asked is to merge k sorted linked lists. This is available for practice on &lt;a href=&quot;https://leetcode.com/problems/merge-k-sorted-lists/&quot;&gt;Leetcode&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;k sorted linked lists&lt;/code&gt; = just some number of sorted linked lists&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -103,11 +426,10 @@
 &lt;li&gt;Make the head of the input list point the next node if one exists otherwise you’ve exhuasted this list. You just remove the node, so that you won’t see it again in the next iteration&lt;/li&gt;
 &lt;li&gt;Repeat until there are no lists with nodes left&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2&gt;Code&lt;/h2&gt;
+&lt;h2&gt;Python Code&lt;/h2&gt;
+&lt;p&gt;This code &lt;a href=&quot;https://leetcode.com/submissions/detail/312326148/&quot;&gt;passes all tests in LeetCode&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;#!/usr/bin/python3&lt;/span&gt;
-
-&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
 https://leetcode.com/problems/merge-k-sorted-lists/
 &quot;&quot;&quot;&lt;/span&gt;
 
