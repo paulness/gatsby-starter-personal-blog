@@ -55,11 +55,11 @@ As you construct the newly merged linked list you'll be moving through the exist
 3. Make the head of the input list point the next node if one exists otherwise you've exhuasted this list. You just remove the node, so that you won't see it again in the next iteration
 4. Repeat until there are no lists with nodes left
 
-## Code
+## Python Code
+
+This code [passes all tests in LeetCode](https://leetcode.com/submissions/detail/312326148/).
 
 ```python
-#!/usr/bin/python3
-
 """
 https://leetcode.com/problems/merge-k-sorted-lists/
 """
