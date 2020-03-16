@@ -1,6 +1,6 @@
 ---
 title: Median of two arrays
-subTitle: Getting the median of two sorted arrays in O(log(len(small_array))).
+subTitle: Getting the median of two sorted arrays in O(log(small_array_length)).
 cover: median-of-two-arrays.png
 category: algorithms
 ---
@@ -81,7 +81,7 @@ We compare the numbers around the current partition points to decide whether to 
 
 ##### Iteration 2 - correct partitions
 
-There were 3 ways of partitioning the `small_array` in this iteration 
+There were 3 ways of partitioning the `small_array` in this iteration
 
 - `8 | 9`
 - `9 | 15`
@@ -175,6 +175,10 @@ The median we know here is `1` just by looking at it. Since LeetCode asked for o
 - The median is 1
 
 If the LeetCode exercise asked for both the value and the index e.g. `(value, index)` then this algorithm that we have would fail to deliver the results without adjustments.
+
+### Time complexity
+
+Why is this solution of time complexity of `O(log(small_array_length))`? This is because the smaller array is the only array that we are doing a binary search on and for each search on this array we are halving the search space e.g. `8 -> 4 -> 2`. You can watch a [video on logarithmic complexity here](https://www.youtube.com/watch?v=Hatl0qrT0bI)
 
 ## Python Code
 
