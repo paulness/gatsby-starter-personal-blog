@@ -1,5 +1,5 @@
 ---
-title: Find the number of contiguous islands in a 2d matrix world
+title: Find the number of non-contiguous islands in a 2d matrix world
 subTitle: Using recursion and depth-first search to find all islands in a given 2d matrix world
 cover: find-islands.jpg
 category: algorithms

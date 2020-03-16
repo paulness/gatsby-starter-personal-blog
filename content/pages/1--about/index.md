@@ -29,7 +29,7 @@ Currently managing a great team, highly motivated and exceeding all expectations
 
 #### .NET
 
-Deep familiarity with the entire ecosystem from the hosting platforms, web frameworks, ORM libraries, core libraries, windows services, package management and everything that .NET applications around the world tick
+Deep familiarity with the entire ecosystem from the hosting platforms, web frameworks, ORM libraries, core libraries, windows services, package management and everything that makes .NET applications around the world tick
 
 #### Python
 

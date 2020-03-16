@@ -1,6 +1,6 @@
 ---
 title: First missing positive
-subTitle: Find the first missing positive integer in an array in O(n) time from LeetCode
+subTitle: Find the first missing positive integer in an array in O(array_length) time from LeetCode
 cover: first-missing-positive.png
 category: algorithms
 ---
