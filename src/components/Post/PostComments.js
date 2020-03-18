@@ -15,23 +15,25 @@ const styles = theme => ({
 
 class PostComments extends React.Component {
   componentDidMount() {
-    const scriptElem = document.createElement('script');
-    scriptElem.type = 'text/javascript';
-    scriptElem.setAttribute('data-isso', 'http://comments.paulness.com:30000/');
-    scriptElem.setAttribute('data-isso-css', 'true');
-    scriptElem.setAttribute('src', 'http://comments.paulness.com:30000/js/embed.min.js');
+    const scriptElem = document.createElement("script");
+    scriptElem.type = "text/javascript";
+    scriptElem.setAttribute("data-isso", "https://comments.paulness.com/");
+    scriptElem.setAttribute("data-isso-css", "true");
+    scriptElem.setAttribute("src", "https://comments.paulness.com/js/embed.min.js");
     scriptElem.async = true;
 
-    const sectionElem = document.createElement('section');
-    sectionElem.id = 'isso-thread';
+    const sectionElem = document.createElement("section");
+    sectionElem.id = "isso-thread";
     this.instance.appendChild(scriptElem);
-    this.instance.appendChild(sectionElem)
+    this.instance.appendChild(sectionElem);
   }
 
   render() {
     const { classes, post, slug } = this.props;
 
-    return <div id="post-comments" className={classes.postComments} ref={el => (this.instance = el)} />;
+    return (
+      <div id="post-comments" className={classes.postComments} ref={el => (this.instance = el)} />
+    );
   }
 }
 
