@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 16 Mar 2020 13:20:00 GMT</lastBuildDate><item><title><![CDATA[Find the number of non-contiguous islands in a 2d matrix world]]></title><description><![CDATA[A really common algorithm asked in interviews is  finding islands in a 2-dimensional matrix  such as below. You can find the number of…]]></description><link>https://www.paulness.com/number-of-islands/</link><guid isPermaLink="false">https://www.paulness.com/number-of-islands/</guid><content:encoded>&lt;p&gt;A really common algorithm asked in interviews is &lt;a href=&quot;https://leetcode.com/problems/number-of-islands/&quot;&gt;finding islands in a 2-dimensional matrix&lt;/a&gt; such as below.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 18 Mar 2020 05:26:28 GMT</lastBuildDate><item><title><![CDATA[Find the number of non-contiguous islands in a 2d matrix world]]></title><description><![CDATA[A really common algorithm asked in interviews is  finding islands in a 2-dimensional matrix  such as below. You can find the number of…]]></description><link>https://www.paulness.com/number-of-islands/</link><guid isPermaLink="false">https://www.paulness.com/number-of-islands/</guid><content:encoded>&lt;p&gt;A really common algorithm asked in interviews is &lt;a href=&quot;https://leetcode.com/problems/number-of-islands/&quot;&gt;finding islands in a 2-dimensional matrix&lt;/a&gt; such as below.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# World with 2 islands, 1 huge and 1 tiny&lt;/span&gt;
 world_1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
@@ -1654,54 +1654,7 @@ traveled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
-&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
-&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
-8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;WireShark screengrab&quot;
-        title=&quot;&quot;
-        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
-        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
 &lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
 &lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -1812,7 +1765,54 @@ A X E
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;concat&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rowArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
+&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
+&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
+8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;WireShark screengrab&quot;
+        title=&quot;&quot;
+        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
+        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
+/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
 &lt;h3&gt;Dynamic content vs static content&lt;/h3&gt;
 &lt;p&gt;On a traditional web server when a user searches for JO, something similar to the following will occur:&lt;/p&gt;
 &lt;ol&gt;
@@ -2589,7 +2589,59 @@ var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListi
     &lt;/p&gt;
 &lt;p&gt;When you have finished, you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
 &lt;p&gt;Credits:
-&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
+&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div style=&quot;font-size:65%&quot;&gt;
+&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
+&lt;div&gt;&lt;br/&gt;
+  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
+&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
+&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
+&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
+&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
+&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Online readers are well aware that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
+&lt;p&gt;In-text citation&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
+&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
+  &lt;ul&gt;
+    &lt;li&gt;Digit&lt;/li&gt;
+    &lt;li&gt;Digit comma digit …&lt;/li&gt;
+    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
+  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
+  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/npi-search-presentation-98fe442f903f262c49d17a60ba9ca25e.pptx&quot;&gt;See technical presentation for the app (PPT)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
 &lt;ul&gt;
@@ -3179,56 +3231,4 @@ self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span cla
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;In summary&lt;/h2&gt;
-&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;div style=&quot;font-size:65%&quot;&gt;
-&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;
-  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
-&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
-&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
-&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
-&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
-&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;Online readers are well aware that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
-&lt;p&gt;In-text citation&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Reference&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
-&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
-  &lt;ul&gt;
-    &lt;li&gt;Digit&lt;/li&gt;
-    &lt;li&gt;Digit comma digit …&lt;/li&gt;
-    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
-  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
-  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;Source code&lt;/h3&gt;
-&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item></channel></rss>
