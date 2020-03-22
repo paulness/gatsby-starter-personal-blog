@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 18 Mar 2020 05:26:28 GMT</lastBuildDate><item><title><![CDATA[Find the number of non-contiguous islands in a 2d matrix world]]></title><description><![CDATA[A really common algorithm asked in interviews is  finding islands in a 2-dimensional matrix  such as below. You can find the number of…]]></description><link>https://www.paulness.com/number-of-islands/</link><guid isPermaLink="false">https://www.paulness.com/number-of-islands/</guid><content:encoded>&lt;p&gt;A really common algorithm asked in interviews is &lt;a href=&quot;https://leetcode.com/problems/number-of-islands/&quot;&gt;finding islands in a 2-dimensional matrix&lt;/a&gt; such as below.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog of Paul Ness | C#, SQL, MongoDB, React, Java, programming, ...]]></title><description><![CDATA[Helpful tutorials, code snippets for software developers.]]></description><link>https://www.paulness.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 22 Mar 2020 17:41:19 GMT</lastBuildDate><item><title><![CDATA[Find the number of non-contiguous islands in a 2d matrix world]]></title><description><![CDATA[A really common algorithm asked in interviews is  finding islands in a 2-dimensional matrix  such as below. You can find the number of…]]></description><link>https://www.paulness.com/number-of-islands/</link><guid isPermaLink="false">https://www.paulness.com/number-of-islands/</guid><content:encoded>&lt;p&gt;A really common algorithm asked in interviews is &lt;a href=&quot;https://leetcode.com/problems/number-of-islands/&quot;&gt;finding islands in a 2-dimensional matrix&lt;/a&gt; such as below.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# World with 2 islands, 1 huge and 1 tiny&lt;/span&gt;
 world_1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
@@ -1489,6 +1489,117 @@ docker stop &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;co
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;/var/lib/docker/isso/db/comments.db
 &lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
+&lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
+&lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;  P   A   H   N
+   A P L S I I G
+    Y   I   R&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;And then read line by line: “PAHNAPLSIIGYIR”
+Write the code that will take a string and make this conversion given a number of rows:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;string convert(string text, int nRows);
+convert(&amp;quot;PAYPALISHIRING&amp;quot;, 3) should return &amp;quot;PAHNAPLSIIGYIR&amp;quot;.&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Writing letters in ZigZag formation&lt;/h2&gt;
+&lt;p&gt;To understand how to read letters written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;G   S   G   S
+ E K F R E K
+  E   O   E &lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;and across 10 lines&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;G
+ E
+  E
+   K
+    S
+     F       S
+      O     K
+       R   E
+        G E
+         E&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;See below for some additional examples.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABC&amp;quot; with 2 rows = ACB
+A C
+ B
+
+&amp;quot;ABCDE&amp;quot; with 2 rows = ACEBD
+A C E
+ B D
+
+&amp;quot;ABCDE&amp;quot; with 3 rows = AEBDC
+A   E
+ B D
+  C
+
+Reading down to the bottom and then back up the zig-zag we get the values we inserted in order.
+However, reading left to right then down we get the expected output: AEBDC&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Erroneous characters not part of the zig-zag write&lt;/h2&gt;
+&lt;p&gt;In the LeetCode exercise, you’ve been asked to read the characters originally written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.&lt;/p&gt;
+&lt;p&gt;For example, read the characters left to right but only the characters that originally written in the ZigZag formation.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABCDE&amp;quot; was originally written into 3 rows. The X should be ignored = 
+A X E
+ B D
+  C&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The correct output here is AEBDC, because the X was never part of the ZigZag pattern.&lt;/p&gt;
+&lt;h2&gt;Source Code - Accepted in LeetCode&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;convert&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;flattenZigZagString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;flattenZigZagString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; numRows &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;//initialize array&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; rowArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        rowArray&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;//initialize variables&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; row &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; itemsToSkipOnThisRow &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; row&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; down&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;//read the string left to right, with each consecutive char considered on the next or previous row, scanning up and down each time&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; currentChar &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;//add the char at this index, ignore blank spots&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;currentChar &lt;span class=&quot;token operator&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            rowArray&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;row&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;row &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; numRows&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            down &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;row &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            down &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        down &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; row&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; row&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;concat&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rowArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Cherry pickup algorithm]]></title><description><![CDATA[One of the harder questions on Leetcode.com is the  Cherry Pickup . I hope this post shines a light on this problem for many people…]]></description><link>https://www.paulness.com/cherry-pickup-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/cherry-pickup-leetcode/</guid><content:encoded>&lt;p&gt;One of the harder questions on Leetcode.com is the &lt;a href=&quot;https://leetcode.com/problems/cherry-pickup/description/&quot;&gt;Cherry Pickup&lt;/a&gt;. I hope this post shines a light on this problem for many people struggling with the solution.&lt;/p&gt;
 &lt;h2&gt;Problem description by Leetcode.com&lt;/h2&gt;
 &lt;p&gt;The problem as described by Leetcode is as follows:&lt;/p&gt;
@@ -1654,165 +1765,7 @@ traveled by going down and right from the origin (0,0).&lt;/p&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Math&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[ZigZag conversion algorithm]]></title><description><![CDATA[The  ZigZag conversion problem  appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that…]]></description><link>https://www.paulness.com/zig-zag-leetcode/</link><guid isPermaLink="false">https://www.paulness.com/zig-zag-leetcode/</guid><content:encoded>&lt;p&gt;The &lt;a href=&quot;https://leetcode.com/problems/zigzag-conversion/&quot;&gt;ZigZag conversion problem&lt;/a&gt; appears on Leetcode.com. In summary, you are provided a string whereby letters have been written into that string in a zig-zag formation across multiple lines. You must know which letters are part of this formation and output them as you are reading them from left to right.&lt;/p&gt;
-&lt;h2&gt;Leetcode Requirement&lt;/h2&gt;
-&lt;p&gt;The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;  P   A   H   N
-   A P L S I I G
-    Y   I   R&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;And then read line by line: “PAHNAPLSIIGYIR”
-Write the code that will take a string and make this conversion given a number of rows:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;string convert(string text, int nRows);
-convert(&amp;quot;PAYPALISHIRING&amp;quot;, 3) should return &amp;quot;PAHNAPLSIIGYIR&amp;quot;.&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;h2&gt;Writing letters in ZigZag formation&lt;/h2&gt;
-&lt;p&gt;To understand how to read letters written in ZigZag formation, it may also be helpful to know how to write letters in a ZigZag formation yourself. For example, if somebody tells you to write GEEKSFORGEEKS in ZigZag formation across three lines, you would output.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;G   S   G   S
- E K F R E K
-  E   O   E &lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;and across 10 lines&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;G
- E
-  E
-   K
-    S
-     F       S
-      O     K
-       R   E
-        G E
-         E&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;See below for some additional examples.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABC&amp;quot; with 2 rows = ACB
-A C
- B
-
-&amp;quot;ABCDE&amp;quot; with 2 rows = ACEBD
-A C E
- B D
-
-&amp;quot;ABCDE&amp;quot; with 3 rows = AEBDC
-A   E
- B D
-  C
-
-Reading down to the bottom and then back up the zig-zag we get the values we inserted in order.
-However, reading left to right then down we get the expected output: AEBDC&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;h2&gt;Erroneous characters not part of the zig-zag write&lt;/h2&gt;
-&lt;p&gt;In the LeetCode exercise, you’ve been asked to read the characters originally written in a ZigZag formation. However, you are also being asked to ignore characters that are not in the right positions and should not be included in the output.&lt;/p&gt;
-&lt;p&gt;For example, read the characters left to right but only the characters that originally written in the ZigZag formation.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;ABCDE&amp;quot; was originally written into 3 rows. The X should be ignored = 
-A X E
- B D
-  C&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;The correct output here is AEBDC, because the X was never part of the ZigZag pattern.&lt;/p&gt;
-&lt;h2&gt;Source Code - Accepted in LeetCode&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;/**
- * @param {string} s
- * @param {number} numRows
- * @return {string}
- */&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;convert&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;flattenZigZagString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;flattenZigZagString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; numRows &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;//initialize array&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; rowArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numRows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; numRows&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        rowArray&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;//initialize variables&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; row &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; itemsToSkipOnThisRow &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; row&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; down&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;//read the string left to right, with each consecutive char considered on the next or previous row, scanning up and down each time&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; currentChar &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;token comment&quot;&gt;//add the char at this index, ignore blank spots&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;currentChar &lt;span class=&quot;token operator&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-            rowArray&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;row&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;row &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; numRows&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-            down &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;row &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-            down &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-        down &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; row&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; row&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;concat&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rowArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Amazon Fire Stick interferes with local network traffic]]></title><description><![CDATA[Last weekend I hosted a webpage on my machine at  http://192.168.1.249  over port 80. This webpage was to be used by another machine on my…]]></description><link>https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</link><guid isPermaLink="false">https://www.paulness.com/amazon-fire-stick-interferes-with-my-local-network/</guid><content:encoded>&lt;p&gt;Last weekend I hosted a webpage on my machine at &lt;a href=&quot;http://192.168.1.249&quot;&gt;http://192.168.1.249&lt;/a&gt; over port 80. This webpage was to be used by another machine on my network. Unfortunately, that day I was unable to access the webpage from the other machine.&lt;/p&gt;
-&lt;p&gt;After exhaustively checking firewalls, ports and the router settings, It turned out to be the presence of the Amazon Fire Stick on the local network that was screwing things up for me. I could not believe it! Not only does this junk slow down my WiFi by silently transmitting a new SSID on the same channel as my router, but it blocks local traffic on my network.&lt;/p&gt;
-&lt;p&gt;I am not an expert on networking, so my current solution to this problem is just to unplug my non-essential Amazon Fire Stick and chuck it across the room.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If anybody can shine a light on this, please reply in the comments. It would be much appreciated.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Check out the two lines below captured in Wireshark. It seems that the presence of the Amazon Fire Stick causes confusion between who is hosting 192.168.1.249.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-csv&quot;&gt;&lt;code class=&quot;language-csv&quot;&gt;7	4.92872	EdimaxTe_62:e9:8f	AmazonTe_45:59:71	ARP	42	Who has 192.168.1.249? Tell 192.168.1.160
-8	4.99225	AmazonTe_45:59:71	EdimaxTe_62:e9:8f	ARP	42	192.168.1.249 is at 38:f7:3d:45:59:71&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;/wireshark-firestick-issue-e0e6c3cf4a93f0080ff493cc75813a3d.pcapng&quot;&gt;wireshark packet dump file&lt;/a&gt; and &lt;a href=&quot;/packets-during-session-a6f0fc53d4876760282de3d78584b1a2.csv&quot;&gt;CSV&lt;/a&gt;. Also a screengrab below:
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 52.560646900269546%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAddQidQP/8QAFhABAQEAAAAAAAAAAAAAAAAAEwAg/9oACAEBAAEFAjjjx//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAIykQAg/9oACAEBAAY/AnO5zuc7x//EABYQAQEBAAAAAAAAAAAAAAAAABEAIP/aAAgBAQABPyF1ebv/2gAMAwEAAgADAAAAEE8//8QAFhEAAwAAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/EKys/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QiP/EABoQAAIDAQEAAAAAAAAAAAAAAAARAdHwweH/2gAIAQEAAT8QjwFGBQ+3Bjkcn//Z&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;WireShark screengrab&quot;
-        title=&quot;&quot;
-        src=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg&quot;
-        srcset=&quot;/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-dce19.jpg 200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-c1413.jpg 400w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-78f2b.jpg 800w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-ab4c4.jpg 1200w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-bc99b.jpg 1600w,
-/static/wireshark-4c88fcc6223977461ac4ebd094ab80e8-a5313.jpg 1855w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Autocomplete with static files [4/4] - Implementing autocomplete with generated static files]]></title><description><![CDATA[This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from…]]></description><link>https://www.paulness.com/autocomplete-with-static-files-part-4/</link><guid isPermaLink="false">https://www.paulness.com/autocomplete-with-static-files-part-4/</guid><content:encoded>&lt;p&gt;This post finalizes the autocomplete series; you will be creating a textbox with autocomplete. The autocomplete will retrieve its data from pre-generated static files in a folder on a web server, as opposed to a server API with searching capabilities.&lt;/p&gt;
 &lt;h3&gt;Dynamic content vs static content&lt;/h3&gt;
 &lt;p&gt;On a traditional web server when a user searches for JO, something similar to the following will occur:&lt;/p&gt;
 &lt;ol&gt;
@@ -2107,54 +2060,7 @@ Create a new copy of Array savedLettersSoFar and REPEAT the above&lt;/code&gt;&l
 &lt;li&gt;Using the generator with a CSV&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;/autocomplete-with-static-files-part-4&quot;&gt;Building a basic autocomplete implementation utilizing static files&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Using the demo&lt;/li&gt;
-&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Downloading a large ZIP archive from Flickr]]></title><description><![CDATA[After going on an organized cycling trip, I attempted to download the  2.5GB photo archive from Flickr . So many of the download tools that…]]></description><link>https://www.paulness.com/downloading-large-zip-from-flickr/</link><guid isPermaLink="false">https://www.paulness.com/downloading-large-zip-from-flickr/</guid><content:encoded>&lt;p&gt;After going on an organized cycling trip, I attempted to download the &lt;a href=&quot;https://www.flickr.com/photos/99699280@N07/sets/72157685533324160&quot;&gt;2.5GB photo archive from Flickr&lt;/a&gt;. So many of the download tools that I used were not capable of downloading this frickin file on my Time Warner Cable 50Mbps connection.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Frustrating, seemingly impossible.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The tools I used that work fine with all other sites/files, just failed miserably with Flickr:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Chrome&lt;/li&gt;
-&lt;li&gt;FireFox&lt;/li&gt;
-&lt;li&gt;XDM download manager&lt;/li&gt;
-&lt;li&gt;FlashGet&lt;/li&gt;
-&lt;li&gt;UGet&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I really wanted those photos so was not ready to give up. It is positive that all of the extremely annoyed Flickr users who raised an open &lt;a href=&quot;https://www.flickr.com/help/forum/en-us/72157674951404393/&quot;&gt;issue&lt;/a&gt; want their photos too.&lt;/p&gt;
-&lt;p&gt;I came across &lt;a href=&quot;https://ninjadownloadmanager.com/download-free&quot;&gt;Ninja Download Manager (free edition)&lt;/a&gt;, this tool never actually failed with the download. Despite seemingly dropping out hundreds of times, it always recovered. Be patient, ignore the statistics you see when downloading and you’ll eventually get your archive out of Flickr.&lt;/p&gt;
-&lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 563px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 144.404973357016%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAdCAIAAAAl5NuSAAAACXBIWXMAABJ0AAASdAHeZh94AAACp0lEQVQ4y+VVSY7TQBT1GZBQx/HYTpyUh5o8xymPcRIn6aibZlhEAtQL2HEDlmwQN+EqbFlxGr47vUBILFgh1E9PVa9Kfv/bLtlPWiyXZVUVhajLqq6bpirbpqmrqqzKum3rqqaMiUIwztM0DXhAMOGMM8ooodIiB3MtigKcy6UQUKuEalV+DyFEHCewA04CoMRnPmZQgFBOpU1bH/vu7enV+7vXpci79Xq/A+xXHWB1dXVYrVan0+l4PKI54jFP2zQsQpazMA8l3L0gxztyeEOu39Gyz+IgTZM0iTOY4jjL0iSJCyFgRs484LwQRRLF2PMpJtKTD19Hn78rn749/fLj4vnHVmRFu6FB1G77RVEleXG4fnZz+3JZNnMXu5jNPYx84mDq+ETS4+6yvLWKa6u6nS42M5bqbqAhZrjBIBxu+qHucM1hKqKwf6aCqIGIhOxJHofwHhcRK8SCc6qMR6oiq+MHjuWLsTxSBj2MmjI2NFVXFVPXpalt24Y1MS0QljWB1RweDoDQzJ45ruv5PibE8z0QPsaT6dQwTMM0p1Nb8jzveHUTBOmu73f9brvZwDl3q9V6u8mzrK7rrlsfDvv1er1Zd/t9j33fdZymaUBI0Mpy5oZl2XPXIxR6zZDreNjBxEZIVjXgaKzKii4rGlCFppOpZc+GzpPJxNAHqLquaJqq6b9SN0zduNRNoHmmZhiqbiiqBsbBrCjg+h36Pf8EVVUfzKC0v8T/a7Ys69E982M8qn97ztB9NBqNz5Bl+Dzva6mwOutzaRhheb4KhCzLw20zxuu6raoGMqMsGwgJxkLfp5AekBKcB1EUO46HEMLYHzKDMfidUUrhLydhTEUBWVUJUYIfzIQw1/WzbBFFEaWc83A2m8dJ0gwhBmnWQHT12z4Igp9oTQh9IS3j/AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Screenshot of Ninja Download Manager&quot;
-        title=&quot;&quot;
-        src=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png&quot;
-        srcset=&quot;/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-cc2ef.png 200w,
-/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-9f735.png 400w,
-/static/flickr-download-ninja-download-manager-25fb14d7932c6670ba6af1e970451547-3a66a.png 563w&quot;
-        sizes=&quot;(max-width: 563px) 100vw, 563px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;Keep in mind that you may have luck on a different internet connection. I had all this trouble with my Time Warner Cable 50Mbps connection YMMV. Using ethernet instead of wireless would definitely help too. I hope this post helps you out.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Representing numbers, using sticks and stones.]]></title><description><![CDATA[Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is…]]></description><link>https://www.paulness.com/unary-numeral-linked-list-of-numbers/</link><guid isPermaLink="false">https://www.paulness.com/unary-numeral-linked-list-of-numbers/</guid><content:encoded>&lt;blockquote&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Representing numbers, using sticks and stones.]]></title><description><![CDATA[Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is…]]></description><link>https://www.paulness.com/unary-numeral-linked-list-of-numbers/</link><guid isPermaLink="false">https://www.paulness.com/unary-numeral-linked-list-of-numbers/</guid><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;Can you represent numbers with just sticks and stones? Decimal numbers, negative numbers? What kind of weird ‘stone age’ data structure is this?&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;In this blog post, I will be touching on subjects in fun and different way. We will be investigating a strange data structure, for learning purposes, we will be using sticks and stones.&lt;/p&gt;
@@ -2394,254 +2300,7 @@ var mostRecentListingCategoriesForListingsFuture = GetMostRecentListingCategorie
 var mostRecentListingCategoriesForListings = mostRecentListingCategoriesForListingsFuture.Select(fq =&amp;gt; fq.Value).ToList();&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;You can read more about future queries &lt;a href=&quot;https://ayende.com/blog/3979/nhibernate-futures&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;I think that we can all benefit from using type-safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ubuntu 16.04.3 (x64) bash script for developers after a fresh install]]></title><description><![CDATA[Get your development environment up and running quickly! In the post, we will go through an automated bash script, which will turn your…]]></description><link>https://www.paulness.com/ubuntu-bash-script-setup-dev-software/</link><guid isPermaLink="false">https://www.paulness.com/ubuntu-bash-script-setup-dev-software/</guid><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;Get your development environment up and running quickly!&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;In the post, we will go through an automated bash script, which will turn your fresh Ubuntu install into a fully fledged development machine within no time. This script I have tested on Ubuntu 16.04.3 as of Nov-13-2017. You’ll get a chance to un-check the software that you are not interested in. I’ve included a range of software for you to choose from.&lt;/p&gt;
-&lt;p&gt;It is as simple as:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Download &lt;a href=&quot;http://mirrors.bloomu.edu/ubuntu-releases/16.04.3/ubuntu-16.04.3-desktop-amd64.iso&quot;&gt;Ubuntu 16.04.3&lt;/a&gt; and install it, if you do not already have Ubuntu installed&lt;/li&gt;
-&lt;li&gt;Copy the file &lt;a href=&quot;https://gist.github.com/paulness/73238d84996cb8fc21aff644218a49a2&quot;&gt;post_install.sh&lt;/a&gt; to your Ubuntu desktop open a terminal in your desktop and run the below command.&lt;/li&gt;
-&lt;li&gt;Open the terminal&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-6a965.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 66.75105485232068%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADC0lEQVQoz2OoCS5wt7dxdXN0dLC2szF1dLSyszW3szGzB5GmdrYWdrZmQIaDvaW9nbm9lUm3l8tMH6fJHpbTva0Y5mZ3dFVXTe/vmNXfMWPapJ6a8hmT+2fPmjZj6oS5c2fPmNg1c0r/nNkzJnc2zZ07c860yZucbPZZ6Bxz0T/lpsPQnJDyePf6H6d3/Dqz8/+vrxcXzaopLmhqrCnMTmluaX59++LfLx/+/////u6Fv39+//nxY0+w7xYz7b3Ohoc99BiqYoovX7j05OnjN2/eABWd3L/NxtrU3s7SxFjP08Plxrnj3z5//Pv3z+PL5379/Pnj8+edAV5bzXR2OxgcctNjqKhuuH75yts3r9+/ewvUfGr3eicHKzdXBwc7y8AAn8cPH/7/BwLfv3wGyv78/GWHv89mM70dtkZ7nfQZukpKrl649O7dW4jmCycP+3i5eHm62NqYB/h7vXz5EigI1AzEQMaPz1+2+vutN9HfamOyw9aQYVZM3LWLl96+ff3x/Tug9M3bt7y9XD3cnaytTP2xaP682TdgjbHRRmuzzTamDLPyii+dOf/w4YMnjx/9//f/xvXr3p4uQQHenh5OwYG+L1+8AOr5++fvvz9/gYzvHz+t9wlcYWi6xsJyk60lQ09O4+P7Dz98ePf6NciS69evOTvZ+ni7AmPb09PlBVgzwuYvX9Z4hy7WN19hbrvBzoFhQn7rozsPPrx99+r5i5/ffjy896Cns727va2+pgrIePPy1fcvXz+9//D5w8evn7+8e/ZiuUf4PB2bZRZOa+xcGCJU/aqti2psSyutCutsStocKyd7N03zbZjlXzfHv2qqW94kx5TJjonTneJnucTOdYmeZew5W995kYX7MmsPBgcm4zTpmFTJ6BSJ6FTJqHTJiCyJsHzJsBKp0HKZoFqF4GblwDZV/y41n151rwmaHpN1PWYYeMy38Flg4c2QaBSeLh+XIR8PQVkKcTmKMflK0SXK0ZUq0XVq0Y3qEa0aYR1aIV3aQb06Af3aPlMN/WaZBcw28wcAm0CyUkJpe7YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Right click and open a terminal in the Desktop folder&quot;
-        title=&quot;&quot;
-        src=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-48538.png&quot;
-        srcset=&quot;/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-bed0f.png 200w,
-/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-5fd34.png 400w,
-/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-48538.png 800w,
-/static/ubuntu-running-post-install-script-right-click-to-open-terminal-6fd8100a660a104147275d7d810efc34-6a965.png 1185w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;And run the commands.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# ensure the line endings are unix (after downloading from GIT)&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sed&lt;/span&gt; -i -e &lt;span class=&quot;token string&quot;&gt;&apos;s/\r$//&apos;&lt;/span&gt; post_install.sh
-
-&lt;span class=&quot;token comment&quot;&gt;# execute the script&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x post_install.sh&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; ./post_install.sh
-&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;
-&lt;p&gt;This is what you’ll see in the terminal, right before you execute the script.&lt;/p&gt;
-&lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-b70ec.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 63.83333333333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAACvUlEQVQoz3WN209SAQDGz1MBraT0ISTlchAOcDhw4NwvcJIzQVDBMhGTREFFEFFKo3nJ2yjDdM50S6fpzJk5SzNz2UttPfVXhb30kG2/ffv2bb99wFTvZBwLj3QM93ti3WQoybakuVCaaeyj6gYYX5b1DvOeHC8+YYVRjh/nmFlRWA56F3z8op8DZjOFHJQq+PPTjqGRW7EpMJbXtc9Bba/g1lXk3ibauGOve2cVP6CuYwd3TFKnlOOMQn7eRn55YCDbnRmwxLsMoRgdSjojKWc47QqlnXcTpC9Fe9NMTYZ2D9JChuTGSGaPJI9Y/ISzn7msPzwIkO0c6ofiDTo3B6HVZtKpxwUjx6jtmALGlBZMiRAVKFFhM5UaRaVplyCOaOKEtX/lrd9FBOgbm+lDemrLOVuZ2l4KovIqVA5jciNWYsSuQcXEz7vBLjf6bpp3CPIjRR6z2BcW/eayAi8mJgaQTuEqbbykQiQ6i0RrkWjgYkr/gsi00GWNeEO/TdAHJH1IE59ZxymHAm/SmYdQm3CdMUtV1is6RAb+i1UGmiRasdSwhbHvCfaAoor+JwYDNnKjWTjqKqHOZdnFsk0Gmv/I6w5+B+f3CGafpA4ZClgame+3xF0lBCxV22Q660UUd7MEdJdCq6hryyG8xfhdnD3geOB5drIfiQty0ixV/+dZa7uiNUs1Yhm0YnNvoO5Nu7CNufY5N1DIvxzEE9HylmZFQ1gRjCiCUUUgpqzvqvAnKr0pVU1GLWY11Y9AYVwvLFu8r601azZxExd3WS+wsbAxaO9JKKNJVUdSFU2roll19LEmOgK2T+juT+vDzwyhgrFp3nxnEQ4swv4lS+0K4lnHfVu0H8j3zfToIt3KSHdFkQeJyrZeVWtaHc5qwjlt6yjY8rSqeVrflDc0zhqDc6aGBVP9kqVuFQ+sEYHf1QTYX4VjhicAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Terminal just before executing the script&quot;
-        title=&quot;&quot;
-        src=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-48538.png&quot;
-        srcset=&quot;/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-bed0f.png 200w,
-/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-5fd34.png 400w,
-/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-48538.png 800w,
-/static/ubuntu-running-post-install-script-fd2314c96bce6f48c87197ec393a6e0f-b70ec.png 1200w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;And once you press enter, you’ll see text streaming down.&lt;/p&gt;
-&lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-ac231.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 66.18887015177066%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADAklEQVQozxWP208TeRiG52KTVeLhzgNonc5v2k7pMKdO59xpO21n2k7LQBlri9BCoYWWWjksCC5dRQMBN56BbNxs1rAb1sSNGokndG/WxAv/Ksfky5vn5sn7ftCNwuIEW1xJZCeDFycYu87mG6GBFtc/y2fnxcySlFpR9OtSbFVSbyrKmixsm8mdrPYoLe2aEvRg5PaasPRva3NTWurAtXXv5JZv7H7vyDZefELZe8HBfcZ8RsZfMJEDVjrk+EOe/iSTXxLEVx2HrhWqbawxh80sYJNXAsU2XZhn7EU2v8JZq5zZYfUOE73FqhucfFeSH4bFPSX0XqE/aeTnFAEt2+1ZpLHgnmqDciGUshR9KGJmhYSTlmwYTCTNRnVGjRNyBONoF1nz4h8V6lAl/9cJ6OrsctGbL2KD44h9kchkArEsHk+iskXrKSzicNqvGt6wcpahjqK+H5Byt+9DOPhWpv7TSGi9dbWCliqeYg0UC5SZJbUcmcgEov100sSjDieAKJ2lmZM+qgv4j4LKOf8bOXQgBd+pNLRrD8+C+gJotkBliEiZRCxHxJMe2dFyhGZgqubmxVOEeJpgjnn8P4LRnt7XEv9SZA+UELRba8+AahupN5GKTWdytGbRScMXHmAMy5mAxwyvIp+hxDMkc/y7fLk78EKQnvPCa1WCtuqdGbTack80wZiNm7lA0iJ0R3Z+zvijJq6FuxmnOXjCR3eBwBEw0o0/49R/OOWVGoF+qf7URKtNd3UarqQpURNIneY1IKbwSAwVFRfLnyb6jqGBLqSvC2BHkPJ54q9g7G8u9lxNQJs/bzjNzQvjU+fLBW/S7lMueeJl2Kwg6Qlg1IDe8CZrcLjmkqZgYRrmbmLyH3Rijzf2ZQN6vHy34R6fOld25EbPWKtnbM5VWYRHr7tHOkhpDS2se4bu+PP3egce4rntPnOHSP9Gpf4Usk8FE5pLTdddo47p3He4cLkJD1+BS/Pu0jVkeBUt3fAUbnvtDSy/hVm/9vbfC2R36P4n3MDvnPUNq6jnRTFdWlcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Script in progress&quot;
-        title=&quot;&quot;
-        src=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-48538.png&quot;
-        srcset=&quot;/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-bed0f.png 200w,
-/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-5fd34.png 400w,
-/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-48538.png 800w,
-/static/ubuntu-running-post-install-script-underway-20359217582b2eba26519537ceca2d61-ac231.png 1186w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;You’ll see this prompt window; you may un-check software you do not wish to install. The themes I have unchecked by default since I prefer the default theme in Ubuntu.&lt;/p&gt;
-&lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-267a4.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 66.38655462184873%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAADJElEQVQozwEZA+b8AIBbeGY4X4BKUms6Wmk1Wmw4WG86V243UHA2THM4Snc5SHo7Rnw6Qn05PoE6PIM7OZJJQ5ZLQZRJO5lLOwCNYYR8NHOpaIaLQnl7IGWDJWSHJl+NKlyULFiaL1WhM1GmMkyoMESuMkC0NTu6Nze7NzG8Oy/FRC7KRiwAdlpkbSlmcSVrcydlbSpXai5TbzBTczJQdzNNezVKezNEei4+fjA7gTI4hjQ2izg2njw1tzswu0Evw0guAHVXcG0mZXEjZmcbWoFtfqSroKKjnZugnJyhnZacmpKYlJ6imp+jm56imqaooJKenWQ/SbY3LLo/MMJGLgBxd3xuKmdyJGdjGFiUiZ3Y4NTP08u+xMK5wL+ks7q4wsTT2M/T18/R1c3c3tW/zMlgPEmzNi24PTK9QS8Ah3BzbyhkcSRoYxhZkIOX0dnNyczFw8O6vby0vsK5zc/Hys3Gys7GyMzE09XMuMO/YDtIsDUvtDw0tz0xAJhaXW8mYHEkaWIYWZCDmNLazsrOxsHCvLu8trW7tL7Cu8PHwMrOxsrOxtTWzbnEwF87Sa0zMrA6N7M7NACWbHVsJ2BwJGdjGFqPgpjQ2M3IzMW9wLq6u7WwtK66v7jJzcbJzcbHy8XS1My3w79dOkqoMjWsODqyPDoAi2uBaydibSNkYRdblYib3eHT1NTL0NHGu8K5x8vE09TK0dPJ1NbL09bL29zTwsrEXTlKoy84qDc9rz0/AIBoeGspY2wiYmQZXGxniYianYWQloSSl3GEj3yMlYaTmICNk4OQloORl4qWnHiNllg4TaAuO6U3Qqs9RACLf4ltLGRqH2FoHl5VIFtLH1ZQH1ZSIFRYJFRYJFFZJE9dJk5eJkxhJ0pjKEhkKkh/LkWcMEOiN0emO0gAlX2QayhjZxteZx1eah1dbx9cdCBceSFcfSFbgSNZhSVWiCZTjChRkCpOlCxMlixJlSxIlzBInzhMoDhLAHFMamUgXGccXmcdXmYeXmgfXWogW20hWnEiWnYjWnskWn8lWIImVYQoU4gpUYoqT40qTZQwTpk2UJo2T/RSZ7QufGa2AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Choosing software to install&quot;
-        title=&quot;&quot;
-        src=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-48538.png&quot;
-        srcset=&quot;/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-bed0f.png 200w,
-/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-5fd34.png 400w,
-/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-48538.png 800w,
-/static/ubuntu-running-post-install-script-prompt-2525aaaa80d10f3932f13891d071d028-267a4.png 1190w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;After pressing OK to install the software, you’ll see more prompts, type appropriate passwords, accept license agreements, accept certificates and choose the obvious options along the way to ensure all software is installed.
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-ac231.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 66.02023608768971%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAABJ0AAASdAHeZh94AAAC9klEQVQoz13L508aARjH8fs32rQiZTgRUOGOcVAUXKCI1OIp4Dg5NucBIkPrVlQUqzZVa1q7tEltWnBy4iSoJDZp4qv+N702adI0+bx4nl/yBSYNYaewO9rUhkNmJ7+jr7LdJzD4KnT+isaQQD0I1o2KasZAxYQQjkKSWRG4qpRv1Eo3asHNeiEQMw0PCf1b1mgUDoRp6BgLnWab54uMK6Vtazz923LdB37DNrfqS7k8KRCnQJCEyo8lvKySm6vlAP06k5tt9eRjBLMH5yEuyECIDD6RPiBqHhBrBsCakEAxCMpHIHhSLJmGxetSwZGEl1ZwM3VlgK+V8LAwgoG5GWbscZe9xePQeayNTovagTbYzSrLb8peSpcK66x3BySqAxGHlPEuVGWAFw/gbGsfw2qnGQf0wXh4ec6/EPMvxIm5BXwmTsQWvbHFgefx4NJSeGU+uPpM2pgEOYdw+YmCC0zZPTjLQrBs2H1kMRjL3WUvrk8uc6dXt+eZm9NM7vT69iL3I3v1/fLu5206exaRqb8KePvSykOYD7xoeeph9vQxbZb77Qv+2dTx0W4isZdM7iYT+7u7FDKVIo+ODvf3s5cXib2DkEy9U1mREIN7UgGwiOIuZjfOtFrutS+F41c3mROSPDtJn52m02QqTZLn1P3HVeYyeXAYkjVu8wU7kDgJi4EZNOJioy46aqd1elu840NTI8Hx0dDEP6h3nBqnhqYH+yf6Ic17vugTCH+TyYFIl9fJRp30HhutEwUtvQoXKrOjcorjPxa5E1MRfmHTa670I1j1GVYCseFZKnbQuq0PzD10BGUhGKvNxjY4C1vdhfq+Yp2vRBsobQpy1JGyhgi3bopT/YqnfAfVbknqgLg36mB0UaX1IcXkyDPiNKOfZgzRjUOPkFGmYYL1JFqgmyvSxos1yyUNK5z6l7z6N5BmE9IArupejGb6G5tteSZHfoebjhB0JMBABpnIMMswxm6dLNBHi3Rzxdr5Ys0KX7smbF4Xan8BByVC2dT7SH4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
-        alt=&quot;Typing MySQL server password&quot;
-        title=&quot;&quot;
-        src=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-48538.png&quot;
-        srcset=&quot;/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-bed0f.png 200w,
-/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-5fd34.png 400w,
-/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-48538.png 800w,
-/static/ubuntu-running-post-install-script-prompt-2-ad023302d1e2771afdef69beeae1538e-ac231.png 1186w&quot;
-        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;When you have finished, you’ll have a range of software on your computer to help you with development.&lt;/p&gt;
-&lt;p&gt;Credits:
-&lt;a href=&quot;https://github.com/KingsleyOmon-Edo/&quot;&gt;Original bash script credit to KingsleyOmon-Edo&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;div style=&quot;font-size:65%&quot;&gt;
-&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;
-  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
-&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
-&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
-&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
-&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
-&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;Online readers are well aware that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
-&lt;p&gt;In-text citation&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Reference&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
-&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
-  &lt;ul&gt;
-    &lt;li&gt;Digit&lt;/li&gt;
-    &lt;li&gt;Digit comma digit …&lt;/li&gt;
-    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
-  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
-  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;Source code&lt;/h3&gt;
-&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
+&lt;p&gt;I think that we can all benefit from using type-safe queries with NHibernate, let me know in the comments if you have any questions on how to implement something using QueryOver and NHibernate.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Creating an Android app, with a large offline database (over 4GB)]]></title><description><![CDATA[A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in…]]></description><link>https://www.paulness.com/phonegap-large-sqlitedatabase/</link><guid isPermaLink="false">https://www.paulness.com/phonegap-large-sqlitedatabase/</guid><content:encoded>&lt;p&gt;A few years ago I was tasked with creating an Android application, which held and searched on all of the medical information available in the monthly 5GB &lt;a href=&quot;http://download.cms.gov/nppes/NPI_Files.html&quot;&gt;NPI Data Dissemination CSV&lt;/a&gt;, all offline.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/npi-search-presentation-98fe442f903f262c49d17a60ba9ca25e.pptx&quot;&gt;See technical presentation for the app (PPT)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was quite a challenging app to build for the following reasons:&lt;/p&gt;
 &lt;ul&gt;
@@ -3231,4 +2890,56 @@ self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;db&lt;span cla
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h2&gt;In summary&lt;/h2&gt;
-&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;It is possible to have a fast/usable large database on an underpowered mobile device. However, you must arrange the data in a way that the device can retrieve what it needs with minimal effort. The tablet requires a bespoke database explicitly designed with its usage in mind.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Linking in-text citations to numbered references on a page]]></title><description><![CDATA[Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site…]]></description><link>https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</link><guid isPermaLink="false">https://www.paulness.com/linking-in-text-citations-to-numbered-references-on-hover/</guid><content:encoded>&lt;p&gt;Imagine you are a software developer for an online academic publisher. You have been asked to enhance the usability of an existing site:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Requirement&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;When hovering over any given in-text citation, show a tooltip with the actual corresponding reference text.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;An example of in-text citations and references:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;div style=&quot;font-size:65%&quot;&gt;
+&lt;div&gt;Finding treatments for breast cancer is a major goal for scientists.&lt;sup&gt;1,2&lt;/sup&gt; Some classes of drugs show more promise than others. Gradishar evaluated taxanes as a class.&lt;sup&gt;3&lt;/sup&gt; Other scientists have investigated individual drugs within this class, including Andre and Zielinski &lt;sup&gt;2&lt;/sup&gt; and Joensuu and Gligorov. &lt;sup&gt;4&lt;/sup&gt; Mita et al&apos;s investigation of cabazitaxel &lt;sup&gt;5&lt;/sup&gt; seems to indicate a new role for this class of drugs.&lt;/div&gt;
+&lt;div&gt;&lt;br/&gt;
+  &lt;div&gt;&lt;b&gt;References&lt;/b&gt;&lt;/div&gt;
+&lt;p&gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&lt;/p&gt;
+&lt;p&gt;2. Andre F, Zielinski CC. Optimal strategies for the treatment of metastatic triple-negative breast cancer with currently approved agents. Ann Oncol. 2012;23(Suppl 2):vi46-vi51.&lt;/p&gt;
+&lt;p&gt;3. Gradishar WJ. Taxanes for the treatment of metastatic breast cancer. Breast Cancer (Auckl.). 2012;6:159-171.&lt;/p&gt;
+&lt;p&gt;4. Joensuu H, Gligorov J. Adjuvant treatments for triple-negative breast cancers. Ann Oncol. 2012;Suppl 6:vi40-45.&lt;/p&gt;
+&lt;p&gt;5. Mita AC, Figlin R, Mita MM. Cabazitaxel: more than a new taxane for metastatic castrate-resistant prostate cancer? Clin Cancer Res. 2012;18(24):OF1-OF&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;Explanation of the problem&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Online readers are well aware that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 refers to [reference 1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1,3,5 refers to [1, 3 and 5]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1-3 refers to [1, 2 and 3]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unfortunately, there is no concrete relationship between the superscript in-text citation and its corresponding reference. The publisher has no desire to update thousands of online papers by hand either. The HTML code is as follows.&lt;/p&gt;
+&lt;p&gt;In-text citation&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;sup&amp;gt;1&amp;lt;/sup&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;p&amp;gt;1. Cancer Research Funding. National Cancer Institute. http://www.cancer.gov.offcampus.lib.washington.edu/cancertopics/factsheet/NCI/research-funding. Publication date unavailable. Updated June 6, 2011. Accessed November 3, 2012.&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Solution&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;We must create a concrete “one to one” relationship, between these two HTML elements. Once you have connected the two HTML elements with a set of rules, you may store this relationship to create a reliable way to show the correct tooltip.&lt;/p&gt;
+&lt;p&gt;Firstly we must ‘define the relationship’ in verbose terms/rules/exceptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Any superscripted text inside the academic paper body is considered to be an ‘in-text citation’, if the text is of the form of:
+  &lt;ul&gt;
+    &lt;li&gt;Digit&lt;/li&gt;
+    &lt;li&gt;Digit comma digit …&lt;/li&gt;
+    &lt;li&gt;Digit hyphen digit …&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Much like a book, where the references come after the citations. The corresponding reference must be appear below the in-text citation on the page&lt;/li&gt;
+  &lt;li&gt;The citation must refer to an actual reference on the page&lt;/li&gt;
+  &lt;li&gt;The citation must find the closest reference within the same page, since multiple papers can exist on the same page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Source code&lt;/h3&gt;
+&lt;p&gt;For brevity a JavaScript alert is used to show the reference text on hover, please modify this to a tooltip of your liking.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;//jsfiddle.net/1hxg629k/embedded/js,html,result/&quot; allowpaymentrequest allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</content:encoded></item></channel></rss>

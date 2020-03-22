@@ -1,9 +1,5 @@
 {
   "assetsByChunkName": {
-    "path---amazon-fire-stick-interferes-with-my-local-network": [
-      "path---amazon-fire-stick-interferes-with-my-local-network-bca0d36194f9450bb14a.js",
-      "path---amazon-fire-stick-interferes-with-my-local-network-bca0d36194f9450bb14a.js.map"
-    ],
     "component---src-pages-index-js": [
       "component---src-pages-index-js-aa9570313651ef926b5a.js",
       "component---src-pages-index-js-aa9570313651ef926b5a.js.map"
@@ -13,16 +9,12 @@
       "path---autocomplete-with-static-files-part-3-eae8b518ce7d392db740.js.map"
     ],
     "path---": [
-      "path----f5e0af7c8b4cdeeada08.js",
-      "path----f5e0af7c8b4cdeeada08.js.map"
+      "path----7f228c5dd87cbaf868cd.js",
+      "path----7f228c5dd87cbaf868cd.js.map"
     ],
     "path---cherry-pickup-leetcode": [
       "path---cherry-pickup-leetcode-b938d4d2a1b4ac51b303.js",
       "path---cherry-pickup-leetcode-b938d4d2a1b4ac51b303.js.map"
-    ],
-    "path---downloading-large-zip-from-flickr": [
-      "path---downloading-large-zip-from-flickr-e8cf39f292b0d553a317.js",
-      "path---downloading-large-zip-from-flickr-e8cf39f292b0d553a317.js.map"
     ],
     "path---linking-in-text-citations-to-numbered-references-on-hover": [
       "path---linking-in-text-citations-to-numbered-references-on-hover-4fd9b25e17558d383532.js",
@@ -37,12 +29,8 @@
       "path---median-data-stream-70357c5fc470e9ec39fe.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-2416bf687bb1f5658166.js",
-      "component---src-layouts-index-js-2416bf687bb1f5658166.js.map"
-    ],
-    "path---ubuntu-bash-script-setup-dev-software": [
-      "path---ubuntu-bash-script-setup-dev-software-6302e740cb99a1696f6a.js",
-      "path---ubuntu-bash-script-setup-dev-software-6302e740cb99a1696f6a.js.map"
+      "component---src-layouts-index-js-a09dc8d06071b358f29e.js",
+      "component---src-layouts-index-js-a09dc8d06071b358f29e.js.map"
     ],
     "path---unary-numeral-linked-list-of-numbers": [
       "path---unary-numeral-linked-list-of-numbers-de2aff1f423183d3676e.js",
@@ -103,9 +91,9 @@
       "path---phonegap-large-sqlitedatabase-62409452b35aa40c05e1.js.map"
     ],
     "app": [
-      "app-6ed6fc3fc3727b31d694.js",
+      "app-d081cff384d4e962ec70.js",
       "build-js-styles.css",
-      "app-6ed6fc3fc3727b31d694.js.map",
+      "app-d081cff384d4e962ec70.js.map",
       "build-js-styles.css.map"
     ],
     "component---src-templates-page-template-js": [
